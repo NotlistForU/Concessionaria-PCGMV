@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS concessionaria;
 USE concessionaria;
 
-CREATE TABLE vehicles (
+CREATE TABLE veiculos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     marca VARCHAR(30) NOT NULL,
     modelo VARCHAR(30) NOT NULL,
