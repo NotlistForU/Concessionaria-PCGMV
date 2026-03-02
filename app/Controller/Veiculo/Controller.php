@@ -2,7 +2,7 @@
 // Puxa conexão com o banco
 require_once '../database/conexao.php';
 
-class VeiculoController
+class Veiculo
 {
     private $pdo;
 
