@@ -7,7 +7,8 @@ CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL -- Na prática -> password_hash()
+    senha VARCHAR(255) NOT NULL, -- Na prática -> password_hash()
+    user_role ENUM('cliente','vendeor')
 );
 
 -- Tabela de Marcas
@@ -21,13 +22,15 @@ CREATE TABLE veiculos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     modelo VARCHAR(50) NOT NULL,
     versao VARCHAR(50) NOT NULL,
-    ano YEAR NOT NULL,
+    ano_Modelo YEAR NOT NULL,
+    ano_Fabricacao YEAR NOT NULL,
     quilometragem INT NOT NULL,
     motorizacao VARCHAR(30) NOT NULL,
     transmissao VARCHAR(40) NOT NULL,
     potencia INT UNSIGNED NOT NULL,
     torque VARCHAR(30) NOT NULL,
     portas TINYINT NOT NULL,
+    porta_mala INT NOT NULL,
     combustivel VARCHAR(30) NOT NULL,
     cor VARCHAR(40) NOT NULL,
     descricao TEXT,
