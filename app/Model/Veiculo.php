@@ -24,6 +24,8 @@ class Veiculo
     {
         if (!empty($dados)) {
             if (!empty($dados)) {
+                $this->id = $dados['id'] ?? null;
+
                 $this->setModelo($dados['modelo'] ?? null);
                 $this->setAnoModelo($dados['ano_modelo'] ?? null);
                 $this->setPreco($dados['preco'] ?? null);

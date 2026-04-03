@@ -25,10 +25,15 @@ class VeiculoRepository
             $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             if (!$dados) {
-                return null;
+                return [];
             }
 
-            return new Veiculo($dados);
+            foreach ($dados as $row) { // Apilida $dados de $row                                                           array                  array            
+                $veiculos[] = new Veiculo($row); // e prencher o objeto com dados  (dados é um array de arrays) entao tem varios veiculos e cada veiculo comm seus dados
+                //                                                                                              e ta passando esses dados para cada objeto
+            }
+
+            return $veiculos;
         } catch (PDOException $e) {
             die("Erro ao buscar veículos: " . $e->getMessage());
         }
@@ -43,8 +48,13 @@ class VeiculoRepository
             $stmt = $this->pdo->prepare($sql);
             // Substitui o marcado pelo dado reaL que veio do formulário
             $stmt->execute([':id' => $id]);
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
 
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            if (!$dados) {
+                return null;
+            }
+
+            return new Veiculo($dados);
         } catch (PDOException $e) {
             die("Erro ao buscar veículo: " . $e->getMessage());
         }
