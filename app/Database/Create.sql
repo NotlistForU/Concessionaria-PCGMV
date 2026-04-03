@@ -22,8 +22,8 @@ CREATE TABLE veiculos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     modelo VARCHAR(50) NOT NULL,
     versao VARCHAR(50) NOT NULL,
-    ano_Modelo YEAR NOT NULL,
-    ano_Fabricacao YEAR NOT NULL,
+    ano_modelo YEAR NOT NULL,
+    ano_fabricacao YEAR NOT NULL,
     quilometragem INT NOT NULL,
     motorizacao VARCHAR(30) NOT NULL,
     transmissao VARCHAR(40) NOT NULL,
@@ -67,17 +67,17 @@ INSERT INTO marcas (nome) VALUES
 
 -- Inserindo alguns carros de teste para o grupo já ter o que mostrar no Front-end
 INSERT INTO veiculos 
-(marca_id, modelo, versao, ano, quilometragem, motorizacao, transmissao, potencia, torque, portas, combustivel, cor, descricao, preco, url_foto) 
+(marca_id, modelo, versao, ano_modelo, ano_fabricacao, quilometragem, motorizacao, transmissao, potencia, torque, portas, combustivel, cor, descricao, preco, url_foto) 
 VALUES 
 
-(1, 'Polo', 'Highline', 2023, 15000, '1.0 TSI', 'Automático', 128, '20,4 kgfm', 4, 'Flex', 'Prata', 
+(1, 'Polo', 'Highline', 2023, 2023, 15000, '1.0 TSI', 'Automático', 128, '20,4 kgfm', 4, 'Flex', 'Prata', 
 'Veículo revisado, único dono, completo.', 95000.00, 'assets/images/marcas/volkswagen/polo.jpg'),
 
-(2, 'Corolla', 'Altis Premium', 2022, 20000, '2.0', 'CVT', 177, '21,4 kgfm', 4, 'Flex', 'Branco', 
+(2, 'Corolla', 'Altis Premium', 2022, 2022, 20000, '2.0', 'CVT', 177, '21,4 kgfm', 4, 'Flex', 'Branco', 
 'Sedan confortável, bancos em couro, multimídia completa.', 145000.00, 'assets/images/marcas/toyota/corolla.jpg'),
 
-(3, 'Strada', 'Volcano', 2025, 5000, '1.3', 'Manual', 107, '13,7 kgfm', 2, 'Flex', 'Vermelha', 
+(3, 'Strada', 'Volcano', 2025, 2025, 5000, '1.3', 'Manual', 107, '13,7 kgfm', 2, 'Flex', 'Vermelha', 
 'Picape ideal para trabalho, baixa quilometragem.', 115000.00, 'assets/images/marcas/fiat/strada.jpg'),
 
-(4, 'Série 3', '320i M Sport', 2024, 14000, '2.0 Turbo', 'Automático 8 marchas', 184, '30,6 kgfm', 4, 'Gasolina', 'Preto', 
+(4, 'Série 3', '320i M Sport', 2024, 2024, 14000, '2.0 Turbo', 'Automático 8 marchas', 184, '30,6 kgfm', 4, 'Gasolina', 'Preto', 
 'Sedan premium com pacote M Sport, teto solar e painel digital.', 320000.00, 'assets/images/marcas/bmw/bmw320i.jpg');
