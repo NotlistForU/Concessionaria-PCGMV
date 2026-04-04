@@ -186,7 +186,7 @@
                 <div class="col-lg-6">
                     <h1 class="hero-title">Puro<br>Prazer.</h1>
                     <p class="hero-subtitle mt-3">Descubra a nova linha de sedans esportivos.</p>
-                    <a href="#modelos" class="btn-hero d-inline-block mt-2">Configurar</a>
+                    <a href="?pagina=detalhes&id=1" class="btn-hero d-inline-block mt-2">Configurar</a>
                 </div>
             </div>
         </div>
