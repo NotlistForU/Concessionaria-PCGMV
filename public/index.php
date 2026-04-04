@@ -1,20 +1,52 @@
-<!DOCTYPE html>
-<html lang="pt-br">
+<?php
+// Inicia a sessão (você vai precisar disso para o login do vendedor depois)
+session_start();
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Concessionaria-PCGM</title>
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-</head>
+// Pega qual página o usuário quer acessar da URL. Ex: index.php?pagina=admin
+// Se ele não digitar nada, a página padrão será a 'home'
+$pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 'home';
 
-<body>
-    <div class="container mt-5">
-        <h1 class="text-primary">Projeto Funcionando 🚀</h1>
-        <button class="btn btn-success">Teste Bootstrap</button>
-    </div>
+// Caminho base para a pasta onde estão suas telas
+$caminho_views = '../app/Views/';
 
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-</body>
+// O Roteador: decide qual arquivo carregar
+switch ($pagina) {
 
-</html>
+    // ==========================================
+    // ÁREA DO CLIENTE (PÚBLICA)
+    // ==========================================
+    case 'home':
+        require_once $caminho_views . 'public/home.php';
+        break;
+
+    case 'detalhes':
+        require_once $caminho_views . 'public/detalhes.php';
+        break;
+
+    case 'modelos':
+        require_once $caminho_views . 'public/modelos.php';
+        break;
+
+    // ==========================================
+    // ÁREA DO VENDEDOR (ADMIN)
+    // ==========================================
+    case 'login':
+        require_once $caminho_views . 'admin/login.php';
+        break;
+
+    case 'painel':
+        // No futuro, aqui você verifica se o vendedor está logado usando $_SESSION
+        require_once $caminho_views . 'admin/painel.php';
+        break;
+
+    // ==========================================
+    // ERRO 404
+    // ==========================================
+    default:
+        echo "<div style='text-align: center; margin-top: 50px; font-family: sans-serif;'>";
+        echo "<h1>Erro 404</h1>";
+        echo "<p>Página não encontrada!</p>";
+        echo "<a href='?pagina=home'>Voltar para a loja</a>";
+        echo "</div>";
+        break;
+}

@@ -245,9 +245,4 @@ class Veiculo
             'marca_id' => $this->marcaId
         ];
     }
-
-    public static function fromArray(array $dados): Veiculo
-    {
-        return new Veiculo($dados);
-    }
 }
