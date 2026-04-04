@@ -115,7 +115,7 @@
 
                                     <tr>
                                         <td class="ps-4 fw-bold text-muted">#001</td>
-                                        <td><img src="assets/img/foto_2.jpg" alt="Série 3" class="img-thumbnail-car"></td>
+                                        <td><img src="assets/img/foto_2.png" alt="Série 3" class="img-thumbnail-car"></td>
                                         <td class="fw-bold">Série 3 Sedan</td>
                                         <td>Sedan Esportivo</td>
                                         <td>R$ 320.000,00</td>
@@ -128,7 +128,7 @@
 
                                     <tr>
                                         <td class="ps-4 fw-bold text-muted">#002</td>
-                                        <td><img src="assets/img/foto_3.jpg" alt="X5" class="img-thumbnail-car"></td>
+                                        <td><img src="assets/img/foto_1.png" alt="X5" class="img-thumbnail-car"></td>
                                         <td class="fw-bold">X5 M Competition</td>
                                         <td>SUV Premium</td>
                                         <td>R$ 780.000,00</td>
@@ -141,7 +141,7 @@
 
                                     <tr>
                                         <td class="ps-4 fw-bold text-muted">#003</td>
-                                        <td><img src="assets/img/foto_4.jpg" alt="i4" class="img-thumbnail-car"></td>
+                                        <td><img src="assets/img/foto_1.png" alt="i4" class="img-thumbnail-car"></td>
                                         <td class="fw-bold">i4 M50 Elétrico</td>
                                         <td>Gran Coupé</td>
                                         <td>R$ 450.000,00</td>
