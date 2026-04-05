@@ -51,11 +51,59 @@ if (!$carro) {
             </div>
 
             <h3 class="fw-bold mb-4" style="font-size: 1.8rem;">A partir de R$ <?= number_format($carro->getPreco(), 2, ',', '.'); ?></h3>
-
-            <div class="d-grid gap-3">
-                <a href="#contato" class="btn btn-dark rounded-0 py-3 fw-bold text-uppercase" style="letter-spacing: 1px; background-color: #000;">Agendar Compra</a>
-                <a href="#contato" class="btn btn-outline-dark rounded-0 py-3 fw-bold text-uppercase" style="letter-spacing: 1px; border-width: 2px;">Agendar Test Drive</a>
+            <div class="d-grid gap-3" id="contato">
+                <button type="button" class="btn btn-dark rounded-0 py-3 fw-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#modalAgendamento" data-tipo="Compra">
+                    Agendar Compra
+                </button>
+                <button type="button" class="btn btn-outline-dark rounded-0 py-3 fw-bold text-uppercase" style="border-width: 2px;" data-bs-toggle="modal" data-bs-target="#modalAgendamento" data-tipo="Test Drive">
+                    Agendar Test Drive
+                </button>
             </div>
+
+            <div class="modal fade" id="modalAgendamento" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-0 border-0 shadow">
+                        <div class="modal-header border-0 px-4 pt-4">
+                            <h5 class="modal-title fw-bold text-uppercase">Solicitar <span id="tituloAgendamento"></span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="?pagina=processar_agendamento" method="POST">
+                            <div class="modal-body px-4 pb-4">
+                                <input type="hidden" name="veiculo_id" value="<?= $carro->getId(); ?>">
+                                <input type="hidden" name="tipo_agendamento" id="inputTipo" value="">
+
+                                <p class="text-muted small mb-4">Você está interessado no <strong><?= htmlspecialchars($carro->getModelo()); ?></strong>. Deixe seus dados e entraremos em contato.</p>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Seu Nome</label>
+                                    <input type="text" name="nome_cliente" class="form-control rounded-0" placeholder="Nome completo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Telefone / WhatsApp</label>
+                                    <input type="text" name="telefone" class="form-control rounded-0" placeholder="(00) 00000-0000" required>
+                                </div>
+                                <div class="mb-0">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Data de Preferência</label>
+                                    <input type="date" name="data_interesse" class="form-control rounded-0" value="<?= date('Y-m-d'); ?>" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                                <button type="submit" class="btn btn-dark w-100 rounded-0 py-2 fw-bold text-uppercase">Enviar Solicitação</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+                const modal = document.getElementById('modalAgendamento');
+                modal.addEventListener('show.bs.modal', event => {
+                    const button = event.relatedTarget;
+                    const tipo = button.getAttribute('data-tipo');
+                    document.getElementById('tituloAgendamento').textContent = tipo;
+                    document.getElementById('inputTipo').value = tipo;
+                });
+            </script>
         </div>
     </div>
 

@@ -60,6 +60,26 @@ switch ($pagina) {
     // AÇÕES DO BANCO DE DADOS (Invisíveis)
     // ==========================================
 
+    case 'processar_agendamento':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Lógica ultra rápida sem precisar criar classe nova
+            $sql = "INSERT INTO agendamentos (nome_cliente, telefone, data_interesse, tipo_agendamento, veiculo_id) 
+                    VALUES (:nome, :tel, :data, :tipo, :id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':nome'  => $_POST['nome_cliente'],
+                ':tel'   => $_POST['telefone'],
+                ':data'  => $_POST['data_interesse'],
+                ':tipo'  => $_POST['tipo_agendamento'],
+                ':id'    => $_POST['veiculo_id']
+            ]);
+
+            // Redireciona de volta com uma mensagem de sucesso (opcional)
+            header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso=1");
+            exit;
+        }
+        break;
+
     case 'processar_cadastro':
         // Só aceita se vier de um formulário via POST
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
