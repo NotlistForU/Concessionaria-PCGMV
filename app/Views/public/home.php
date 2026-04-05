@@ -1,252 +1,62 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<?php
+require_once '../app/Views/components/header.php';
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AutoMotors</title>
-    <link rel="icon" type="image/svg+xml" href="assets/img/logoBmw.svg">
-    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+// Puxa TODOS os carros do banco
+$todosOsCarros = $controller->listar();
 
-    <style>
-        /* Importando uma fonte que lembra a da montadora */
-        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+// Pega apenas os 4 primeiros para ser o "Destaque" da Home
+// Assim a tela não fica gigante, e o cliente clica em "Modelos" se quiser ver mais
+$destaques = array_slice($todosOsCarros, 0, 4);
+?>
 
-        body {
-            font-family: 'Roboto', sans-serif;
-            background-color: #ffffff;
-            color: #262626;
-            overflow-x: hidden;
-        }
-
-        /* Navbar Super Limpa (Fundo Branco) */
-        .navbar {
-            background-color: #ffffff !important;
-            padding: 20px 0;
-            border-bottom: 1px solid #f0f0f0;
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            font-size: 1.5rem;
-            letter-spacing: 2px;
-            color: #000000 !important;
-        }
-
-        .nav-btn {
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-            color: #000;
-            border: 1px solid #000;
-            padding: 8px 20px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .nav-btn:hover {
-            background-color: #000;
-            color: #fff;
-        }
-
-        /* Hero Section (Banner Gigante) */
-        .hero {
-            /* Aqui usamos a foto_1 como fundo gigante da tela toda */
-            background-image: url('assets/img/foto_3.png');
-            background-size: cover;
-            background-position: center;
-            height: 85vh;
-            /* Ocupa 85% da tela do usuário */
-            position: relative;
-            display: flex;
-            align-items: center;
-        }
-
-        /* Degradê para o texto ficar legível em cima de qualquer foto */
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to right, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.1) 100%);
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: #ffffff;
-        }
-
-        .hero-title {
-            font-size: 4rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            line-height: 1.1;
-        }
-
-        .hero-subtitle {
-            font-weight: 300;
-            font-size: 1.5rem;
-            margin-bottom: 40px;
-        }
-
-        .btn-hero {
-            border: 2px solid #ffffff;
-            background: transparent;
-            color: #ffffff;
-            padding: 15px 40px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-decoration: none;
-            transition: 0.3s;
-        }
-
-        .btn-hero:hover {
-            background-color: #ffffff;
-            color: #000000;
-        }
-
-        /* Seção de Modelos */
-        .section-title {
-            font-weight: 300;
-            font-size: 2.5rem;
-            color: #262626;
-            margin-bottom: 50px;
-            text-align: center;
-        }
-
-        .car-card {
-            border: none;
-            border-radius: 0;
-            background: transparent;
-        }
-
-        .car-card img {
-            border-radius: 0;
-            object-fit: cover;
-            height: 350px;
-            /* Fotos grandes e alinhadas */
-            width: 100%;
-        }
-
-        .car-card .card-body {
-            padding: 25px 0 0 0;
-            /* Espaço só em cima, alinhado à esquerda */
-        }
-
-        .car-card .card-title {
-            font-weight: 700;
-            font-size: 1.8rem;
-            margin-bottom: 5px;
-        }
-
-        .car-card .card-text {
-            font-weight: 300;
-            font-size: 1.1rem;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        .btn-link-custom {
-            color: #1c69d4;
-            /* Azul estilo link de montadora */
-            font-weight: 700;
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.9rem;
-        }
-
-        .btn-link-custom:hover {
-            color: #0b4392;
-            text-decoration: underline;
-        }
-
-        /* Footer Seco */
-        footer {
-            border-top: 1px solid #f0f0f0;
-            padding: 40px 0;
-            margin-top: 80px;
-        }
-    </style>
-</head>
-
-<body>
-
-    <?php require_once '../app/Views/components/header.php'; ?>
-
-    <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="container-fluid px-5 hero-content">
-            <div class="row">
-                <div class="col-lg-6">
-                    <h1 class="hero-title">Puro<br>Prazer.</h1>
-                    <p class="hero-subtitle mt-3">Descubra a nova linha de sedans esportivos.</p>
-                    <a href="?pagina=detalhes&id=1" class="btn-hero d-inline-block mt-2">Configurar</a>
-                </div>
+<section class="hero" style="background-image: url('assets/img/foto_1.png'); background-size: cover; background-position: center; height: 85vh; position: relative; display: flex; align-items: center;">
+    <div class="hero-overlay" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.1) 100%);"></div>
+    <div class="container-fluid px-5 hero-content" style="position: relative; z-index: 2; color: #ffffff;">
+        <div class="row">
+            <div class="col-lg-6">
+                <h1 style="font-size: 4.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">Puro<br>Prazer.</h1>
+                <p class="mt-3 mb-4" style="font-weight: 300; font-size: 1.5rem;">Descubra a nova linha de sedans esportivos.</p>
+                <a href="?pagina=modelos" class="btn btn-outline-light rounded-0 py-3 px-5 fw-bold text-uppercase" style="letter-spacing: 2px;">Ver Estoque</a>
             </div>
-        </div>
-    </section>
-
-    <div id="modelos" class="container mt-5 pt-5">
-        <h2 class="section-title">ENCONTRE O SEU MODELO.</h2>
-
-        <div class="row g-5">
-
-            <div class="col-md-6">
-                <div class="card car-card">
-                    <img src="assets/img/foto_1.png" alt="Modelo 1">
-                    <div class="card-body">
-                        <h5 class="card-title">Série 3</h5>
-                        <p class="card-text">O sedan esportivo definitivo.</p>
-                        <a href="?pagina=detalhes&id=1" class="btn-link-custom">Descubra mais &gt;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card car-card">
-                    <img src="assets/img/foto_1.png" alt="Modelo 2">
-                    <div class="card-body">
-                        <h5 class="card-title">X5 M Competition</h5>
-                        <p class="card-text">Presença imponente, performance irretocável.</p>
-                        <a href="?pagina=detalhes&id=2" class="btn-link-custom">Descubra mais &gt;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card car-card">
-                    <img src="assets/img/foto_4.png" alt="Modelo 3">
-                    <div class="card-body">
-                        <h5 class="card-title">i4 M50</h5>
-                        <p class="card-text">100% elétrico. 100% adrenalina.</p>
-                        <a href="?pagina=detalhes&id=3" class="btn-link-custom">Descubra mais &gt;</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-6">
-                <div class="card car-card">
-                    <img src="assets/img/foto_5.png" alt="Modelo 4">
-                    <div class="card-body">
-                        <h5 class="card-title">Série 4 Cabrio</h5>
-                        <p class="card-text">Liberdade sem limites.</p>
-                        <a href="?pagina=detalhes&id=4" class="btn-link-custom">Descubra mais &gt;</a>
-                    </div>
-                </div>
-            </div>
-
         </div>
     </div>
+</section>
 
-    <?php require_once '../app/Views/components/footer.php'; ?>
+<div id="modelos" class="container mt-5 pt-5 mb-5 flex-grow-1">
+    <div class="d-flex justify-content-between align-items-end mb-5">
+        <h2 style="font-weight: 300; font-size: 2.5rem; color: #262626; margin: 0;">VEÍCULOS EM <span style="font-weight: 700;">DESTAQUE.</span></h2>
+        <a href="?pagina=modelos" class="text-muted text-uppercase fw-bold text-decoration-none" style="font-size: 0.85rem; letter-spacing: 1px;">Ver todos os modelos &gt;</a>
+    </div>
 
-    <script src="assets/js/bootstrap.bundle.min.js"></script>
-</body>
+    <div class="row g-5">
 
-</html>
+        <?php
+        // Faz o loop apenas com os 4 carros de destaque
+        if (!empty($destaques)) {
+            foreach ($destaques as $carro) {
+        ?>
+                <div class="col-md-6">
+                    <div class="card border-0 bg-transparent rounded-0">
+                        <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>" style="object-fit: cover; height: 350px; width: 100%;">
+
+                        <div class="card-body px-0 pt-4">
+                            <h5 class="card-title fw-bold" style="font-size: 1.8rem; margin-bottom: 5px; text-transform: uppercase;"><?= htmlspecialchars($carro->getModelo()); ?></h5>
+                            <p class="card-text text-muted mb-4" style="font-weight: 300; font-size: 1.1rem;"><?= htmlspecialchars($carro->getCategoria()); ?></p>
+
+                            <a href="?pagina=detalhes&id=<?= $carro->getId(); ?>" style="color: #1c69d4; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
+                                Descubra mais &gt;
+                            </a>
+                        </div>
+                    </div>
+                </div>
+        <?php
+            } // Fim do foreach
+        } else {
+            echo "<p class='text-center mt-5'>Nenhum veículo em destaque no momento.</p>";
+        }
+        ?>
+
+    </div>
+</div>
+
+<?php require_once '../app/Views/components/footer.php'; ?>
