@@ -2,6 +2,15 @@
 // Inicia a sessão (você vai precisar disso para o login do vendedor depois)
 session_start();
 
+require_once __DIR__ . '/../app/Config/Root.php';
+require_once ROOT_PATH . '/app/Database/Conexao.php';
+require_once ROOT_PATH . '/app/Model/Veiculo.php';
+require_once ROOT_PATH . '/app/Repository/Veiculos/VeiculoRepository.php';
+require_once ROOT_PATH . '/app/Controller/Veiculo/VeiculoController.php';
+
+// Iniciar o Controller
+$controller = new VeiculoController($pdo);
+
 // Pega qual página o usuário quer acessar da URL. Ex: index.php?pagina=admin
 // Se ele não digitar nada, a página padrão será a 'home'
 $pagina = isset($_GET['pagina']) ? $_GET['pagina'] : 'home';
@@ -37,6 +46,10 @@ switch ($pagina) {
     case 'painel':
         // No futuro, aqui você verifica se o vendedor está logado usando $_SESSION
         require_once $caminho_views . 'admin/painel.php';
+        break;
+
+    case 'cadastrar':
+        require_once $caminho_views . 'admin/cadastrar.php';
         break;
 
     // ==========================================

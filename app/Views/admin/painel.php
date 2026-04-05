@@ -1,3 +1,7 @@
+<?php
+// Puxa a lista de carros usando o Controller que já foi carregado no index.php
+$listaDeCarros = $controller->listar();
+?>
 <!DOCTYPE html>
 <html lang="pt-BR">
 
@@ -74,7 +78,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark navbar-admin py-3">
         <div class="container-fluid px-4">
-            <a class="navbar-brand fw-bold" style="letter-spacing: 1px;" href="#">AUTOMOTORS | ADMIN</a>
+            <a class="navbar-brand fw-bold" style="letter-spacing: 1px;" href="?pagina=painel">AUTOMOTORS | ADMIN</a>
             <div class="ms-auto text-white">
                 <span class="me-3">Olá, Vendedor</span>
                 <a href="?pagina=home" class="btn btn-outline-light btn-sm">Sair do Sistema</a>
@@ -89,13 +93,12 @@
                 <h2 class="fw-bold m-0">Gestão de Estoque</h2>
             </div>
             <div class="col-md-6 text-end">
-                <button class="btn btn-primary fw-bold px-4">+ Cadastrar Novo Veículo</button>
+                <a href="?pagina=cadastrar" class="btn btn-primary fw-bold px-4">+ Cadastrar Novo Veículo</a>
             </div>
         </div>
 
         <div class="row">
             <div class="col-12">
-
                 <div class="card card-panel">
                     <div class="card-body p-0">
                         <div class="table-responsive">
@@ -113,51 +116,45 @@
                                 </thead>
                                 <tbody>
 
-                                    <tr>
-                                        <td class="ps-4 fw-bold text-muted">#001</td>
-                                        <td><img src="assets/img/foto_2.png" alt="Série 3" class="img-thumbnail-car"></td>
-                                        <td class="fw-bold">Série 3 Sedan</td>
-                                        <td>Sedan Esportivo</td>
-                                        <td>R$ 320.000,00</td>
-                                        <td><span class="status-badge status-disponivel">Disponível</span></td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
-                                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
-                                        </td>
-                                    </tr>
+                                    <?php if (!empty($listaDeCarros)): ?>
+                                        <?php foreach ($listaDeCarros as $carro): ?>
+                                            <tr>
+                                                <td class="ps-4 fw-bold text-muted">#<?= str_pad($carro->getId(), 3, '0', STR_PAD_LEFT); ?></td>
 
-                                    <tr>
-                                        <td class="ps-4 fw-bold text-muted">#002</td>
-                                        <td><img src="assets/img/foto_1.png" alt="X5" class="img-thumbnail-car"></td>
-                                        <td class="fw-bold">X5 M Competition</td>
-                                        <td>SUV Premium</td>
-                                        <td>R$ 780.000,00</td>
-                                        <td><span class="status-badge status-vendido">Vendido</span></td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
-                                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
-                                        </td>
-                                    </tr>
+                                                <td><img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" class="img-thumbnail-car"></td>
 
-                                    <tr>
-                                        <td class="ps-4 fw-bold text-muted">#003</td>
-                                        <td><img src="assets/img/foto_1.png" alt="i4" class="img-thumbnail-car"></td>
-                                        <td class="fw-bold">i4 M50 Elétrico</td>
-                                        <td>Gran Coupé</td>
-                                        <td>R$ 450.000,00</td>
-                                        <td><span class="status-badge status-disponivel">Disponível</span></td>
-                                        <td class="text-end pe-4">
-                                            <button class="btn btn-sm btn-outline-secondary">Editar</button>
-                                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
-                                        </td>
-                                    </tr>
+                                                <td class="fw-bold"><?= htmlspecialchars($carro->getModelo() . ' ' . $carro->getVersao()); ?></td>
+
+                                                <td><?= htmlspecialchars($carro->getCategoria()); ?></td>
+
+                                                <td>R$ <?= number_format($carro->getPreco(), 2, ',', '.'); ?></td>
+
+                                                <td>
+                                                    <?php
+                                                    $status = $carro->getStatus();
+                                                    $classeBadge = ($status === 'Vendido') ? 'status-vendido' : 'status-disponivel';
+                                                    ?>
+                                                    <span class="status-badge <?= $classeBadge; ?>"><?= htmlspecialchars($status); ?></span>
+                                                </td>
+
+                                                <td class="text-end pe-4">
+                                                    <a href="?pagina=editar&id=<?= $carro->getId(); ?>" class="btn btn-sm btn-outline-secondary">Editar</a>
+
+                                                    <a href="?pagina=deletar&id=<?= $carro->getId(); ?>" class="btn btn-sm btn-outline-danger" onclick="return confirm('Tem certeza que deseja excluir este veículo permanentemente?')">Excluir</a>
+                                                </td>
+                                            </tr>
+                                        <?php endforeach; ?>
+                                    <?php else: ?>
+                                        <tr>
+                                            <td colspan="7" class="text-center py-4 text-muted">Nenhum veículo cadastrado no estoque.</td>
+                                        </tr>
+                                    <?php endif; ?>
 
                                 </tbody>
                             </table>
                         </div>
                     </div>
                 </div>
-
             </div>
         </div>
 

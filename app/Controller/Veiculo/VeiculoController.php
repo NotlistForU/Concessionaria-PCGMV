@@ -59,4 +59,17 @@ class VeiculoController
             echo "Erro: " . $e->getMessage();
         }
     }
+
+    public function buscarPorId($id)
+    {
+        try {
+            if (!is_numeric($id)) {
+                return null;
+            }
+            return $this->rep->buscarPorId($id);
+        } catch (Exception $e) {
+            echo "Erro: " . $e->getMessage();
+            return null;
+        }
+    }
 }

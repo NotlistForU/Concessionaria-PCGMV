@@ -5,21 +5,22 @@ class Veiculo
     private ?int $id;
     private ?string $modelo;
     private ?string $versao;
+    private ?string $categoria;
     private ?int $anoModelo;
     private ?int $anoFabricacao;
     private ?int $quilometragem;
     private ?string $motorizacao;
     private ?string $transmissao;
-    private ?int $potencia;
-    private ?string $torque;
+    private ?string $potencia;
+    private ?string $aceleracao;
     private ?int $portas;
     private ?string $combustivel;
     private ?string $cor;
-    private ?string $descricao;
+    private ?string $descricaoExterior;
+    private ?string $descricaoInterior;
     private ?float $preco;
-    private ?string $urlFoto;
-    private ?int $marcaId;
-
+    private ?string $pastaFoto;
+    private ?string $status;
     public function __construct($dados = [])
     {
         if (!empty($dados)) {
@@ -31,20 +32,26 @@ class Veiculo
                 $this->setPreco($dados['preco'] ?? null);
 
                 $this->versao = $dados['versao'] ?? null;
+                $this->categoria = $dados['categoria'] ?? null;
                 $this->anoFabricacao = $dados['ano_fabricacao'] ?? null;
                 $this->quilometragem = $dados['quilometragem'] ?? null;
                 $this->motorizacao = $dados['motorizacao'] ?? null;
                 $this->transmissao = $dados['transmissao'] ?? null;
                 $this->potencia = $dados['potencia'] ?? null;
-                $this->torque = $dados['torque'] ?? null;
+                $this->aceleracao = $dados['aceleracao'] ?? null;
                 $this->portas = $dados['portas'] ?? null;
                 $this->combustivel = $dados['combustivel'] ?? null;
                 $this->cor = $dados['cor'] ?? null;
-                $this->descricao = $dados['descricao'] ?? null;
-                $this->urlFoto = $dados['url_foto'] ?? null;
-                $this->marcaId = $dados['marca_id'] ?? null;
+                $this->descricaoExterior = $dados['descricao_exterior'] ?? null;
+                $this->descricaoInterior = $dados['descricao_interior'] ?? null;
+                $this->pastaFoto = $dados['pasta_fotos'] ?? null;
+                $this->status = $dados['status'] ?? 'Disponível';
             }
         }
+    }
+    public function print(): void
+    {
+        print($this->getPastaFoto());
     }
     // =====================
     // GETTERS
@@ -61,6 +68,10 @@ class Veiculo
     public function getVersao(): ?string
     {
         return $this->versao;
+    }
+    public function getCategoria(): ?string
+    {
+        return $this->categoria;
     }
     public function getAnoModelo(): ?int
     {
@@ -82,13 +93,13 @@ class Veiculo
     {
         return $this->transmissao;
     }
-    public function getPotencia(): ?int
+    public function getPotencia(): ?string
     {
         return $this->potencia;
     }
-    public function getTorque(): ?string
+    public function getaceleracao(): ?string
     {
-        return $this->torque;
+        return $this->aceleracao;
     }
     public function getPortas(): ?int
     {
@@ -102,22 +113,27 @@ class Veiculo
     {
         return $this->cor;
     }
-    public function getDescricao(): ?string
+    public function getDescricaoExterior(): ?string
     {
-        return $this->descricao;
+        return $this->descricaoExterior;
+    }
+    public function getDescricaoInterior(): ?string
+    {
+        return $this->descricaoInterior;
     }
     public function getPreco(): ?float
     {
         return $this->preco;
     }
-    public function getUrlFoto(): ?string
+    public function getPastaFoto(): ?string
     {
-        return $this->urlFoto;
+        return $this->pastaFoto;
     }
-    public function getMarcaId(): ?int
+    public function getStatus(): ?string
     {
-        return $this->marcaId;
+        return $this->status;
     }
+
     // =====================
     // SETTERS
     // =====================
@@ -127,7 +143,6 @@ class Veiculo
         $this->setModelo($this->modelo);
         $this->setAnoModelo($this->anoModelo);
         $this->setPreco($this->preco);
-        $this->setMarcaId($this->marcaId);
     }
 
     public function setModelo(?string $modelo): void
@@ -155,13 +170,6 @@ class Veiculo
         $this->preco = $preco;
     }
 
-    public function setMarcaId(?int $marcaId): void
-    {
-        if ($marcaId === null) {
-            throw new Exception("Marca é obrigatória");
-        }
-        $this->marcaId = $marcaId;
-    }
     public function setId($id)
     {
         $this->id = $id;
@@ -170,6 +178,10 @@ class Veiculo
     public function setVersao($versao)
     {
         $this->versao = $versao;
+    }
+    public function setCategoria($categoria)
+    {
+        $this->categoria = $categoria;
     }
 
     public function setAnoFabricacao($anoFabricacao)
@@ -192,9 +204,9 @@ class Veiculo
     {
         $this->potencia = $potencia;
     }
-    public function setTorque($torque)
+    public function setaceleracao($aceleracao)
     {
-        $this->torque = $torque;
+        $this->aceleracao = $aceleracao;
     }
     public function setPortas($portas)
     {
@@ -208,15 +220,24 @@ class Veiculo
     {
         $this->cor = $cor;
     }
-    public function setDescricao($descricao)
+    public function setDescricaoExterior($descricaoExterior)
     {
-        $this->descricao = $descricao;
+        $this->descricaoExterior = $descricaoExterior;
+    }
+    public function setDescricaoInterior($descricaoInterior)
+    {
+        $this->descricaoInterior = $descricaoInterior;
     }
 
-    public function setUrlFoto($url)
+    public function setpastaFoto($url)
     {
-        $this->urlFoto = $url;
+        $this->pastaFoto = $url;
     }
+    public function setStatus($status)
+    {
+        $this->status = $status;
+    }
+
 
 
     // =====================
@@ -235,14 +256,14 @@ class Veiculo
             'motorizacao' => $this->motorizacao,
             'transmissao' => $this->transmissao,
             'potencia' => $this->potencia,
-            'torque' => $this->torque,
+            'aceleracao' => $this->aceleracao,
             'portas' => $this->portas,
             'combustivel' => $this->combustivel,
             'cor' => $this->cor,
-            'descricao' => $this->descricao,
+            'descricao_exterior' => $this->descricaoExterior,
+            'descricao_interior' => $this->descricaoInterior,
             'preco' => $this->preco,
-            'url_foto' => $this->urlFoto,
-            'marca_id' => $this->marcaId
+            'pasta_fotos' => $this->pastaFoto,
         ];
     }
 }

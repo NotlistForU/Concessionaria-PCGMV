@@ -68,13 +68,14 @@ class VeiculoRepository
             $sql = "INSERT INTO veiculos (
                 modelo,
                 versao,
+                categoria,
                 ano_modelo,
                 ano_fabricacao,
                 quilometragem,
                 motorizacao,
                 transmissao,
                 potencia,
-                torque,
+                aceleracao,
                 portas,
                 combustivel,
                 cor,
@@ -86,13 +87,14 @@ class VeiculoRepository
             ) VALUES (
                 :modelo,
                 :versao,
+                :categoria,
                 :ano_modelo,
                 :ano_fabricacao,
                 :quilometragem,
                 :motorizacao,
                 :transmissao,
                 :potencia,
-                :torque,
+                :aceleracao,
                 :portas,
                 :combustivel,
                 :cor,
@@ -106,24 +108,25 @@ class VeiculoRepository
             $stmt = $this->pdo->prepare($sql);
 
             $stmt->execute([
-                ':modelo'         => $veiculo->getModelo(),
-                ':versao'         => $veiculo->getVersao(),
-                ':ano_modelo'     => $veiculo->getAnoModelo(),
-                ':ano_fabricacao' => $veiculo->getAnoFabricacao(),
-                ':quilometragem'  => $veiculo->getQuilometragem(),
-                ':motorizacao'    => $veiculo->getMotorizacao(),
-                ':transmissao'    => $veiculo->getTransmissao(),
-                ':potencia'       => $veiculo->getPotencia(),
-                ':torque'         => $veiculo->getTorque(),
-                ':portas'         => $veiculo->getPortas(),
-                ':combustivel'    => $veiculo->getCombustivel(),
-                ':cor'            => $veiculo->getCor(),
-                ':descricao'      => $veiculo->getDescricao(),
-                ':preco'          => $veiculo->getPreco(),
-                ':url_foto'       => $veiculo->getUrlFoto()
+                ':modelo'             => $veiculo->getModelo(),
+                ':versao'             => $veiculo->getVersao(),
+                ':categoria'          => $veiculo->getCategoria(),
+                ':ano_modelo'         => $veiculo->getAnoModelo(),
+                ':ano_fabricacao'     => $veiculo->getAnoFabricacao(),
+                ':quilometragem'      => $veiculo->getQuilometragem(),
+                ':motorizacao'        => $veiculo->getMotorizacao(),
+                ':transmissao'        => $veiculo->getTransmissao(),
+                ':potencia'           => $veiculo->getPotencia(),
+                ':aceleracao'         => $veiculo->getaceleracao(),
+                ':portas'             => $veiculo->getPortas(),
+                ':combustivel'        => $veiculo->getCombustivel(),
+                ':cor'                => $veiculo->getCor(),
+                ':descricao_exterior' => $veiculo->getDescricaoExterior(),
+                ':descricao_interior' => $veiculo->getDescricaoInterior(),
+                ':preco'              => $veiculo->getPreco(),
+                ':url_foto'           => $veiculo->getPastaFoto()
                     ?: '/concessionaria-pcgm/assets/images/car_default.png',
-                ':data_cadastro'  => date('Y-m-d H:i:s'),
-                ':marca_id'       => $veiculo->getMarcaId()
+                ':data_cadastro'      => date('Y-m-d H:i:s')
             ]);
         } catch (PDOException $e) {
             echo "Erro ao cadastrar veículo: " . $e->getMessage();
@@ -149,13 +152,14 @@ class VeiculoRepository
             $sql = "UPDATE veiculos SET
                     modelo = :modelo,
                     versao = :versao,
+                    categoria = :categoria,
                     ano_modelo = :ano_modelo,
                     ano_fabricacao = :ano_fabricacao,
                     quilometragem = :quilometragem,
                     motorizacao = :motorizacao,
                     transmissao = :transmissao,
                     potencia = :potencia,
-                    torque = :torque,
+                    aceleracao = :aceleracao,
                     portas = :portas,
                     combustivel = :combustivel,
                     cor = :cor,
@@ -168,23 +172,24 @@ class VeiculoRepository
             $stmt = $this->pdo->prepare($sql);
 
             $stmt->execute([
-                ':modelo'         => $veiculo->getModelo(),
-                ':versao'         => $veiculo->getVersao(),
-                ':ano_modelo'     => $veiculo->getAnoModelo(),
-                ':ano_fabricacao' => $veiculo->getAnoFabricacao(),
-                ':quilometragem'  => $veiculo->getQuilometragem(),
-                ':motorizacao'    => $veiculo->getMotorizacao(),
-                ':transmissao'    => $veiculo->getTransmissao(),
-                ':potencia'       => $veiculo->getPotencia(),
-                ':torque'         => $veiculo->getTorque(),
-                ':portas'         => $veiculo->getPortas(),
-                ':combustivel'    => $veiculo->getCombustivel(),
-                ':cor'            => $veiculo->getCor(),
-                ':descricao'      => $veiculo->getDescricao(),
-                ':preco'          => $veiculo->getPreco(),
-                ':url_foto'       => $veiculo->getUrlFoto()
+                ':modelo'             => $veiculo->getModelo(),
+                ':versao'             => $veiculo->getVersao(),
+                ':categoria'          => $veiculo->getCategoria(),
+                ':ano_modelo'         => $veiculo->getAnoModelo(),
+                ':ano_fabricacao'     => $veiculo->getAnoFabricacao(),
+                ':quilometragem'      => $veiculo->getQuilometragem(),
+                ':motorizacao'        => $veiculo->getMotorizacao(),
+                ':transmissao'        => $veiculo->getTransmissao(),
+                ':potencia'           => $veiculo->getPotencia(),
+                ':aceleracao'         => $veiculo->getaceleracao(),
+                ':portas'             => $veiculo->getPortas(),
+                ':combustivel'        => $veiculo->getCombustivel(),
+                ':cor'                => $veiculo->getCor(),
+                ':descricao_exterior' => $veiculo->getDescricaoExterior(),
+                ':descricao_interior' => $veiculo->getDescricaoInterior(),
+                ':preco'              => $veiculo->getPreco(),
+                ':url_foto'           => $veiculo->getPastaFoto()
                     ?: '/concessionaria-pcgm/assets/images/car_default.png',
-                ':marca_id'       => $veiculo->getMarcaId(),
                 ':id'             => $id
             ]);
 
