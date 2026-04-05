@@ -52,6 +52,10 @@ switch ($pagina) {
         require_once $caminho_views . 'admin/cadastrar.php';
         break;
 
+    case 'editar':
+        require_once $caminho_views . 'admin/editar.php';
+        break;
+
     // ==========================================
     // ERRO 404
     // ==========================================
