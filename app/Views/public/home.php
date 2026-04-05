@@ -1,11 +1,8 @@
 <?php
 require_once '../app/Views/components/header.php';
 
-// Puxa TODOS os carros do banco
+// Puxa TODOS os carros do banco e recorta os 4 primeiros
 $todosOsCarros = $controller->listar();
-
-// Pega apenas os 4 primeiros para ser o "Destaque" da Home
-// Assim a tela não fica gigante, e o cliente clica em "Modelos" se quiser ver mais
 $destaques = array_slice($todosOsCarros, 0, 4);
 ?>
 
@@ -22,41 +19,63 @@ $destaques = array_slice($todosOsCarros, 0, 4);
     </div>
 </section>
 
-<div id="modelos" class="container mt-5 pt-5 mb-5 flex-grow-1">
-    <div class="d-flex justify-content-between align-items-end mb-5">
-        <h2 style="font-weight: 300; font-size: 2.5rem; color: #262626; margin: 0;">VEÍCULOS EM <span style="font-weight: 700;">DESTAQUE.</span></h2>
-        <a href="?pagina=modelos" class="text-muted text-uppercase fw-bold text-decoration-none" style="font-size: 0.85rem; letter-spacing: 1px;">Ver todos os modelos &gt;</a>
+<div id="destaques" class="container-fluid px-0 mt-5 pt-5 mb-5 flex-grow-1">
+
+    <div class="container mb-5">
+        <h2 class="text-center" style="font-weight: 300; font-size: 2.5rem; color: #262626; margin: 0;">VEÍCULOS EM <span style="font-weight: 700;">DESTAQUE.</span></h2>
     </div>
 
-    <div class="row g-5">
+    <?php
+    if (!empty($destaques)) {
+        $contador = 0;
+        foreach ($destaques as $carro) {
+            // Se o contador for par, a imagem fica na esquerda. Se for ímpar, fica na direita (flex-lg-row-reverse)
+            $direcao_linha = ($contador % 2 == 0) ? '' : 'flex-lg-row-reverse text-lg-end';
+    ?>
 
-        <?php
-        // Faz o loop apenas com os 4 carros de destaque
-        if (!empty($destaques)) {
-            foreach ($destaques as $carro) {
-        ?>
-                <div class="col-md-6">
-                    <div class="card border-0 bg-transparent rounded-0">
-                        <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>" style="object-fit: cover; height: 350px; width: 100%;">
+            <div class="card border-0 bg-transparent rounded-0 mb-5 pb-5 position-relative">
+                <div class="container">
+                    <div class="row align-items-center <?= $direcao_linha; ?>">
 
-                        <div class="card-body px-0 pt-4">
-                            <h5 class="card-title fw-bold" style="font-size: 1.8rem; margin-bottom: 5px; text-transform: uppercase;"><?= htmlspecialchars($carro->getModelo()); ?></h5>
-                            <p class="card-text text-muted mb-4" style="font-weight: 300; font-size: 1.1rem;"><?= htmlspecialchars($carro->getCategoria()); ?></p>
+                        <div class="col-lg-8 mb-4 mb-lg-0">
+                            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="w-100 shadow-sm" style="object-fit: cover; height: 500px;">
+                        </div>
 
-                            <a href="?pagina=detalhes&id=<?= $carro->getId(); ?>" style="color: #1c69d4; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
+                        <div class="col-lg-4 px-lg-5">
+                            <p class="text-muted text-uppercase mb-2" style="font-weight: 600; letter-spacing: 2px; font-size: 0.85rem;">
+                                <?= htmlspecialchars($carro->getCategoria()); ?>
+                            </p>
+
+                            <h3 class="display-5 fw-bold text-uppercase mb-3" style="color: #111;">
+                                <?= htmlspecialchars($carro->getModelo()); ?>
+                            </h3>
+
+                            <p class="text-muted mb-4" style="font-weight: 300; font-size: 1.1rem; line-height: 1.6;">
+                                <?= htmlspecialchars(mb_strimwidth($carro->getDescricaoExterior(), 0, 120, "...")); ?>
+                            </p>
+
+                            <a href="?pagina=detalhes&id=<?= $carro->getId(); ?>" class="stretched-link" style="color: #1c69d4; font-weight: 700; text-decoration: none; text-transform: uppercase; letter-spacing: 1px; font-size: 0.95rem;">
                                 Descubra mais &gt;
                             </a>
                         </div>
+
                     </div>
                 </div>
-        <?php
-            } // Fim do foreach
-        } else {
-            echo "<p class='text-center mt-5'>Nenhum veículo em destaque no momento.</p>";
-        }
-        ?>
+            </div>
+    <?php
+            $contador++;
+        } // Fim do foreach
+    } else {
+        echo "<p class='text-center mt-5'>Nenhum veículo em destaque no momento.</p>";
+    }
+    ?>
 
-    </div>
+</div>
+
+<div class="container text-center mb-5 pb-5 border-bottom">
+    <a href="?pagina=modelos" class="btn btn-dark rounded-0 py-3 px-5 fw-bold text-uppercase" style="letter-spacing: 1px; background-color: #000;">
+        VER TODOS OS MODELOS
+    </a>
 </div>
 
 <?php require_once '../app/Views/components/footer.php'; ?>
