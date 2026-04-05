@@ -64,45 +64,14 @@ class VeiculoRepository
     public function cadastrar(Veiculo $veiculo)
     {
         try {
-
             $sql = "INSERT INTO veiculos (
-                modelo,
-                versao,
-                categoria,
-                ano_modelo,
-                ano_fabricacao,
-                quilometragem,
-                motorizacao,
-                transmissao,
-                potencia,
-                aceleracao,
-                portas,
-                combustivel,
-                cor,
-                descricao,
-                preco,
-                url_foto,
-                data_cadastro,
-                marca_id
+                modelo, versao, categoria, ano_modelo, ano_fabricacao, quilometragem,
+                motorizacao, transmissao, potencia, aceleracao, portas, combustivel,
+                cor, preco, status, pasta_fotos, descricao_exterior, descricao_interior
             ) VALUES (
-                :modelo,
-                :versao,
-                :categoria,
-                :ano_modelo,
-                :ano_fabricacao,
-                :quilometragem,
-                :motorizacao,
-                :transmissao,
-                :potencia,
-                :aceleracao,
-                :portas,
-                :combustivel,
-                :cor,
-                :descricao,
-                :preco,
-                :url_foto,
-                :data_cadastro,
-                :marca_id
+                :modelo, :versao, :categoria, :ano_modelo, :ano_fabricacao, :quilometragem,
+                :motorizacao, :transmissao, :potencia, :aceleracao, :portas, :combustivel,
+                :cor, :preco, :status, :pasta_fotos, :descricao_exterior, :descricao_interior
             )";
 
             $stmt = $this->pdo->prepare($sql);
@@ -117,38 +86,25 @@ class VeiculoRepository
                 ':motorizacao'        => $veiculo->getMotorizacao(),
                 ':transmissao'        => $veiculo->getTransmissao(),
                 ':potencia'           => $veiculo->getPotencia(),
-                ':aceleracao'         => $veiculo->getaceleracao(),
+                ':aceleracao'         => $veiculo->getAceleracao(),
                 ':portas'             => $veiculo->getPortas(),
                 ':combustivel'        => $veiculo->getCombustivel(),
                 ':cor'                => $veiculo->getCor(),
-                ':descricao_exterior' => $veiculo->getDescricaoExterior(),
-                ':descricao_interior' => $veiculo->getDescricaoInterior(),
                 ':preco'              => $veiculo->getPreco(),
-                ':url_foto'           => $veiculo->getPastaFoto()
-                    ?: '/concessionaria-pcgm/assets/images/car_default.png',
-                ':data_cadastro'      => date('Y-m-d H:i:s')
+                ':status'             => $veiculo->getStatus(),
+                ':pasta_fotos'        => $veiculo->getPastaFoto(),
+                ':descricao_exterior' => $veiculo->getDescricaoExterior(),
+                ':descricao_interior' => $veiculo->getDescricaoInterior()
             ]);
         } catch (PDOException $e) {
-            echo "Erro ao cadastrar veículo: " . $e->getMessage();
+            die("Erro crítico ao cadastrar veículo: " . $e->getMessage());
         }
-        /*
-        Exemplo de uso para o frontend:
-        // No topo do arquivo view/pagina.php:
-        -- Para fazer o teste descomente o codigo a baixo:
-        e acesse esse arquivo no localhost: http://localhost/Concessionaria-PCGM/controller/VehicleController.php
-        require_once '../database/conexao.php';
-        require_once '../Repository/VeiculoRepository.php';
-
-        $veiculoRepository = new VeiculoRepository($pdo);
-        $listaDeCarros = $veiculoRepository->listarTodos(); -> tem todos os carros do banco.
-    */
     }
 
     // Função para atualizar os dados no banco
     public function atualizar($id, Veiculo $veiculo)
     {
         try {
-
             $sql = "UPDATE veiculos SET
                     modelo = :modelo,
                     versao = :versao,
@@ -163,10 +119,11 @@ class VeiculoRepository
                     portas = :portas,
                     combustivel = :combustivel,
                     cor = :cor,
-                    descricao = :descricao,
                     preco = :preco,
-                    url_foto = :url_foto,
-                    marca_id = :marca_id
+                    status = :status,
+                    pasta_fotos = :pasta_fotos,
+                    descricao_exterior = :descricao_exterior,
+                    descricao_interior = :descricao_interior
                 WHERE id = :id";
 
             $stmt = $this->pdo->prepare($sql);
@@ -181,22 +138,22 @@ class VeiculoRepository
                 ':motorizacao'        => $veiculo->getMotorizacao(),
                 ':transmissao'        => $veiculo->getTransmissao(),
                 ':potencia'           => $veiculo->getPotencia(),
-                ':aceleracao'         => $veiculo->getaceleracao(),
+                ':aceleracao'         => $veiculo->getAceleracao(),
                 ':portas'             => $veiculo->getPortas(),
                 ':combustivel'        => $veiculo->getCombustivel(),
                 ':cor'                => $veiculo->getCor(),
+                ':preco'              => $veiculo->getPreco(),
+                ':status'             => $veiculo->getStatus(),
+                ':pasta_fotos'        => $veiculo->getPastaFoto(),
                 ':descricao_exterior' => $veiculo->getDescricaoExterior(),
                 ':descricao_interior' => $veiculo->getDescricaoInterior(),
-                ':preco'              => $veiculo->getPreco(),
-                ':url_foto'           => $veiculo->getPastaFoto()
-                    ?: '/concessionaria-pcgm/assets/images/car_default.png',
-                ':id'             => $id
+                ':id'                 => $id
             ]);
 
             return true;
         } catch (PDOException $e) {
-            echo "Erro ao atualizar veículo: " . $e->getMessage();
-            return false;
+            // Mudei para DIE aqui para que, se der erro de novo, a tela trave e você veja o problema!
+            die("Erro crítico ao atualizar veículo: " . $e->getMessage());
         }
     }
 

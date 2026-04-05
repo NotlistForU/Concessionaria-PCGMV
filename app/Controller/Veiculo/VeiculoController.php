@@ -15,8 +15,6 @@ class VeiculoController
             $veiculo = new Veiculo($_POST);
 
             $this->rep->cadastrar($veiculo);
-
-            echo "Cadastrado com sucesso!";
         } catch (Exception $e) {
             echo "Erro: " . $e->getMessage();
         }
@@ -36,8 +34,6 @@ class VeiculoController
             }
 
             $this->rep->deletar($id);
-
-            echo "Deletando com sucesso!";
         } catch (Exception $e) {
             echo "Erro: " . $e->getMessage();
         }
@@ -53,8 +49,6 @@ class VeiculoController
             $veiculo = new Veiculo($_POST);
 
             $this->rep->atualizar($id, $veiculo);
-
-            echo "Atualizando com sucesso!";
         } catch (Exception $e) {
             echo "Erro: " . $e->getMessage();
         }

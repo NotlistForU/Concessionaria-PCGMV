@@ -57,6 +57,40 @@ switch ($pagina) {
         break;
 
     // ==========================================
+    // AÇÕES DO BANCO DE DADOS (Invisíveis)
+    // ==========================================
+
+    case 'processar_cadastro':
+        // Só aceita se vier de um formulário via POST
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->cadastrar();
+            // Volta para a tabela de estoque
+            header("Location: ?pagina=painel");
+            exit;
+        }
+        break;
+
+    case 'processar_edicao':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Pega o ID que mandamos escondido no formulário
+            $id = $_POST['id'];
+            $controller->atualizar($id);
+            header("Location: ?pagina=painel");
+            exit;
+        }
+        break;
+
+    case 'deletar':
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        if ($id) {
+            $controller->delete($id);
+        }
+        // Volta para a tabela de estoque atualizada
+        header("Location: ?pagina=painel");
+        exit;
+        break;
+
+    // ==========================================
     // ERRO 404
     // ==========================================
     default:
