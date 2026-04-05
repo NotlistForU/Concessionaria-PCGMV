@@ -79,6 +79,12 @@ $listaDeCarros = $controller->listar();
     <nav class="navbar navbar-expand-lg navbar-dark navbar-admin py-3">
         <div class="container-fluid px-4">
             <a class="navbar-brand fw-bold" style="letter-spacing: 1px;" href="?pagina=painel">AUTOMOTORS | ADMIN</a>
+            <div class="collapse navbar-collapse ms-4">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item"><a class="nav-link active fw-bold text-white" href="?pagina=painel">Estoque</a></li>
+                    <li class="nav-item"><a class="nav-link" href="?pagina=agendamentos">Agendamentos</a></li>
+                </ul>
+            </div>
             <div class="ms-auto text-white">
                 <span class="me-3">Olá, Vendedor</span>
                 <a href="?pagina=home" class="btn btn-outline-light btn-sm">Sair do Sistema</a>

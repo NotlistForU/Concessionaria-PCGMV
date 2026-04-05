@@ -56,6 +56,21 @@ switch ($pagina) {
         require_once $caminho_views . 'admin/editar.php';
         break;
 
+    case 'agendamentos':
+        // Busca rápida dos agendamentos juntando com os dados do veículo
+        // Usamos o INNER JOIN para pegar o modelo e a versão do carro através do veiculo_id
+        $sql = "SELECT a.*, v.modelo, v.versao 
+                FROM agendamentos a 
+                JOIN veiculos v ON a.veiculo_id = v.id 
+                ORDER BY a.data_interesse DESC";
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+        $listaAgendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        require_once $caminho_views . 'admin/agendamentos.php';
+        break;
+
     // ==========================================
     // AÇÕES DO BANCO DE DADOS (Invisíveis)
     // ==========================================
