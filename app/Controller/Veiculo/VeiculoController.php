@@ -22,7 +22,11 @@ class VeiculoController
 
     public function listar()
     {
-        $veiculo = $this->rep->listarTodos();
+        $modelo = isset($_GET['modelo']) ? $_GET['modelo'] : '';
+        $categoria = isset($_GET['categoria']) ? $_GET['categoria'] : '';
+        $preco  = isset($_GET['preco']) ? $_GET['preco'] : '';
+
+        $veiculo = $this->rep->listarTodos($modelo, $categoria, $preco);
         return $veiculo;
     }
 

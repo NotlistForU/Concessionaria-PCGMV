@@ -14,7 +14,7 @@ CREATE TABLE usuarios (
 );
 
 -- ==========================================
--- 2. Tabela de Veículos (O Catálogo Premium)
+-- 2. Tabela de Veículos 
 -- ==========================================
 CREATE TABLE veiculos (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -50,6 +50,21 @@ CREATE TABLE agendamentos (
     tipo_agendamento ENUM('Test Drive', 'Compra') NOT NULL, -- Alinhado com os botões da tela
     veiculo_id INT NOT NULL,
     status ENUM('Pendente','Contatado','Concluído') DEFAULT 'Pendente',
+    FOREIGN KEY (veiculo_id) REFERENCES veiculos(id) ON DELETE CASCADE
+);
+
+-- ==========================================
+-- 4. Tabela de Compras
+-- ==========================================
+CREATE TABLE compras (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome_cliente VARCHAR(100) NOT NULL,
+    telefone VARCHAR(20) NOT NULL,
+    forma_pagamento VARCHAR(50) NOT NULL,
+    tem_troca ENUM('Sim', 'Nao') NOT NULL,
+    veiculo_id INT NOT NULL,
+    data_solicitacao TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    status ENUM('Pendente','Em Negociação','Aprovado','Recusado') DEFAULT 'Pendente',
     FOREIGN KEY (veiculo_id) REFERENCES veiculos(id) ON DELETE CASCADE
 );
 

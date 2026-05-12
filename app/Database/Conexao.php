@@ -10,6 +10,8 @@ $host = 'localhost';
 $dbname = 'concessionaria';
 $usuario = 'root'; // Padrão do XAMPP
 $senha = ''; // Padrão do XAMPP
+// $port = ? -> precisa colocar a porta q esta sendo usuada !!!!
+// $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4;$port=?", $usuario, $senha);
 
 try {
     // Tenta conectar ao banco de dados usando PDO

@@ -57,17 +57,25 @@ switch ($pagina) {
         break;
 
     case 'agendamentos':
-        // Busca rápida dos agendamentos juntando com os dados do veículo
-        // Usamos o INNER JOIN para pegar o modelo e a versão do carro através do veiculo_id
-        $sql = "SELECT a.*, v.modelo, v.versao 
-                FROM agendamentos a 
-                JOIN veiculos v ON a.veiculo_id = v.id 
-                ORDER BY a.data_interesse DESC";
+        // 1. Busca os Test Drives
+        $sqlTest = "SELECT a.*, v.modelo, v.versao 
+                    FROM agendamentos a 
+                    JOIN veiculos v ON a.veiculo_id = v.id 
+                    ORDER BY a.data_interesse DESC";
+        $stmtTest = $pdo->prepare($sqlTest);
+        $stmtTest->execute();
+        $listaAgendamentos = $stmtTest->fetchAll(PDO::FETCH_ASSOC);
 
-        $stmt = $pdo->prepare($sql);
-        $stmt->execute();
-        $listaAgendamentos = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        // 2. Busca as Propostas de Compra
+        $sqlCompra = "SELECT c.*, v.modelo, v.versao 
+                        FROM compras c 
+                        JOIN veiculos v ON c.veiculo_id = v.id 
+                        ORDER BY c.data_solicitacao DESC";
+        $stmtCompra = $pdo->prepare($sqlCompra);
+        $stmtCompra->execute();
+        $listaCompras = $stmtCompra->fetchAll(PDO::FETCH_ASSOC);
 
+        // Chama a tela do Painel passando as duas listas!
         require_once $caminho_views . 'admin/agendamentos.php';
         break;
 
@@ -91,6 +99,23 @@ switch ($pagina) {
 
             // Redireciona de volta com uma mensagem de sucesso (opcional)
             header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso=1");
+            exit;
+        }
+        break;
+    
+    case 'processar_compra':
+        if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $sql = "INSERT INTO compras (nome_cliente, telefone, forma_pagamento, tem_troca, veiculo_id) 
+                    VALUES (:nome, :tel, :pagamento, :troca, :id)";
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute([
+                ':nome'      => $_POST['nome_cliente'],
+                ':tel'       => $_POST['telefone'],
+                ':pagamento' => $_POST['forma_pagamento'],
+                ':troca'     => $_POST['tem_troca'],
+                ':id'        => $_POST['veiculo_id']
+            ]);
+         header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso_compra=1");
             exit;
         }
         break;

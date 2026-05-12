@@ -52,27 +52,34 @@ if (!$carro) {
 
             <h3 class="fw-bold mb-4" style="font-size: 1.8rem;">A partir de R$ <?= number_format($carro->getPreco(), 2, ',', '.'); ?></h3>
             <div class="d-grid gap-3" id="contato">
-                <button type="button" class="btn btn-dark rounded-0 py-3 fw-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#modalAgendamento" data-tipo="Compra">
-                    Agendar Compra
+                <button type="button" class="btn btn-dark rounded-0 py-3 fw-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#modalCompra">
+                    Comprar / Reservar
                 </button>
-                <button type="button" class="btn btn-outline-dark rounded-0 py-3 fw-bold text-uppercase" style="border-width: 2px;" data-bs-toggle="modal" data-bs-target="#modalAgendamento" data-tipo="Test Drive">
+                <button type="button" class="btn btn-outline-dark rounded-0 py-3 fw-bold text-uppercase" style="border-width: 2px;" data-bs-toggle="modal" data-bs-target="#modalTestDrive">
                     Agendar Test Drive
                 </button>
             </div>
 
-            <div class="modal fade" id="modalAgendamento" tabindex="-1" aria-hidden="true">
+            <!-- MODAL: TEST DRIVE -->
+            <div class="modal fade" id="modalTestDrive" tabindex="-1" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content rounded-0 border-0 shadow">
                         <div class="modal-header border-0 px-4 pt-4">
-                            <h5 class="modal-title fw-bold text-uppercase">Solicitar <span id="tituloAgendamento"></span></h5>
+                            <h5 class="modal-title fw-bold text-uppercase">Solicitar <span class="text-primary">Test Drive</span></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <form action="?pagina=processar_agendamento" method="POST">
                             <div class="modal-body px-4 pb-4">
                                 <input type="hidden" name="veiculo_id" value="<?= $carro->getId(); ?>">
-                                <input type="hidden" name="tipo_agendamento" id="inputTipo" value="">
+                                <input type="hidden" name="tipo_agendamento" value="Test Drive">
 
-                                <p class="text-muted small mb-4">Você está interessado no <strong><?= htmlspecialchars($carro->getModelo()); ?></strong>. Deixe seus dados e entraremos em contato.</p>
+                                <p class="text-muted small mb-4">Agende um horário para conhecer o <strong><?= htmlspecialchars($carro->getModelo()); ?></strong> de perto.</p>
+
+                                <div class="alert alert-light border-0 bg-light rounded-0 small mb-4 p-3">
+                                    <strong>Endereço do Test Drive:</strong><br>
+                                    Avenida Jorge Teixeira, 1500 - Setor Industrial<br>
+                                    Porto Velho - RO
+                                </div>
 
                                 <div class="mb-3">
                                     <label class="form-label small fw-bold text-uppercase text-muted">Seu Nome</label>
@@ -88,22 +95,65 @@ if (!$carro) {
                                 </div>
                             </div>
                             <div class="modal-footer border-0 px-4 pb-4 pt-0">
-                                <button type="submit" class="btn btn-dark w-100 rounded-0 py-2 fw-bold text-uppercase">Enviar Solicitação</button>
+                                <button type="submit" class="btn btn-outline-dark w-100 rounded-0 py-2 fw-bold text-uppercase" style="border-width: 2px;">Confirmar Test Drive</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
 
-            <script>
-                const modal = document.getElementById('modalAgendamento');
-                modal.addEventListener('show.bs.modal', event => {
-                    const button = event.relatedTarget;
-                    const tipo = button.getAttribute('data-tipo');
-                    document.getElementById('tituloAgendamento').textContent = tipo;
-                    document.getElementById('inputTipo').value = tipo;
-                });
-            </script>
+            <!-- MODAL: COMPRA / RESERVA -->
+            <div class="modal fade" id="modalCompra" tabindex="-1" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content rounded-0 border-0 shadow">
+                        <div class="modal-header border-0 px-4 pt-4">
+                            <h5 class="modal-title fw-bold text-uppercase">Proposta de <span class="text-success">Compra</span></h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <form action="?pagina=processar_compra" method="POST">
+                            <div class="modal-body px-4 pb-4">
+                                <input type="hidden" name="veiculo_id" value="<?= $carro->getId(); ?>">
+
+                                <p class="text-muted small mb-4">Excelente escolha. Preencha os dados abaixo para darmos andamento na compra do seu <strong><?= htmlspecialchars($carro->getModelo()); ?></strong>.</p>
+                                
+                                <div class="alert alert-light border-0 bg-light rounded-0 small mb-4 p-3">
+                                    <strong>Retirada do Veículo:</strong><br>
+                                    Avenida Jorge Teixeira, 1500 - Setor Industrial<br>
+                                    Porto Velho - RO
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Seu Nome</label>
+                                    <input type="text" name="nome_cliente" class="form-control rounded-0" placeholder="Nome completo" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Telefone / WhatsApp</label>
+                                    <input type="text" name="telefone" class="form-control rounded-0" placeholder="(00) 00000-0000" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Forma de Pagamento</label>
+                                    <select name="forma_pagamento" class="form-select rounded-0" required>
+                                        <option value="">Selecione...</option>
+                                        <option value="A Vista">À Vista</option>
+                                        <option value="Financiamento">Financiamento Bancário</option>
+                                        <option value="Consorcio">Carta de Consórcio</option>
+                                    </select>
+                                </div>
+                                <div class="mb-0">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">Possui veículo na troca?</label>
+                                    <select name="tem_troca" class="form-select rounded-0" required>
+                                        <option value="Nao">Não</option>
+                                        <option value="Sim">Sim, tenho interesse em dar de entrada</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="modal-footer border-0 px-4 pb-4 pt-0">
+                                <button type="submit" class="btn btn-dark w-100 rounded-0 py-2 fw-bold text-uppercase">Enviar Proposta de Compra</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 

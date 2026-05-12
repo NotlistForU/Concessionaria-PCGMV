@@ -15,12 +15,35 @@ class VeiculoRepository
     }
 
     // Função para buscar todos os carros e mandar para a vitrine
-    public function listarTodos()
+    public function listarTodos($modelo = '', $categoria ='', $preco_max ='')
     {
         try {
-            $sql = "SELECT * FROM veiculos ORDER BY data_cadastro DESC";
+            $sql = "SELECT * FROM veiculos WHERE 1=1";
+
+            $parametros = [];
+            
+            // FILTROS:
+
+            // Modelo
+            if(!empty($modelo)) {
+                $sql .= " AND modelo LIKE :modelo";
+                $parametros[':modelo'] = "%" . $modelo . "%";
+            }
+            // Categoria
+            if(!empty($categoria)){
+                $sql .= " AND categoria LIKE :categoria";
+                $parametros[':categoria'] = "%" . $categoria . "%";
+            }
+            // Preço
+            if(!empty($preco_max)){
+                $sql .= " AND preco <= :preco";
+                $parametros[':preco'] =  $preco_max;
+            }
+            $sql .= " ORDER BY data_cadastro DESC";
+
+
             $stmt = $this->pdo->prepare($sql);
-            $stmt->execute();
+            $stmt->execute($parametros);
 
             $dados = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
