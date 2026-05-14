@@ -32,8 +32,8 @@ if (!$carro) {
         <div class="col-lg-5 px-lg-5">
             <p class="text-uppercase text-muted mb-1" style="letter-spacing: 2px; font-size: 0.85rem;"><?= htmlspecialchars($carro->getCategoria()); ?></p>
 
-            <h1 class="display-4 fw-bold mb-1 text-uppercase" style="color: #000;"><?= htmlspecialchars($carro->getModelo()); ?></h1>
-            <h3 class="fw-light mb-4 text-uppercase" style="color: #666; font-size: 1.5rem;"><?= htmlspecialchars($carro->getVersao()); ?></h3>
+            <h1 class="display-4 fw-bold mb-1 text-uppercase text-body-emphasis"><?= htmlspecialchars($carro->getModelo()); ?></h1>
+            <h3 class="fw-light mb-4 text-uppercase text-body-secondary" style="font-size: 1.5rem;"><?= htmlspecialchars($carro->getVersao()); ?></h3>
 
             <div class="row text-center mb-4 g-3">
                 <div class="col-4 border-end">

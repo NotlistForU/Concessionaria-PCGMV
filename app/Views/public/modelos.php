@@ -46,7 +46,7 @@ $listaDeCarros = $controller->listar();
         
         <!-- BARRA LATERAL DE FILTROS (FRONTEND PRONTO) -->
         <div class="col-lg-3">
-            <div class="card rounded-0 border-0 shadow-sm p-4 sticky-top" style="top: 100px; background-color: #fafafa;">
+            <div class="card bg-body-tertiary rounded-0 border-0 shadow-sm p-4 sticky-top" style="top: 100px;">
                 <h4 class="fw-bold mb-4 text-uppercase" style="font-size: 1.1rem; letter-spacing: 1px;">Refinar Busca</h4>
                 
                 <form action="index.php" method="GET">
@@ -72,7 +72,7 @@ $listaDeCarros = $controller->listar();
                     <div class="mb-4">
                         <label class="form-label text-muted small fw-bold text-uppercase d-flex justify-content-between">
                             <span>Preço Máximo</span>
-                            <span id="precoValor" class="text-dark">
+                            <span id="precoValor" class="text-body-emphasis">
                                 R$ <?= isset($_GET['preco']) ? number_format($_GET['preco'], 0, ',', '.') : '1.500.000' ?>
                             </span>
                         </label>
@@ -98,7 +98,7 @@ $listaDeCarros = $controller->listar();
                     foreach ($listaDeCarros as $carro) {
                 ?>
                         <div class="col-md-6 col-xl-4">
-                            <div class="card car-card">
+                            <div class="card car-card" onclick="window.location.href='?pagina=detalhes&id=<?= $carro->getId(); ?>'" style="cursor: pointer;">
                                 <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>">
 
                                 <div class="card-body">

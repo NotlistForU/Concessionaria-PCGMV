@@ -2,21 +2,21 @@
 require_once '../app/Views/components/header.php';
 ?>
 
-<div class="container-fluid flex-grow-1 d-flex flex-column bg-white">
+<div class="container-fluid flex-grow-1 d-flex flex-column">
     <div class="row flex-grow-1">
         
         <!-- Menu Lateral Admin -->
-        <div class="col-md-2 bg-light p-4 border-end">
-            <h5 class="text-uppercase fw-bold mb-4" style="letter-spacing: 2px; font-size: 0.9rem; color: #666;">Painel Admin</h5>
+        <div class="col-md-2 bg-body-tertiary p-4 border-end border-opacity-10">
+            <h5 class="text-uppercase fw-bold mb-4 text-body-secondary" style="letter-spacing: 2px; font-size: 0.85rem;">Painel Admin</h5>
             <ul class="nav flex-column gap-2">
                 <li class="nav-item">
-                    <a class="nav-link text-dark fw-bold px-3" href="?pagina=painel">Estoque de Veículos</a>
+                    <a class="nav-link text-body fw-medium px-3 py-2 rounded-3" href="?pagina=painel" style="transition: all 0.3s ease;">Estoque de Veículos</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link bg-dark rounded fw-bold px-3 shadow-sm" style="color: #ffffff !important;" href="?pagina=agendamentos">Leads & Propostas</a>
+                    <a class="nav-link text-bg-primary fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=agendamentos" style="transition: all 0.3s ease;">Leads & Propostas</a>
                 </li>
                 <li class="nav-item mt-5">
-                    <a class="nav-link text-danger fw-bold px-3" href="?pagina=home">&larr; Voltar ao Site</a>
+                    <a class="nav-link text-danger fw-bold px-3 py-2 rounded-3" href="?pagina=home" style="transition: all 0.3s ease;">&larr; Voltar ao Site</a>
                 </li>
             </ul>
         </div>
@@ -24,79 +24,144 @@ require_once '../app/Views/components/header.php';
         <!-- Conteúdo Principal -->
         <div class="col-md-10 p-5">
             <style>
-                .nav-pills .nav-link.active {
-                    background-color: #111 !important;
-                    color: #fff !important;
-                    border: 1px solid #111 !important;
+                .admin-tabs .nav-link {
+                    color: var(--bs-body-color);
+                    background-color: transparent;
+                    border: none;
+                    border-bottom: 2px solid transparent;
+                    border-radius: 0;
+                    padding: 10px 20px;
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-size: 0.9rem;
+                    transition: all 0.3s ease;
                 }
-                .nav-pills .nav-link {
-                    color: #555 !important;
-                    background-color: #f8f9fa !important;
-                    border: 1px solid #ddd !important;
+                .admin-tabs .nav-link:hover {
+                    color: var(--bs-primary);
                 }
-                .nav-pills .nav-link:not(.active):hover {
-                    background-color: #e9ecef !important;
+                .admin-tabs .nav-link.active {
+                    color: var(--bs-primary);
+                    background-color: transparent;
+                    border-bottom: 2px solid var(--bs-primary);
+                }
+                
+                .premium-table-card {
+                    background: var(--bs-body-bg);
+                    border: 1px solid var(--bs-border-color);
+                    border-radius: 12px;
+                    overflow: hidden;
+                    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+                }
+
+                .table-premium th {
+                    background-color: var(--bs-tertiary-bg);
+                    color: var(--bs-secondary-color);
+                    font-weight: 600;
+                    text-transform: uppercase;
+                    letter-spacing: 1px;
+                    font-size: 0.75rem;
+                    border-bottom: 1px solid var(--bs-border-color);
+                    padding: 15px 20px;
+                }
+
+                .table-premium td {
+                    padding: 15px 20px;
+                    vertical-align: middle;
+                    border-bottom: 1px solid var(--bs-border-color-translucent);
+                }
+
+                .table-premium tr:last-child td {
+                    border-bottom: none;
+                }
+
+                .table-premium tbody tr {
+                    transition: background-color 0.2s ease;
+                }
+                .table-premium tbody tr:hover {
+                    background-color: var(--bs-tertiary-bg);
+                }
+
+                .badge-premium {
+                    padding: 6px 12px;
+                    border-radius: 6px;
+                    font-weight: 600;
+                    font-size: 0.75rem;
+                    letter-spacing: 0.5px;
                 }
             </style>
 
-            <div class="d-flex justify-content-between align-items-center mb-4 border-bottom pb-3">
-                <h2 class="fw-bold text-uppercase m-0" style="font-size: 2rem; color: #111;">Leads & Propostas</h2>
+            <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
+                <div>
+                    <h2 class="fw-bold text-uppercase m-0" style="font-size: 2rem; letter-spacing: -0.5px;">Leads & Propostas</h2>
+                    <p class="text-body-secondary mt-2 mb-0">Gerencie todas as solicitações de clientes e agendamentos.</p>
+                </div>
             </div>
 
-            <ul class="nav nav-pills mb-4 gap-3" id="myTab" role="tablist">
+            <ul class="nav admin-tabs mb-4" id="myTab" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link active fw-bold text-uppercase px-4 py-2 rounded-0" id="compras-tab" data-bs-toggle="tab" data-bs-target="#compras" type="button" role="tab" style="letter-spacing: 1px;">Propostas de Compra</button>
+                    <button class="nav-link active" id="compras-tab" data-bs-toggle="tab" data-bs-target="#compras" type="button" role="tab">Propostas de Compra</button>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <button class="nav-link fw-bold text-uppercase px-4 py-2 rounded-0" id="testdrive-tab" data-bs-toggle="tab" data-bs-target="#testdrive" type="button" role="tab" style="letter-spacing: 1px;">Test Drives</button>
+                    <button class="nav-link" id="testdrive-tab" data-bs-toggle="tab" data-bs-target="#testdrive" type="button" role="tab">Test Drives</button>
                 </li>
             </ul>
 
             <div class="tab-content" id="myTabContent">
                 <!-- ABA COMPRAS -->
                 <div class="tab-pane fade show active" id="compras" role="tabpanel">
-                    <div class="card rounded-0 shadow-sm" style="border: 1px solid #eee;">
-                        <div class="card-body p-0">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead style="background-color: #f8f9fa;">
+                    <div class="premium-table-card">
+                        <div class="table-responsive">
+                            <table class="table table-premium mb-0">
+                                <thead>
                                     <tr>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Data</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Cliente</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Veículo de Interesse</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Forma de Pagto.</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Tem Troca?</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Status</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom text-end" style="font-size: 0.75rem; letter-spacing: 1px;">Contato</th>
+                                        <th>Data</th>
+                                        <th>Cliente</th>
+                                        <th>Veículo de Interesse</th>
+                                        <th>Pagamento</th>
+                                        <th>Troca?</th>
+                                        <th>Status</th>
+                                        <th class="text-end">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php if (!empty($listaCompras)): ?>
                                         <?php foreach ($listaCompras as $compra): ?>
                                             <tr>
-                                                <td class="py-3 px-4"><?= date('d/m/Y H:i', strtotime($compra['data_solicitacao'])) ?></td>
-                                                <td class="py-3 px-4 fw-bold"><?= htmlspecialchars($compra['nome_cliente']) ?></td>
-                                                <td class="py-3 px-4 text-primary fw-bold">
-                                                    <?= htmlspecialchars($compra['modelo']) ?> <span class="text-muted fw-normal"><?= htmlspecialchars($compra['versao']) ?></span>
+                                                <td class="text-body-secondary small fw-medium"><?= date('d/m/Y H:i', strtotime($compra['data_solicitacao'])) ?></td>
+                                                <td class="fw-bold"><?= htmlspecialchars($compra['nome_cliente']) ?></td>
+                                                <td>
+                                                    <span class="text-primary fw-bold"><?= htmlspecialchars($compra['modelo']) ?></span> 
+                                                    <span class="text-body-secondary small ms-1"><?= htmlspecialchars($compra['versao']) ?></span>
                                                 </td>
-                                                <td class="py-3 px-4"><?= htmlspecialchars($compra['forma_pagamento']) ?></td>
-                                                <td class="py-3 px-4">
+                                                <td class="text-body-secondary"><?= htmlspecialchars($compra['forma_pagamento']) ?></td>
+                                                <td>
                                                     <?php if ($compra['tem_troca'] == 'Sim'): ?>
-                                                        <span class="badge bg-warning text-dark">Sim</span>
+                                                        <span class="badge text-bg-warning badge-premium">Sim</span>
                                                     <?php else: ?>
-                                                        <span class="text-muted">Não</span>
+                                                        <span class="text-body-secondary small">Não</span>
                                                     <?php endif; ?>
                                                 </td>
-                                                <td class="py-3 px-4">
-                                                    <span class="badge bg-success rounded-0 px-2 py-1"><?= htmlspecialchars($compra['status']) ?></span>
+                                                <td>
+                                                    <span class="badge text-bg-success badge-premium"><?= htmlspecialchars($compra['status']) ?></span>
                                                 </td>
-                                                <td class="py-3 px-4 text-end">
-                                                    <a href="https://wa.me/55<?= preg_replace('/[^0-9]/', '', $compra['telefone']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-0 fw-bold">WhatsApp</a>
+                                                <td class="text-end">
+                                                    <a href="https://wa.me/55<?= preg_replace('/[^0-9]/', '', $compra['telefone']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold shadow-sm" style="transition: all 0.3s ease;">
+                                                        WhatsApp
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="7" class="text-center py-5 text-muted">Nenhuma proposta de compra registrada.</td>
+                                            <td colspan="7" class="text-center py-5 text-body-secondary">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-inbox text-muted mb-3" viewBox="0 0 16 16" style="opacity: 0.5;">
+                                                      <path d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm-1.17-.437A1.5 1.5 0 0 1 4.98 3h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625A.5.5 0 0 1 16 8.5V13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13V8.5a.5.5 0 0 1 .19-.437l3.7-4.625zM1 8.5v4.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5V8.5h-4.08a2.5 2.5 0 0 1-4.84 0H1z"/>
+                                                    </svg>
+                                                    Nenhuma proposta de compra registrada.
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
@@ -107,40 +172,51 @@ require_once '../app/Views/components/header.php';
 
                 <!-- ABA TEST DRIVES -->
                 <div class="tab-pane fade" id="testdrive" role="tabpanel">
-                    <div class="card rounded-0 shadow-sm" style="border: 1px solid #eee;">
-                        <div class="card-body p-0">
-                            <table class="table table-hover align-middle mb-0">
-                                <thead style="background-color: #f8f9fa;">
+                    <div class="premium-table-card">
+                        <div class="table-responsive">
+                            <table class="table table-premium mb-0">
+                                <thead>
                                     <tr>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Solicitado em</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Cliente</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Veículo Desejado</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom" style="font-size: 0.75rem; letter-spacing: 1px;">Data do Teste</th>
-                                        <th class="py-3 px-4 fw-bold text-uppercase text-muted border-bottom text-end" style="font-size: 0.75rem; letter-spacing: 1px;">Contato</th>
+                                        <th>ID</th>
+                                        <th>Cliente</th>
+                                        <th>Veículo Desejado</th>
+                                        <th>Data do Teste</th>
+                                        <th class="text-end">Ação</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php if (!empty($listaAgendamentos)): ?>
                                         <?php foreach ($listaAgendamentos as $agenda): ?>
                                             <tr>
-                                                <td class="py-3 px-4 text-muted small">ID #<?= $agenda['id'] ?></td>
-                                                <td class="py-3 px-4 fw-bold"><?= htmlspecialchars($agenda['nome_cliente']) ?></td>
-                                                <td class="py-3 px-4">
-                                                    <strong><?= htmlspecialchars($agenda['modelo']) ?></strong> <span class="text-muted"><?= htmlspecialchars($agenda['versao']) ?></span>
+                                                <td class="text-body-secondary small fw-bold">#<?= $agenda['id'] ?></td>
+                                                <td class="fw-bold"><?= htmlspecialchars($agenda['nome_cliente']) ?></td>
+                                                <td>
+                                                    <span class="fw-bold"><?= htmlspecialchars($agenda['modelo']) ?></span> 
+                                                    <span class="text-body-secondary small ms-1"><?= htmlspecialchars($agenda['versao']) ?></span>
                                                 </td>
-                                                <td class="py-3 px-4">
-                                                    <span class="badge bg-dark rounded-0 px-3 py-2 fw-normal" style="font-size: 0.9rem; letter-spacing: 1px;">
+                                                <td>
+                                                    <span class="badge bg-body-secondary text-body badge-premium border">
                                                         <?= date('d/m/Y', strtotime($agenda['data_interesse'])) ?>
                                                     </span>
                                                 </td>
-                                                <td class="py-3 px-4 text-end">
-                                                    <a href="https://wa.me/55<?= preg_replace('/[^0-9]/', '', $agenda['telefone']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-0 fw-bold">WhatsApp</a>
+                                                <td class="text-end">
+                                                    <a href="https://wa.me/55<?= preg_replace('/[^0-9]/', '', $agenda['telefone']) ?>" target="_blank" class="btn btn-sm btn-outline-success rounded-pill px-3 fw-bold shadow-sm" style="transition: all 0.3s ease;">
+                                                        WhatsApp
+                                                    </a>
                                                 </td>
                                             </tr>
                                         <?php endforeach; ?>
                                     <?php else: ?>
                                         <tr>
-                                            <td colspan="5" class="text-center py-5 text-muted">Nenhum test drive agendado.</td>
+                                            <td colspan="5" class="text-center py-5 text-body-secondary">
+                                                <div class="d-flex flex-column align-items-center">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-calendar-x text-muted mb-3" viewBox="0 0 16 16" style="opacity: 0.5;">
+                                                      <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
+                                                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                                    </svg>
+                                                    Nenhum test drive agendado.
+                                                </div>
+                                            </td>
                                         </tr>
                                     <?php endif; ?>
                                 </tbody>
