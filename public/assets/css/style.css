@@ -1,0 +1,470 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap');
+
+/* ==========================================================================
+   Base e Estilos Globais
+   ========================================================================== */
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Títulos de seção genéricos */
+.section-title {
+    font-weight: 300;
+    font-size: 2.5rem;
+    color: var(--bs-emphasis-color);
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+/* ==========================================================================
+   Navegação (Header e Footer)
+   ========================================================================== */
+
+.navbar {
+    background-color: var(--bs-body-bg) !important;
+    padding: 20px 0;
+    border-bottom: 1px solid var(--bs-border-color);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.navbar-brand {
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+    color: var(--bs-emphasis-color) !important;
+}
+
+.nav-link {
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--bs-emphasis-color) !important;
+    margin-left: 20px;
+}
+
+.nav-link:hover {
+    color: #1c69d4 !important;
+}
+
+.nav-btn {
+    font-weight: 600;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    color: var(--bs-emphasis-color);
+    border: 1px solid var(--bs-emphasis-color);
+    padding: 8px 20px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: var(--bs-emphasis-color);
+    color: var(--bs-body-bg);
+}
+
+footer {
+    border-top: 1px solid var(--bs-border-color);
+    padding: 40px 0;
+    margin-top: 80px;
+}
+
+/* ==========================================================================
+   Cards de Veículos (Página Home/Modelos)
+   ========================================================================== */
+
+.car-card {
+    border: none;
+    border-radius: 0;
+    background: transparent;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.car-card:hover {
+    transform: translateY(-10px);
+}
+
+.car-card img {
+    border-radius: 0;
+    object-fit: cover;
+    height: 350px;
+    width: 100%;
+    transition: box-shadow 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.car-card:hover img {
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12);
+}
+
+.car-card .card-body {
+    padding: 25px 0 0 0;
+}
+
+.car-card .card-title {
+    font-weight: 700;
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+}
+
+.car-card .card-text {
+    font-weight: 300;
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.btn-link-custom {
+    color: #1c69d4;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: color 0.3s ease;
+}
+
+.btn-link-custom:hover,
+.car-card:hover .btn-link-custom {
+    color: #0b4392;
+    text-decoration: underline;
+}
+
+/* ==========================================================================
+   Modo Escuro (Dark Mode) - Sobrescritas Globais
+   ========================================================================== */
+
+/* Inversão automática dos botões dark no modo escuro */
+[data-bs-theme="dark"] .btn-dark {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg);
+    border-color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .btn-dark:hover {
+    background-color: rgba(255, 255, 255, 0.8);
+    color: #000;
+    border-color: rgba(255, 255, 255, 0.8);
+}
+
+[data-bs-theme="dark"] .btn-outline-dark {
+    color: var(--bs-body-color);
+    border-color: var(--bs-body-color);
+}
+
+[data-bs-theme="dark"] .btn-outline-dark:hover {
+    background-color: var(--bs-body-color);
+    color: var(--bs-body-bg);
+}
+
+/* ==========================================================================
+   Página de Login
+   ========================================================================== */
+
+body.login-page {
+    background-color: var(--bs-tertiary-bg);
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.login-card {
+    position: relative;
+    border: 1px solid var(--bs-border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+    padding: 40px;
+    background: var(--bs-body-bg);
+    transition: background-color 0.3s ease;
+}
+
+.login-title {
+    color: var(--bs-emphasis-color);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.btn-login {
+    background-color: var(--bs-emphasis-color);
+    color: var(--bs-body-bg);
+    border-radius: 6px;
+    padding: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    width: 100%;
+    transition: 0.3s;
+    border: 1px solid transparent;
+}
+
+.btn-login:hover {
+    background-color: var(--bs-body-bg);
+    color: var(--bs-emphasis-color);
+    border-color: var(--bs-emphasis-color);
+}
+
+.back-link {
+    display: block;
+    text-align: center;
+    margin-top: 20px;
+    color: var(--bs-secondary-color);
+    text-decoration: none;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.back-link:hover {
+    color: var(--bs-emphasis-color);
+}
+
+/* Botão de tema específico para o card de login */
+.login-card #themeToggle {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    background: none;
+    border: none;
+    color: var(--bs-secondary-color);
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.login-card #themeToggle:hover {
+    color: var(--bs-emphasis-color);
+}
+
+/* ==========================================================================
+   Painel Administrativo (Tabelas, Abas e Formulários)
+   ========================================================================== */
+
+.premium-table-card {
+    background: var(--bs-body-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.table-premium th {
+    background-color: var(--bs-tertiary-bg);
+    color: var(--bs-secondary-color);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.75rem;
+    border-bottom: 1px solid var(--bs-border-color);
+    padding: 15px 20px;
+}
+
+.table-premium td {
+    padding: 15px 20px;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--bs-border-color-translucent);
+}
+
+.table-premium tr:last-child td {
+    border-bottom: none;
+}
+
+.table-premium tbody tr {
+    transition: background-color 0.2s ease;
+}
+
+.table-premium tbody tr:hover {
+    background-color: var(--bs-tertiary-bg);
+}
+
+.badge-premium {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 0.75rem;
+    letter-spacing: 0.5px;
+}
+
+.img-thumbnail-car {
+    width: 80px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+/* Abas Customizadas (Leads & Propostas) */
+.admin-tabs .nav-link {
+    color: var(--bs-body-color);
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    padding: 10px 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.admin-tabs .nav-link:hover {
+    color: var(--bs-primary);
+}
+
+.admin-tabs .nav-link.active {
+    color: var(--bs-primary);
+    background-color: transparent;
+    border-bottom: 2px solid var(--bs-primary);
+}
+
+/* Estilos de Formulários Premium (Admin & Login) */
+.form-card {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    padding: 40px;
+    background-color: var(--bs-body-bg);
+}
+
+.admin-section-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: var(--bs-emphasis-color);
+    border-bottom: 2px solid var(--bs-border-color);
+    padding-bottom: 10px;
+    margin-bottom: 20px;
+    margin-top: 30px;
+}
+
+.admin-section-title:first-child {
+    margin-top: 0;
+}
+
+.form-label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--bs-secondary-color);
+    text-transform: uppercase;
+}
+
+.form-control,
+.form-select {
+    border-radius: 6px;
+    padding: 10px 15px; /* Login usava 12px 15px, unificado para 10px 15px */
+    border: 1px solid var(--bs-border-color);
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--bs-primary);
+    box-shadow: none;
+    background-color: var(--bs-body-bg);
+    color: var(--bs-body-color);
+}
+
+/* ==========================================================================
+   Página Exclusiva (La Collection)
+   ========================================================================== */
+
+body.page-exclusive {
+    background-color: #0a0a0a !important; /* Fundo super escuro */
+    color: #f1f1f1 !important;
+}
+
+body.page-exclusive .navbar {
+    background-color: #050505 !important;
+    border-bottom: 1px solid #222 !important;
+}
+
+body.page-exclusive .navbar .nav-link, 
+body.page-exclusive .navbar-brand {
+    color: #eee !important;
+}
+
+.exclusive-hero {
+    height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border-bottom: 1px solid #222;
+    background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
+}
+
+.exclusive-title {
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-size: 4.5rem;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    font-weight: 400;
+    margin-bottom: 20px;
+    color: #ffffff;
+}
+
+.car-showcase {
+    padding: 120px 0;
+    border-bottom: 1px solid #1f1f1f;
+}
+
+.exclusive-car-title {
+    font-family: 'Playfair Display', 'Times New Roman', serif;
+    font-size: 3.5rem;
+    font-weight: 400;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.car-spec-label {
+    font-size: 0.75rem;
+    letter-spacing: 3px;
+    color: #666;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+}
+
+.car-spec-value {
+    font-size: 1.4rem;
+    font-weight: 300;
+    color: #d4af37;
+    margin-bottom: 25px;
+}
+
+.btn-gold {
+    display: inline-block;
+    background-color: transparent;
+    color: #d4af37;
+    border: 1px solid #d4af37;
+    padding: 15px 45px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    transition: all 0.4s ease;
+    text-decoration: none;
+}
+
+.btn-gold:hover {
+    background-color: #d4af37;
+    color: #000;
+}
+
+.img-luxury {
+    filter: drop-shadow(0px 20px 30px rgba(0,0,0,0.8));
+    transition: transform 0.8s ease;
+}
+
+.img-luxury:hover {
+    transform: scale(1.02);
+}

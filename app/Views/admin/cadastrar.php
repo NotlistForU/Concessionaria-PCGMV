@@ -21,54 +21,7 @@
 
         <!-- Conteúdo Principal -->
         <div class="col-md-10 p-5">
-            <style>
-                .form-card {
-                    border: 1px solid var(--bs-border-color);
-                    border-radius: 12px;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-                    padding: 40px;
-                    background-color: var(--bs-body-bg);
-                }
 
-                .section-title {
-                    font-size: 1.1rem;
-                    font-weight: bold;
-                    text-transform: uppercase;
-                    color: var(--bs-emphasis-color);
-                    border-bottom: 2px solid var(--bs-border-color);
-                    padding-bottom: 10px;
-                    margin-bottom: 20px;
-                    margin-top: 30px;
-                }
-
-                .section-title:first-child {
-                    margin-top: 0;
-                }
-
-                .form-label {
-                    font-size: 0.85rem;
-                    font-weight: 600;
-                    color: var(--bs-secondary-color);
-                    text-transform: uppercase;
-                }
-
-                .form-control,
-                .form-select {
-                    border-radius: 6px;
-                    padding: 10px 15px;
-                    border: 1px solid var(--bs-border-color);
-                    background-color: var(--bs-body-bg);
-                    color: var(--bs-body-color);
-                }
-
-                .form-control:focus,
-                .form-select:focus {
-                    border-color: var(--bs-primary);
-                    box-shadow: none;
-                    background-color: var(--bs-body-bg);
-                    color: var(--bs-body-color);
-                }
-            </style>
 
             <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
                 <div>
@@ -85,7 +38,7 @@
                     <div class="form-card">
                         <form action="?pagina=processar_cadastro" method="POST">
 
-                            <h4 class="section-title">Informações Principais</h4>
+                            <h4 class="admin-section-title">Informações Principais</h4>
                             <div class="row g-3">
                                 <div class="col-md-4">
                                     <label class="form-label">Modelo</label>
@@ -120,7 +73,7 @@
                                 </div>
                             </div>
 
-                            <h4 class="section-title">Especificações Técnicas</h4>
+                            <h4 class="admin-section-title">Especificações Técnicas</h4>
                             <div class="row g-3">
                                 <div class="col-md-3">
                                     <label class="form-label">Motorização</label>
@@ -161,7 +114,7 @@
                                 </div>
                             </div>
 
-                            <h4 class="section-title">Mídia e Textos</h4>
+                            <h4 class="admin-section-title">Mídia e Textos</h4>
                             <div class="row g-3">
                                 <div class="col-md-12">
                                     <label class="form-label">Nome da Pasta de Fotos</label>

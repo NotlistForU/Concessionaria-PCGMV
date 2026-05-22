@@ -7,10 +7,8 @@ USE concessionaria;
 -- ==========================================
 CREATE TABLE usuarios (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE NOT NULL,
-    senha VARCHAR(255) NOT NULL, 
-    user_role ENUM('cliente','vendedor') DEFAULT 'vendedor'
+    nome VARCHAR(100) NOT NULL UNIQUE,
+    senha VARCHAR(255) NOT NULL
 );
 
 -- ==========================================
@@ -73,8 +71,8 @@ CREATE TABLE compras (
 -- ==========================================
 
 -- Admin Padrão
-INSERT INTO usuarios (nome, email, senha, user_role) VALUES 
-('Vendedor Admin', 'admin@automotors.com', 'admin123', 'vendedor');
+INSERT INTO usuarios (nome, senha) VALUES 
+('Max Verstappen', 'admin123');
 
 -- Limpa a tabela para você rodar o script zerado sem dar erro de duplicidade
 -- TRUNCATE TABLE veiculos;
@@ -106,12 +104,12 @@ INSERT INTO veiculos (modelo, versao, categoria, ano_modelo, ano_fabricacao, qui
 ('Série 5', '530e M Sport', 'Sedan Executivo', 2024, 2024, 0, '2.0 Híbrido Plug-in', 'Automático 8 marchas', '292 cv / 42,8 kgfm', '5,9 s', 4, 'Híbrido', 'Preto Carbono', 
 'Presença executiva elevada pela tecnologia. O design clássico e sofisticado de três volumes encontra detalhes aerodinâmicos do pacote M, unindo a tradição à eficiência do futuro eletrificado.', 
 'Santuário de produtividade e conforto. Acabamento primoroso, isolamento acústico supremo e assistentes de condução semi-autônoma de nível superior para viagens sem nenhum estresse.', 
-490000.00, 'Disponível', 'serie_5'),
+490000.00, 'Disponível', 'serie_5');
 
-('Série 8', '840i M Sport', 'Gran Coupé de Luxo', 2024, 2024, 0, '3.0 6 Cilindros Turbo', 'Automático 8 marchas', '340 cv / 51,0 kgfm', '5,2 s', 4, 'Gasolina', 'Vermelho Aventurina', 
-'A fusão absoluta entre a esportividade M e o mais alto nível de luxo. A carroceria alongada, bitolas largas e um perfil musculoso impõem respeito por onde quer que passe.', 
-'O ápice do requinte. Aplicações em vidro no seletor de marchas, couro Merino por todo o habitáculo e iluminação cênica transformam a condução diária numa experiência exclusiva de primeira classe.', 
-850000.00, 'Vendido', 'serie_8');
+-- ('Série 8', '840i M Sport', 'Gran Coupé de Luxo', 2024, 2024, 0, '3.0 6 Cilindros Turbo', 'Automático 8 marchas', '340 cv / 51,0 kgfm', '5,2 s', 4, 'Gasolina', 'Vermelho Aventurina', 
+-- 'A fusão absoluta entre a esportividade M e o mais alto nível de luxo. A carroceria alongada, bitolas largas e um perfil musculoso impõem respeito por onde quer que passe.', 
+-- 'O ápice do requinte. Aplicações em vidro no seletor de marchas, couro Merino por todo o habitáculo e iluminação cênica transformam a condução diária numa experiência exclusiva de primeira classe.', 
+-- 850000.00, 'Vendido', 'serie_8');
 
 
 -- ==========================================
@@ -134,10 +132,10 @@ INSERT INTO veiculos (modelo, versao, categoria, ano_modelo, ano_fabricacao, qui
 'Eficiência inteligente. A cabine espaçosa une o conforto para a família com a interatividade de ponta, permitindo controlar os modos de condução puramente elétricos ao toque de um botão.', 
 450000.00, 'Disponível', 'x_3'),
 
-('X4', 'xDrive30i M Sport', 'SAC (SUV Coupé)', 2024, 2024, 0, '2.0 Turbo', 'Automático 8 marchas', '252 cv / 35,7 kgfm', '6,3 s', 4, 'Gasolina', 'Vermelho Piemonte', 
-'O provocador da família X. A queda acentuada do teto na traseira não só melhora a aerodinâmica, como confere uma aparência atlética e musculosa inigualável em seu segmento.', 
-'Sentar no volante do X4 é assumir o comando. A posição de dirigir baixa e esportiva contrasta com a visão privilegiada do trânsito, unindo o melhor dos dois mundos.', 
-490000.00, 'Disponível', 'x_4'),
+-- ('X4', 'xDrive30i M Sport', 'SAC (SUV Coupé)', 2024, 2024, 0, '2.0 Turbo', 'Automático 8 marchas', '252 cv / 35,7 kgfm', '6,3 s', 4, 'Gasolina', 'Vermelho Piemonte', 
+-- 'O provocador da família X. A queda acentuada do teto na traseira não só melhora a aerodinâmica, como confere uma aparência atlética e musculosa inigualável em seu segmento.', 
+-- 'Sentar no volante do X4 é assumir o comando. A posição de dirigir baixa e esportiva contrasta com a visão privilegiada do trânsito, unindo o melhor dos dois mundos.', 
+-- 490000.00, 'Disponível', 'x_4'),
 
 ('X5', 'xDrive50e M Sport', 'SAV (SUV Grande)', 2024, 2024, 0, '3.0 6 Cilindros Híbrido', 'Automático 8 marchas', '489 cv / 71,4 kgfm', '4,8 s', 4, 'Híbrido', 'Preto Safira', 
 'O chefe da estrada. Presença que domina qualquer terreno. Proporções musculosas e rodas de liga leve robustas reforçam a dinâmica excepcional e a autoridade que emana do modelo.', 

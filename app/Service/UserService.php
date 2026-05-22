@@ -4,6 +4,4 @@ require_once __DIR__ . '/../../Config/Root.php';
 require_once ROOT_PATH . '/app/Model/User.php';
 require_once ROOT_PATH . '/app/Repository/UserRepository.php';
 
-class UserService{
-    private UserRepository
-}
+class UserService {}

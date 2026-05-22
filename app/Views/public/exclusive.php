@@ -4,98 +4,8 @@
 require_once '../app/Views/components/header.php';
 ?>
 
-<!-- Estilos Customizados para a Página Exclusive -->
-<style>
-    body {
-        background-color: #0a0a0a !important; /* Fundo super escuro */
-        color: #f1f1f1 !important;
-    }
-    
-    /* Para forçar a navbar a ficar dark também, já que a página toda é escura */
-    .navbar {
-        background-color: #050505 !important;
-        border-bottom: 1px solid #222 !important;
-    }
-    
-    .navbar .nav-link, .navbar-brand {
-        color: #eee !important;
-    }
-
-    .exclusive-hero {
-        height: 60vh;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        border-bottom: 1px solid #222;
-        background: radial-gradient(circle at center, #1a1a1a 0%, #0a0a0a 100%);
-    }
-
-    .exclusive-title {
-        font-family: 'Playfair Display', 'Times New Roman', serif; /* Vibe Clássica/Restaurante de Luxo */
-        font-size: 4.5rem;
-        letter-spacing: 8px;
-        text-transform: uppercase;
-        font-weight: 400;
-        margin-bottom: 20px;
-        color: #ffffff;
-    }
-
-    .car-showcase {
-        padding: 120px 0;
-        border-bottom: 1px solid #1f1f1f;
-    }
-
-    .car-title {
-        font-family: 'Playfair Display', 'Times New Roman', serif;
-        font-size: 3.5rem;
-        font-weight: 400;
-        color: #fff;
-        margin-bottom: 15px;
-    }
-
-    .car-spec-label {
-        font-size: 0.75rem;
-        letter-spacing: 3px;
-        color: #666;
-        text-transform: uppercase;
-        margin-bottom: 5px;
-    }
-
-    .car-spec-value {
-        font-size: 1.4rem;
-        font-weight: 300;
-        color: #d4af37; /* Dourado luxuoso */
-        margin-bottom: 25px;
-    }
-
-    .btn-gold {
-        display: inline-block;
-        background-color: transparent;
-        color: #d4af37;
-        border: 1px solid #d4af37;
-        padding: 15px 45px;
-        letter-spacing: 3px;
-        text-transform: uppercase;
-        font-size: 0.8rem;
-        transition: all 0.4s ease;
-        text-decoration: none;
-    }
-
-    .btn-gold:hover {
-        background-color: #d4af37;
-        color: #000;
-    }
-
-    .img-luxury {
-        filter: drop-shadow(0px 20px 30px rgba(0,0,0,0.8));
-        transition: transform 0.8s ease;
-    }
-
-    .img-luxury:hover {
-        transform: scale(1.02);
-    }
-</style>
+<!-- Estilos Customizados para a Página Exclusive agora estão no style.css -->
+<script>document.body.classList.add('page-exclusive');</script>
 
 <div class="exclusive-hero mt-5">
     <div>
@@ -118,7 +28,7 @@ require_once '../app/Views/components/header.php';
                     <p class="text-uppercase mb-1" style="color: #666; letter-spacing: 2px; font-size: 0.85rem;">
                         <?= htmlspecialchars($carro->getCategoria()) ?>
                     </p>
-                    <h2 class="car-title"><?= htmlspecialchars($carro->getModelo()) ?></h2>
+                    <h2 class="exclusive-car-title"><?= htmlspecialchars($carro->getModelo()) ?></h2>
                     <p style="color: #999; font-weight: 300; line-height: 1.9; font-size: 1.1rem; margin-bottom: 40px;">
                         <?= htmlspecialchars($carro->getDescricaoExterior()) ?>
                     </p>

@@ -25,59 +25,7 @@ require_once '../app/Views/components/header.php';
 
         <!-- Conteúdo Principal -->
         <div class="col-md-10 p-5">
-            <style>
-                .premium-table-card {
-                    background: var(--bs-body-bg);
-                    border: 1px solid var(--bs-border-color);
-                    border-radius: 12px;
-                    overflow: hidden;
-                    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-                }
 
-                .table-premium th {
-                    background-color: var(--bs-tertiary-bg);
-                    color: var(--bs-secondary-color);
-                    font-weight: 600;
-                    text-transform: uppercase;
-                    letter-spacing: 1px;
-                    font-size: 0.75rem;
-                    border-bottom: 1px solid var(--bs-border-color);
-                    padding: 15px 20px;
-                }
-
-                .table-premium td {
-                    padding: 15px 20px;
-                    vertical-align: middle;
-                    border-bottom: 1px solid var(--bs-border-color-translucent);
-                }
-
-                .table-premium tr:last-child td {
-                    border-bottom: none;
-                }
-
-                .table-premium tbody tr {
-                    transition: background-color 0.2s ease;
-                }
-                .table-premium tbody tr:hover {
-                    background-color: var(--bs-tertiary-bg);
-                }
-
-                .badge-premium {
-                    padding: 6px 12px;
-                    border-radius: 6px;
-                    font-weight: 600;
-                    font-size: 0.75rem;
-                    letter-spacing: 0.5px;
-                }
-                
-                .img-thumbnail-car {
-                    width: 80px;
-                    height: 50px;
-                    object-fit: cover;
-                    border-radius: 6px;
-                    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-                }
-            </style>
 
             <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
                 <div>

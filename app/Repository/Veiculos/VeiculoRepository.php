@@ -15,27 +15,27 @@ class VeiculoRepository
     }
 
     // Função para buscar todos os carros e mandar para a vitrine
-    public function listarTodos($modelo = '', $categoria ='', $preco_max ='')
+    public function listarTodos($modelo = '', $categoria = '', $preco_max = '')
     {
         try {
             $sql = "SELECT * FROM veiculos WHERE 1=1";
 
             $parametros = [];
-            
+
             // FILTROS:
 
             // Modelo
-            if(!empty($modelo)) {
+            if (!empty($modelo)) {
                 $sql .= " AND modelo LIKE :modelo";
                 $parametros[':modelo'] = "%" . $modelo . "%";
             }
             // Categoria
-            if(!empty($categoria)){
+            if (!empty($categoria)) {
                 $sql .= " AND categoria LIKE :categoria";
                 $parametros[':categoria'] = "%" . $categoria . "%";
             }
             // Preço
-            if(!empty($preco_max)){
+            if (!empty($preco_max)) {
                 $sql .= " AND preco <= :preco";
                 $parametros[':preco'] =  $preco_max;
             }
@@ -120,7 +120,7 @@ class VeiculoRepository
                 ':descricao_interior' => $veiculo->getDescricaoInterior()
             ]);
         } catch (PDOException $e) {
-            die("Erro crítico ao cadastrar veículo: " . $e->getMessage());
+            die("Erro ao cadastrar veículo: " . $e->getMessage());
         }
     }
 

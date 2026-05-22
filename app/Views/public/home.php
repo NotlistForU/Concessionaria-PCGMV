@@ -46,7 +46,7 @@ $destaques = array_slice($todosOsCarros, 0, 4);
                                 <?= htmlspecialchars($carro->getCategoria()); ?>
                             </p>
 
-                            <h3 class="display-5 fw-bold text-uppercase mb-3" style="color: #111;">
+                            <h3 class="display-5 fw-bold text-uppercase mb-3">
                                 <?= htmlspecialchars($carro->getModelo()); ?>
                             </h3>
 
@@ -73,7 +73,7 @@ $destaques = array_slice($todosOsCarros, 0, 4);
 </div>
 
 <div class="container text-center mb-5 pb-5 border-bottom">
-    <a href="?pagina=modelos" class="btn btn-dark rounded-0 py-3 px-5 fw-bold text-uppercase" style="letter-spacing: 1px; background-color: #000;">
+    <a href="?pagina=modelos" class="btn btn-dark rounded-0 py-3 px-5 fw-bold text-uppercase" style="letter-spacing: 1px;">
         VER TODOS OS MODELOS
     </a>
 </div>
