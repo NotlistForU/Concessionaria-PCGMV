@@ -28,9 +28,9 @@
 
             <div class="ms-auto d-flex align-items-center gap-4">
                 <button id="themeToggle" class="btn btn-link text-decoration-none p-0 d-flex align-items-center justify-content-center" style="color: var(--bs-emphasis-color); transition: color 0.3s ease;" title="Alternar Tema">
-                    <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16">
-                        <!-- Icon will be injected by JS -->
-                    </svg>
+                    <span id="themeIcon" width="40" height="40" fill="currentColor">
+                        <!-- Icono renderizado por JS -->
+                    </span>
                 </button>
                 <!-- <a href="?pagina=login" class="nav-btn">Acesso Admin</a> -->
             </div>
