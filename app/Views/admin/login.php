@@ -16,12 +16,12 @@
 
     <div class="login-card">
         <button id="themeToggle" title="Alternar Tema">
-            <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+            <span id="themeIcon" width="40" height="40" fill="currentColor">
                 <!-- Icono renderizado por JS -->
-            </svg>
+            </span>
         </button>
 
-        <h2 class="login-title">AutoMotors<br><span style="font-size: 1rem; font-weight: 300;" class="text-body-secondary">Acesso Admin</span></h2>
+        <h2 class=" login-title">AutoMotors<br><span style="font-size: 1rem; font-weight: 300;" class="text-body-secondary">Acesso Admin</span></h2>
 
         <form action="?pagina=painel" method="POST">
             <div class="mb-3">

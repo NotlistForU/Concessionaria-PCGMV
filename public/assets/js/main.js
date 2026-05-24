@@ -24,9 +24,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const htmlElement = document.documentElement;
 
     // Ícones em SVG
-    const iconSun = '<path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"/>';
-    const iconMoon = '<path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.279 7.306 7.279.13 0 .258-.005.386-.015a.768.768 0 0 1 .904.904 8.5 8.5 0 1 1-7.798-12.484.768.768 0 0 1 .002 0z"/>';
-
+    const iconSun = '<img src="assets/img/Sun.png" style="width: 24px; height: 24px;  alt="Sol" </img>';
+    const iconMoon = '<img src="assets/img/Moon.png" style="width: 24px; height: 24px;  alt="Lua" </img>';
+    
+    console.log(iconMoon);
+    
     const updateIcon = () => {
         if (!themeIcon) return; // Segurança caso o elemento não exista na página (ex: página erro)
         const isDark = htmlElement.getAttribute('data-bs-theme') === 'dark';
