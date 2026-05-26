@@ -36,6 +36,10 @@ switch ($pagina) {
         require_once $caminho_views . 'public/modelos.php';
         break;
 
+    case 'sobre':
+        require_once $caminho_views . 'public/sobre.php';
+        break;
+
     // ==========================================
     // ÁREA DO VENDEDOR (ADMIN)
     // ==========================================

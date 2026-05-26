@@ -23,6 +23,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="?pagina=modelos">Modelos</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="?pagina=sobre">Sobre Nós</a>
+                    </li>
                 </ul>
             </div>
 
