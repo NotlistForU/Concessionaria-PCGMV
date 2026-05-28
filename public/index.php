@@ -41,6 +41,14 @@ switch ($pagina) {
         require_once $caminho_views . 'public/sobre.php';
         break;
 
+    case 'termos-de-uso':
+        require_once $caminho_views . 'public/termos.php';
+        break;
+
+    case 'politica-de-privacidade':
+        require_once $caminho_views . 'public/privacidade.php';
+        break;
+
     // ==========================================
     // ÁREA DO VENDEDOR (ADMIN)
     // ==========================================

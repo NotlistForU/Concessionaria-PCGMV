@@ -144,4 +144,6 @@
     </div>
 </div>
 
-<?php require_once '../app/Views/components/footer.php'; ?>
+<script src="assets/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -9,7 +9,7 @@ Isso injeta a variável $pdo, que é a chave do banco, direto no código.
 $host = 'localhost';
 $dbname = 'concessionaria';
 $usuario = 'root'; // Padrão do XAMPP
-$senha = '0800'; // Padrão do XAMPP
+$senha = ''; // Padrão do XAMPP
 // $port = ? -> precisa colocar a porta q esta sendo usuada !!!!
 // $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4;$port=?", $usuario, $senha);
 

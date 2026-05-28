@@ -94,10 +94,9 @@ if (!$carro) {
 
                                 <p class="text-muted small mb-4">Agende um horário para conhecer o <strong><?= htmlspecialchars($carro->getModelo()); ?></strong> de perto.</p>
 
-                                <div class="alert border border-secondary bg-transparent text-light rounded-0 small mb-4 p-3">
+                                <div class="alert border border-secondary bg-transparent text-body rounded-0 small mb-4 p-3">
                                     <strong>Endereço do Test Drive:</strong><br>
-                                    Avenida Jorge Teixeira, 1500 - Setor Industrial<br>
-                                    Porto Velho - RO
+                                    Avenida Calama, 4985 - Flodoaldo Pontes Pinto - Porto Velho/RO
                                 </div>
 
                                 <div class="mb-3">
@@ -139,10 +138,9 @@ if (!$carro) {
 
                                 <p class="text-muted small mb-4">Excelente escolha. Preencha os dados abaixo para darmos andamento na compra do seu <strong><?= htmlspecialchars($carro->getModelo()); ?></strong>.</p>
                                 
-                                <div class="alert alert-light border-0 bg-light rounded-0 small mb-4 p-3">
+                                <div class="alert border border-secondary bg-transparent text-body rounded-0 small mb-4 p-3">
                                     <strong>Retirada do Veículo:</strong><br>
-                                    Avenida Jorge Teixeira, 1500 - Setor Industrial<br>
-                                    Porto Velho - RO
+                                    Avenida Calama, 4985 - Flodoaldo Pontes Pinto - Porto Velho/RO
                                 </div>
 
                                 <div class="mb-3">
