@@ -7,6 +7,7 @@ require_once ROOT_PATH . '/app/Database/Conexao.php';
 require_once ROOT_PATH . '/app/Model/Veiculo.php';
 require_once ROOT_PATH . '/app/Repository/Veiculos/VeiculoRepository.php';
 require_once ROOT_PATH . '/app/Controller/Veiculo/VeiculoController.php';
+require_once ROOT_PATH . '/app/Helpers/Validadores.php';
 
 // Iniciar o Controller
 $controller = new VeiculoController($pdo);
@@ -89,13 +90,23 @@ switch ($pagina) {
 
     case 'processar_agendamento':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Se for Test Drive, valida a CNH antes de continuar
+            if ($_POST['tipo_agendamento'] === 'Test Drive') {
+                if (!validar_cnh($_POST['cnh'])) {
+                    // CNH inválida: volta pra tela do carro com erro
+                    header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&erro_cnh=1");
+                    exit;
+                }
+            }
+
             // Lógica ultra rápida sem precisar criar classe nova
-            $sql = "INSERT INTO agendamentos (nome_cliente, telefone, data_interesse, tipo_agendamento, veiculo_id) 
-                    VALUES (:nome, :tel, :data, :tipo, :id)";
+            $sql = "INSERT INTO agendamentos (nome_cliente, telefone, cnh, data_interesse, tipo_agendamento, veiculo_id) 
+                    VALUES (:nome, :tel, :cnh, :data, :tipo, :id)";
             $stmt = $pdo->prepare($sql);
             $stmt->execute([
                 ':nome'  => $_POST['nome_cliente'],
                 ':tel'   => $_POST['telefone'],
+                ':cnh'   => $_POST['cnh'],
                 ':data'  => $_POST['data_interesse'],
                 ':tipo'  => $_POST['tipo_agendamento'],
                 ':id'    => $_POST['veiculo_id']

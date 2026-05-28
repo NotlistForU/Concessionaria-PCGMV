@@ -51,6 +51,25 @@ if (!$carro) {
             </div>
 
             <h3 class="fw-bold mb-4" style="font-size: 1.8rem;">A partir de R$ <?= number_format($carro->getPreco(), 2, ',', '.'); ?></h3>
+            
+            <?php if (isset($_GET['erro_cnh'])): ?>
+                <div class="alert alert-danger rounded-0 small mb-4">
+                    <strong>Ops!</strong> A CNH informada é inválida. Por favor, verifique os dígitos e tente novamente.
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['sucesso'])): ?>
+                <div class="alert alert-success rounded-0 small mb-4">
+                    <strong>Sucesso!</strong> Seu Test Drive foi agendado. Entraremos em contato em breve.
+                </div>
+            <?php endif; ?>
+
+            <?php if (isset($_GET['sucesso_compra'])): ?>
+                <div class="alert alert-success rounded-0 small mb-4">
+                    <strong>Sucesso!</strong> Sua proposta de compra foi enviada. Entraremos em contato em breve.
+                </div>
+            <?php endif; ?>
+
             <div class="d-grid gap-3" id="contato">
                 <button type="button" class="btn btn-dark rounded-0 py-3 fw-bold text-uppercase" data-bs-toggle="modal" data-bs-target="#modalCompra">
                     Comprar / Reservar
@@ -75,7 +94,7 @@ if (!$carro) {
 
                                 <p class="text-muted small mb-4">Agende um horário para conhecer o <strong><?= htmlspecialchars($carro->getModelo()); ?></strong> de perto.</p>
 
-                                <div class="alert alert-light border-0 bg-light rounded-0 small mb-4 p-3">
+                                <div class="alert border border-secondary bg-transparent text-light rounded-0 small mb-4 p-3">
                                     <strong>Endereço do Test Drive:</strong><br>
                                     Avenida Jorge Teixeira, 1500 - Setor Industrial<br>
                                     Porto Velho - RO
@@ -88,6 +107,10 @@ if (!$carro) {
                                 <div class="mb-3">
                                     <label class="form-label small fw-bold text-uppercase text-muted">Telefone / WhatsApp</label>
                                     <input type="text" name="telefone" class="form-control rounded-0" placeholder="(00) 00000-0000" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label small fw-bold text-uppercase text-muted">CNH</label>
+                                    <input type="text" name="cnh" class="form-control rounded-0" placeholder="Apenas números (11 dígitos)" pattern="\d{11}" title="A CNH deve conter exatamente 11 números" maxlength="11" required>
                                 </div>
                                 <div class="mb-0">
                                     <label class="form-label small fw-bold text-uppercase text-muted">Data de Preferência</label>

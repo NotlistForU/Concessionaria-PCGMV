@@ -44,6 +44,7 @@ CREATE TABLE agendamentos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nome_cliente VARCHAR(100) NOT NULL,
     telefone VARCHAR(20) NOT NULL,
+    cnh VARCHAR(11) NOT NULL,
     data_interesse DATE NOT NULL,
     tipo_agendamento ENUM('Test Drive', 'Compra') NOT NULL, -- Alinhado com os botões da tela
     veiculo_id INT NOT NULL,
