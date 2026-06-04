@@ -48,4 +48,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // ==========================================
+    // Máscara de Telefone / WhatsApp (ex: (00) 00000-0000)
+    // ==========================================
+    const phoneInputs = document.querySelectorAll('input[name="telefone"]');
+    phoneInputs.forEach(input => {
+        const aplicarMascara = (el) => {
+            let val = el.value.replace(/\D/g, ''); // Remove tudo que não for dígito
+            
+            if (val.length > 11) {
+                val = val.slice(0, 11);
+            }
+
+            if (val.length > 6) {
+                el.value = `(${val.slice(0, 2)}) ${val.slice(2, 7)}-${val.slice(7)}`;
+            } else if (val.length > 2) {
+                el.value = `(${val.slice(0, 2)}) ${val.slice(2)}`;
+            } else if (val.length > 0) {
+                el.value = `(${val}`;
+            } else {
+                el.value = '';
+            }
+        };
+
+        // Aplica máscara se o campo já vier preenchido
+        aplicarMascara(input);
+
+        // Aplica a máscara enquanto o usuário digita
+        input.addEventListener('input', () => aplicarMascara(input));
+    });
+
+    // ==========================================
+    // Reabertura automática de modais em caso de erro
+    // ==========================================
+    const urlParams = new URLSearchParams(window.location.search);
+    if (urlParams.has('erro_whatsapp')) {
+        const modalEl = document.getElementById('modalCompra');
+        if (modalEl) {
+            const modalCompra = new bootstrap.Modal(modalEl);
+            modalCompra.show();
+        }
+    } else if (urlParams.has('erro_cnh')) {
+        const modalEl = document.getElementById('modalTestDrive');
+        if (modalEl) {
+            const modalTestDrive = new bootstrap.Modal(modalEl);
+            modalTestDrive.show();
+        }
+    }
+
 });

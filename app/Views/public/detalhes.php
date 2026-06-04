@@ -58,6 +58,12 @@ if (!$carro) {
                 </div>
             <?php endif; ?>
 
+            <?php if (isset($_GET['erro_whatsapp'])): ?>
+                <div class="alert alert-danger rounded-0 small mb-4">
+                    <strong>Ops!</strong> O número de WhatsApp informado é inválido. Por favor, verifique se inseriu o DDD e o número completo.
+                </div>
+            <?php endif; ?>
+
             <?php if (isset($_GET['sucesso'])): ?>
                 <div class="alert alert-success rounded-0 small mb-4">
                     <strong>Sucesso!</strong> Seu Test Drive foi agendado. Entraremos em contato em breve.

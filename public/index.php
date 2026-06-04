@@ -128,6 +128,13 @@ switch ($pagina) {
     
     case 'processar_compra':
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Se for Compra, valida o WhatsApp antes de continuar
+            if (!validar_whatsapp($_POST['telefone'])) {
+                // WhatsApp inválido: volta pra tela do carro com erro
+                header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&erro_whatsapp=1");
+                exit;
+            }
+
             $sql = "INSERT INTO compras (nome_cliente, telefone, forma_pagamento, tem_troca, veiculo_id) 
                     VALUES (:nome, :tel, :pagamento, :troca, :id)";
             $stmt = $pdo->prepare($sql);
@@ -138,7 +145,7 @@ switch ($pagina) {
                 ':troca'     => $_POST['tem_troca'],
                 ':id'        => $_POST['veiculo_id']
             ]);
-         header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso_compra=1");
+            header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso_compra=1");
             exit;
         }
         break;

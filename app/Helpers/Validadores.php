@@ -75,6 +75,41 @@ function validar_cnh($cnh) {
     return ($dv1_informado === $dv1_calculado && $dv2_informado === $dv2_calculado);
 }
 
+/**
+ * Valida o número de WhatsApp / celular brasileiro
+ * com base no DDD e no padrão de 11 dígitos.
+ *
+ * @param string $whatsapp Número do WhatsApp/Celular
+ * @return bool True se for um número válido, False caso contrário
+ */
+function validar_whatsapp($whatsapp) {
+    // Sanitização: remove tudo que não for número
+    $whatsapp = preg_replace('/[^0-9]/', '', $whatsapp);
+
+    // Edge Case: Verifica se possui 11 dígitos (padrão celular: DDD + 9 + 8 dígitos)
+    if (strlen($whatsapp) !== 11) {
+        return false;
+    }
+
+    // Edge Case: Verifica se todos os números são iguais (ex: 11111111111)
+    if (preg_match('/^(\d)\1*$/', $whatsapp)) {
+        return false;
+    }
+
+    // Valida o DDD (primeiros dois dígitos): deve ser entre 11 e 99 (excluindo os que terminam com 0)
+    $ddd = (int) substr($whatsapp, 0, 2);
+    if ($ddd < 11 || $ddd > 99 || $ddd % 10 === 0) {
+        return false;
+    }
+
+    // Valida o nono dígito (deve ser 9 para celular brasileiro)
+    if ($whatsapp[2] !== '9') {
+        return false;
+    }
+
+    return true;
+}
+
 // ==========================================
 // Testes (Pode remover em produção se desejar)
 // ==========================================
