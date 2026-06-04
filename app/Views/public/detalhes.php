@@ -189,18 +189,10 @@ if (!$carro) {
             <h2 class="fw-bold text-uppercase" style="font-weight: 300; font-size: 2.5rem;">Descubra os <span style="font-weight: 700;">Detalhes.</span></h2>
         </div>
 
-        <div class="col-md-6 mb-5 px-lg-4">
-            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_3.png" class="img-fluid w-100 mb-4" alt="Exterior">
-            <h4 class="fw-bold text-uppercase mb-3" style="font-size: 1.2rem;">Design Exterior</h4>
-            <p class="text-muted" style="line-height: 1.8; font-weight: 300;">
-                <?= htmlspecialchars($carro->getDescricaoExterior()); ?>
-            </p>
-        </div>
-
-        <div class="col-md-6 mb-5 px-lg-4">
-            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/3.jpg" class="img-fluid w-100 mb-4" alt="Interior">
+        <div class="col-lg-8 mx-auto mb-5 px-lg-4 text-center">
+            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/3.jpg?v=<?= time(); ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" alt="Interior">
             <h4 class="fw-bold text-uppercase mb-3" style="font-size: 1.2rem;">Tecnologia e Interior</h4>
-            <p class="text-muted" style="line-height: 1.8; font-weight: 300;">
+            <p class="text-muted mx-auto" style="line-height: 1.8; font-weight: 300; max-width: 800px;">
                 <?= htmlspecialchars($carro->getDescricaoInterior()); ?>
             </p>
         </div>
