@@ -4,7 +4,7 @@ require_once '../app/Views/components/header.php';
 
 <div class="container-fluid flex-grow-1 d-flex flex-column">
     <div class="row flex-grow-1">
-        
+
         <!-- Menu Lateral Admin -->
         <div class="col-md-2 bg-body-tertiary p-4 border-end border-opacity-10">
             <h5 class="text-uppercase fw-bold mb-4 text-body-secondary" style="letter-spacing: 2px; font-size: 0.85rem;">Painel Admin</h5>
@@ -59,13 +59,13 @@ require_once '../app/Views/components/header.php';
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <?php if (!empty($listaCompras)): ?>
-                                        <?php foreach ($listaCompras as $compra): ?>
+                                    <?php if (!empty($listaPropostasCompras)): ?>
+                                        <?php foreach ($listaPropostasCompras as $compra): ?>
                                             <tr>
                                                 <td class="text-body-secondary small fw-medium"><?= date('d/m/Y H:i', strtotime($compra['data_solicitacao'])) ?></td>
                                                 <td class="fw-bold"><?= htmlspecialchars($compra['nome_cliente']) ?></td>
                                                 <td>
-                                                    <span class="text-primary fw-bold"><?= htmlspecialchars($compra['modelo']) ?></span> 
+                                                    <span class="text-primary fw-bold"><?= htmlspecialchars($compra['modelo']) ?></span>
                                                     <span class="text-body-secondary small ms-1"><?= htmlspecialchars($compra['versao']) ?></span>
                                                 </td>
                                                 <td class="text-body-secondary"><?= htmlspecialchars($compra['forma_pagamento']) ?></td>
@@ -91,7 +91,7 @@ require_once '../app/Views/components/header.php';
                                             <td colspan="7" class="text-center py-5 text-body-secondary">
                                                 <div class="d-flex flex-column align-items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-inbox text-muted mb-3" viewBox="0 0 16 16" style="opacity: 0.5;">
-                                                      <path d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm-1.17-.437A1.5 1.5 0 0 1 4.98 3h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625A.5.5 0 0 1 16 8.5V13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13V8.5a.5.5 0 0 1 .19-.437l3.7-4.625zM1 8.5v4.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5V8.5h-4.08a2.5 2.5 0 0 1-4.84 0H1z"/>
+                                                        <path d="M4.98 4a.5.5 0 0 0-.39.188L1.54 8H6a.5.5 0 0 1 .5.5 1.5 1.5 0 1 0 3 0A.5.5 0 0 1 10 8h4.46l-3.05-3.812A.5.5 0 0 0 11.02 4H4.98zm-1.17-.437A1.5 1.5 0 0 1 4.98 3h6.04a1.5 1.5 0 0 1 1.17.563l3.7 4.625A.5.5 0 0 1 16 8.5V13a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 13V8.5a.5.5 0 0 1 .19-.437l3.7-4.625zM1 8.5v4.5a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5V8.5h-4.08a2.5 2.5 0 0 1-4.84 0H1z" />
                                                     </svg>
                                                     Nenhuma proposta de compra registrada.
                                                 </div>
@@ -125,7 +125,7 @@ require_once '../app/Views/components/header.php';
                                                 <td class="text-body-secondary small fw-bold">#<?= $agenda['id'] ?></td>
                                                 <td class="fw-bold"><?= htmlspecialchars($agenda['nome_cliente']) ?></td>
                                                 <td>
-                                                    <span class="fw-bold"><?= htmlspecialchars($agenda['modelo']) ?></span> 
+                                                    <span class="fw-bold"><?= htmlspecialchars($agenda['modelo']) ?></span>
                                                     <span class="text-body-secondary small ms-1"><?= htmlspecialchars($agenda['versao']) ?></span>
                                                 </td>
                                                 <td>
@@ -145,8 +145,8 @@ require_once '../app/Views/components/header.php';
                                             <td colspan="5" class="text-center py-5 text-body-secondary">
                                                 <div class="d-flex flex-column align-items-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" fill="currentColor" class="bi bi-calendar-x text-muted mb-3" viewBox="0 0 16 16" style="opacity: 0.5;">
-                                                      <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z"/>
-                                                      <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z"/>
+                                                        <path d="M6.146 7.146a.5.5 0 0 1 .708 0L8 8.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 9l1.147 1.146a.5.5 0 0 1-.708.708L8 9.707l-1.146 1.147a.5.5 0 0 1-.708-.708L7.293 9 6.146 7.854a.5.5 0 0 1 0-.708z" />
+                                                        <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5zM1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4H1z" />
                                                     </svg>
                                                     Nenhum test drive agendado.
                                                 </div>
@@ -167,4 +167,5 @@ require_once '../app/Views/components/header.php';
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

@@ -11,8 +11,11 @@ require_once ROOT_PATH . '/app/Repository/Veiculo/VeiculoRepository.php';
 require_once ROOT_PATH . '/app/Controller/Veiculo/VeiculoController.php';
 require_once ROOT_PATH . '/app/Model/User.php';
 require_once ROOT_PATH . '/app/Repository/Users/UserRepository.php';
+require_once ROOT_PATH . '/app/Repository/Agendamento/AgendamentoRepository.php';
 require_once ROOT_PATH . '/app/Service/UserService.php';
+require_once ROOT_PATH . '/app/Service/AgendamentoService.php';
 require_once ROOT_PATH . '/app/Controller/User/UserController.php';
+require_once ROOT_PATH . '/app/Controller/Agendamentos/AgendamentosController.php';
 require_once ROOT_PATH . '/app/Helpers/Validadores.php';
 
 // Iniciar o Controller
@@ -23,6 +26,11 @@ $controller = new VeiculoController($pdo);
 $userRepository = new UserRepository($pdo);
 $userService    = new UserService($userRepository);
 $userController = new UserController($userService);
+
+// Agendamentos
+$agendamentoRepository = new AgendamentoRepository($pdo);
+$agendamentoService = new AgendamentoService($agendamentoRepository);
+$agendamentoController = new AgendamentosController($agendamentoService);
 
 // Pega qual página o usuário quer acessar da URL. Ex: index.php?pagina=admin
 // Se ele não digitar nada, a página padrão será a 'home'
@@ -133,84 +141,29 @@ switch ($pagina) {
         break;
 
     case 'agendamentos':
-        // 1. Busca os Test Drives
-        $sqlTest = "SELECT a.*, v.modelo, v.versao 
-                    FROM agendamentos a 
-                    JOIN veiculos v ON a.veiculo_id = v.id 
-                    ORDER BY a.data_interesse DESC";
-        $stmtTest = $pdo->prepare($sqlTest);
-        $stmtTest->execute();
-        $listaAgendamentos = $stmtTest->fetchAll(PDO::FETCH_ASSOC);
-
-        // 2. Busca as Propostas de Compra
-        $sqlCompra = "SELECT c.*, v.modelo, v.versao 
-                        FROM compras c 
-                        JOIN veiculos v ON c.veiculo_id = v.id 
-                        ORDER BY c.data_solicitacao DESC";
-        $stmtCompra = $pdo->prepare($sqlCompra);
-        $stmtCompra->execute();
-        $listaCompras = $stmtCompra->fetchAll(PDO::FETCH_ASSOC);
-
-        // Chama a tela do Painel passando as duas listas!
-        require_once $caminho_views . 'admin/agendamentos.php';
+        if (!estaLogado()) {
+            header('Location: ?pagina=login');
+            exit;
+        }
+        // TESTE DRIVER !
+        $agendamentoController->listar();
         break;
+
+    // ==========================================
+    // FIM DA ÁREA DO VENDEDOR (ADMIN)
+    // ==========================================
 
     // ==========================================
     // AÇÕES DO BANCO DE DADOS (Invisíveis)
     // ==========================================
 
+    // TERTE DRIVE
     case 'processar_agendamento':
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Se for Test Drive, valida a CNH antes de continuar
-            if ($_POST['tipo_agendamento'] === 'Test Drive') {
-                if (!validar_cnh($_POST['cnh'])) {
-                    // CNH inválida: volta pra tela do carro com erro
-                    header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&erro_cnh=1");
-                    exit;
-                }
-            }
-
-            // Lógica ultra rápida sem precisar criar classe nova
-            $sql = "INSERT INTO agendamentos (nome_cliente, telefone, cnh, data_interesse, tipo_agendamento, veiculo_id) 
-                    VALUES (:nome, :tel, :cnh, :data, :tipo, :id)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':nome'  => $_POST['nome_cliente'],
-                ':tel'   => $_POST['telefone'],
-                ':cnh'   => $_POST['cnh'],
-                ':data'  => $_POST['data_interesse'],
-                ':tipo'  => $_POST['tipo_agendamento'],
-                ':id'    => $_POST['veiculo_id']
-            ]);
-
-            // Redireciona de volta com uma mensagem de sucesso (opcional)
-            header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso=1");
-            exit;
-        }
+        $agendamentoController->registrarAgendamento();
         break;
 
     case 'processar_compra':
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            // Se for Compra, valida o WhatsApp antes de continuar
-            if (!validar_whatsapp($_POST['telefone'])) {
-                // WhatsApp inválido: volta pra tela do carro com erro
-                header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&erro_whatsapp=1");
-                exit;
-            }
-
-            $sql = "INSERT INTO compras (nome_cliente, telefone, forma_pagamento, tem_troca, veiculo_id) 
-                    VALUES (:nome, :tel, :pagamento, :troca, :id)";
-            $stmt = $pdo->prepare($sql);
-            $stmt->execute([
-                ':nome'      => $_POST['nome_cliente'],
-                ':tel'       => $_POST['telefone'],
-                ':pagamento' => $_POST['forma_pagamento'],
-                ':troca'     => $_POST['tem_troca'],
-                ':id'        => $_POST['veiculo_id']
-            ]);
-            header("Location: ?pagina=detalhes&id=" . $_POST['veiculo_id'] . "&sucesso_compra=1");
-            exit;
-        }
+        $agendamentoController->registrarPorpostaCompra();
         break;
 
     case 'processar_cadastro':
