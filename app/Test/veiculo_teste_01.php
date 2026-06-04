@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../Config/Root.php';
 require_once ROOT_PATH . '/app/Database/Conexao.php';
 require_once ROOT_PATH . '/app/Model/Veiculo.php';
-require_once ROOT_PATH . '/app/Repository/Veiculos/VeiculoRepository.php';
+require_once ROOT_PATH . '/app/Repository//VeiculoRepository.php';
 
 echo "<pre>"; // só pra formatar saída bonitinha
 

@@ -23,15 +23,24 @@
 
         <h2 class="login-title">AutoMotors<br><span style="font-size: 1rem; font-weight: 300;" class="text-body-secondary">Acesso Admin</span></h2>
 
-        <form action="?pagina=painel" method="POST">
+        <form action="?pagina=processar-cadastro-admin" method="POST">
             <div class="mb-3">
                 <label class="form-label text-body-secondary small fw-bold text-uppercase">Usuário</label>
-                <input type="text" class="form-control" placeholder="Digite seu usuário" required>
+                <input name="nome" type="text" class="form-control" placeholder="Digite seu usuário" required>
             </div>
 
             <div class="mb-4">
                 <label class="form-label text-body-secondary small fw-bold text-uppercase">Senha</label>
-                <input type="password" class="form-control" placeholder="••••••••" required>
+                <input name="senha" type="password" class="form-control" placeholder="••••••••" required>
+            </div>
+            <div class="mb-4">
+                <label class="form-label text-body-secondary small fw-bold text-uppercase">Confirmar Senha</label>
+                <input name="confirmar-senha" type="password" class="form-control" placeholder="••••••••" required>
+            </div>
+
+            <div class="mb-4">
+                <label class="form-label text-body-secondary small fw-bold text-uppercase">KEY</label>
+                <input name="key-user" type="text" class="form-control" placeholder="Código de cadastro" required>
             </div>
 
             <button type="submit" class="btn btn-login">Entrar no Sistema</button>

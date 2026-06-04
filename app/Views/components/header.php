@@ -37,6 +37,12 @@
                     </span>
                 </button>
                 <!-- <a href="?pagina=login" class="nav-btn">Acesso Admin</a> -->
+                <?php if (estaLogado()): ?>
+                    <div class="ms-auto">
+                        <a href="?pagina=painel" class="nav-btn">Acesso Admin</a>
+                    </div>
+                <?php endif; ?>
             </div>
+
         </div>
     </nav>
