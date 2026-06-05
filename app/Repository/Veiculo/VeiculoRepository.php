@@ -90,11 +90,11 @@ class VeiculoRepository
             $sql = "INSERT INTO veiculos (
                 modelo, versao, categoria, ano_modelo, ano_fabricacao, quilometragem,
                 motorizacao, transmissao, potencia, aceleracao, portas, combustivel,
-                cor, preco, status, pasta_fotos, descricao_exterior, descricao_interior
+                cor, preco, status, descricao_exterior, descricao_interior
             ) VALUES (
                 :modelo, :versao, :categoria, :ano_modelo, :ano_fabricacao, :quilometragem,
                 :motorizacao, :transmissao, :potencia, :aceleracao, :portas, :combustivel,
-                :cor, :preco, :status, :pasta_fotos, :descricao_exterior, :descricao_interior
+                :cor, :preco, :status, :descricao_exterior, :descricao_interior
             )";
 
             $stmt = $this->pdo->prepare($sql);
@@ -115,10 +115,11 @@ class VeiculoRepository
                 ':cor'                => $veiculo->getCor(),
                 ':preco'              => $veiculo->getPreco(),
                 ':status'             => $veiculo->getStatus(),
-                ':pasta_fotos'        => $veiculo->getPastaFoto(),
                 ':descricao_exterior' => $veiculo->getDescricaoExterior(),
                 ':descricao_interior' => $veiculo->getDescricaoInterior()
             ]);
+
+            return $this->pdo->lastInsertId();
         } catch (PDOException $e) {
             die("Erro ao cadastrar veículo: " . $e->getMessage());
         }
@@ -144,7 +145,6 @@ class VeiculoRepository
                     cor = :cor,
                     preco = :preco,
                     status = :status,
-                    pasta_fotos = :pasta_fotos,
                     descricao_exterior = :descricao_exterior,
                     descricao_interior = :descricao_interior
                 WHERE id = :id";
@@ -167,7 +167,6 @@ class VeiculoRepository
                 ':cor'                => $veiculo->getCor(),
                 ':preco'              => $veiculo->getPreco(),
                 ':status'             => $veiculo->getStatus(),
-                ':pasta_fotos'        => $veiculo->getPastaFoto(),
                 ':descricao_exterior' => $veiculo->getDescricaoExterior(),
                 ':descricao_interior' => $veiculo->getDescricaoInterior(),
                 ':id'                 => $id
@@ -189,6 +188,102 @@ class VeiculoRepository
             return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
             die("Erro ao deletar veiculo: " . $e->getMessage());
+        }
+    }
+
+    public function salvarImagem($veiculoId, $tipo, $mimeType, $dados)
+    {
+        try {
+            // Se for foto_1 ou foto_2, limitamos a uma imagem por veículo.
+            // Para outras (galeria/interior), permitimos múltiplos registros.
+            if ($tipo === 'foto_1' || $tipo === 'foto_2') {
+                $sqlCheck = "SELECT id FROM veiculo_imagens WHERE veiculo_id = :veiculo_id AND tipo = :tipo";
+                $stmtCheck = $this->pdo->prepare($sqlCheck);
+                $stmtCheck->execute([
+                    ':veiculo_id' => $veiculoId,
+                    ':tipo'       => $tipo
+                ]);
+                $idExistente = $stmtCheck->fetchColumn();
+
+                if ($idExistente) {
+                    $sqlUpdate = "UPDATE veiculo_imagens SET mime_type = :mime_type, dados = :dados WHERE id = :id";
+                    $stmtUpdate = $this->pdo->prepare($sqlUpdate);
+                    $stmtUpdate->execute([
+                        ':mime_type' => $mimeType,
+                        ':dados'     => $dados,
+                        ':id'        => $idExistente
+                    ]);
+                    return true;
+                }
+            }
+
+            $sqlInsert = "INSERT INTO veiculo_imagens (veiculo_id, tipo, mime_type, dados) VALUES (:veiculo_id, :tipo, :mime_type, :dados)";
+            $stmtInsert = $this->pdo->prepare($sqlInsert);
+            $stmtInsert->execute([
+                ':veiculo_id' => $veiculoId,
+                ':tipo'       => $tipo,
+                ':mime_type'  => $mimeType,
+                ':dados'      => $dados
+            ]);
+            return true;
+        } catch (PDOException $e) {
+            die("Erro ao salvar imagem no banco: " . $e->getMessage());
+        }
+    }
+
+    public function obterImagem($veiculoId, $tipo)
+    {
+        try {
+            // Retorna o primeiro registro encontrado
+            $sql = "SELECT mime_type, dados FROM veiculo_imagens WHERE veiculo_id = :veiculo_id AND tipo = :tipo ORDER BY id ASC LIMIT 1";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':veiculo_id' => $veiculoId,
+                ':tipo'       => $tipo
+            ]);
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $dados ? $dados : null;
+        } catch (PDOException $e) {
+            die("Erro ao buscar imagem no banco: " . $e->getMessage());
+        }
+    }
+
+    public function obterImagemPorId($id)
+    {
+        try {
+            $sql = "SELECT mime_type, dados FROM veiculo_imagens WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([':id' => $id]);
+            $dados = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $dados ? $dados : null;
+        } catch (PDOException $e) {
+            die("Erro ao buscar imagem por ID no banco: " . $e->getMessage());
+        }
+    }
+
+    public function listarImagensPorVeiculoETipo($veiculoId, $tipo)
+    {
+        try {
+            $sql = "SELECT id, mime_type FROM veiculo_imagens WHERE veiculo_id = :veiculo_id AND tipo = :tipo ORDER BY id ASC";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute([
+                ':veiculo_id' => $veiculoId,
+                ':tipo'       => $tipo
+            ]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Erro ao listar imagens no banco: " . $e->getMessage());
+        }
+    }
+
+    public function deletarImagem($id)
+    {
+        try {
+            $sql = "DELETE FROM veiculo_imagens WHERE id = :id";
+            $stmt = $this->pdo->prepare($sql);
+            return $stmt->execute([':id' => $id]);
+        } catch (PDOException $e) {
+            die("Erro ao deletar imagem no banco: " . $e->getMessage());
         }
     }
 }

@@ -6,6 +6,9 @@ $carro = null;
 if ($id) {
     // 2. Busca o carro no banco de dados usando o Controller já instanciado no index.php
     $carro = $controller->buscarPorId($id);
+    if ($carro) {
+        $imagensGaleria = $controller->listarImagensPorVeiculoETipo($carro->getId(), 'foto_3');
+    }
 }
 
 // Se não achar o carro ou tentarem acessar sem ID, volta pro painel
@@ -53,7 +56,7 @@ require_once '../app/Views/components/header.php';
             <div class="row">
                 <div class="col-12">
                     <div class="form-card">
-                        <form action="?pagina=processar_edicao" method="POST">
+                        <form action="?pagina=processar_edicao" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="id" value="<?= $carro->getId(); ?>">
 
                             <h4 class="admin-section-title">Informações Principais</h4>
@@ -134,9 +137,42 @@ require_once '../app/Views/components/header.php';
 
                             <h4 class="admin-section-title">Mídia e Textos</h4>
                             <div class="row g-3">
-                                <div class="col-md-12">
-                                    <label class="form-label">Nome da Pasta de Fotos</label>
-                                    <input type="text" name="pasta_fotos" class="form-control" value="<?= htmlspecialchars($carro->getPastaFoto()); ?>" required>
+                                <div class="col-md-4">
+                                    <label class="form-label">Imagem de Vitrine (Catálogo)</label>
+                                    <input type="file" name="foto_1" class="form-control" accept="image/*">
+                                    <div class="mt-2 text-center">
+                                        <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_1" class="img-thumbnail" style="max-height: 100px;">
+                                        <div class="text-muted small">Atual</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Banner Principal (Página do Veículo)</label>
+                                    <input type="file" name="foto_2" class="form-control" accept="image/*">
+                                    <div class="mt-2 text-center">
+                                        <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_2" class="img-thumbnail" style="max-height: 100px;">
+                                        <div class="text-muted small">Atual</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Fotos do Carrossel</label>
+                                    <input type="file" name="foto_3[]" class="form-control" accept="image/*" multiple>
+                                    <div class="mt-3">
+                                        <div class="text-muted small mb-2">Imagens Atuais na Galeria:</div>
+                                        <?php if (!empty($imagensGaleria)): ?>
+                                            <div class="d-flex flex-wrap gap-2 justify-content-center bg-body-tertiary p-2 border border-opacity-10 rounded">
+                                                <?php foreach ($imagensGaleria as $img): ?>
+                                                    <div class="position-relative text-center border p-1 rounded bg-body" style="width: 80px;">
+                                                        <img src="?pagina=obter_imagem_por_id&id=<?= $img['id']; ?>" class="img-fluid rounded" style="height: 50px; object-fit: cover; width: 100%;">
+                                                        <a href="?pagina=deletar_imagem&id=<?= $img['id']; ?>&veiculo_id=<?= $carro->getId(); ?>" class="btn btn-danger btn-sm py-0 px-1 position-absolute top-0 end-0 rounded-circle shadow-sm" style="font-size: 0.7rem; transform: translate(30%, -30%);" onclick="return confirm('Tem certeza que deseja excluir esta foto da galeria?')" title="Excluir imagem">
+                                                            &times;
+                                                        </a>
+                                                    </div>
+                                                <?php endforeach; ?>
+                                            </div>
+                                        <?php else: ?>
+                                            <p class="text-muted small text-center mb-0">Nenhuma imagem cadastrada.</p>
+                                        <?php endif; ?>
+                                    </div>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Descrição Exterior</label>

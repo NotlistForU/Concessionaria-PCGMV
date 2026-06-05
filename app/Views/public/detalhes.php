@@ -8,6 +8,9 @@ $carro = null;
 if ($id) {
     // Busca o carro no banco de dados!
     $carro = $controller->buscarPorId($id);
+    if ($carro) {
+        $imagensGaleria = $controller->listarImagensPorVeiculoETipo($carro->getId(), 'foto_3');
+    }
 }
 
 // Se o usuário digitou um ID que não existe ou apagou da URL
@@ -26,7 +29,7 @@ if (!$carro) {
     <div class="row align-items-center mb-5">
 
         <div class="col-lg-7 text-center mb-4 mb-lg-0">
-            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_2.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="img-fluid w-100" style="object-fit: cover;">
+            <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_2" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="img-fluid w-100" style="object-fit: cover;">
         </div>
 
         <div class="col-lg-5 px-lg-5">
@@ -190,7 +193,53 @@ if (!$carro) {
         </div>
 
         <div class="col-lg-8 mx-auto mb-5 px-lg-4 text-center">
-            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/3.jpg?v=<?= time(); ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" alt="Interior">
+            <?php if (!empty($imagensGaleria)): ?>
+                <?php if (count($imagensGaleria) > 1): ?>
+                    <div id="carouselDetalhes" class="carousel slide carousel-fade shadow-lg rounded mb-4 overflow-hidden" data-bs-ride="carousel" style="max-height: 500px;">
+                        <div class="carousel-indicators" style="bottom: 15px;">
+                            <?php foreach ($imagensGaleria as $index => $img): ?>
+                                <button type="button" data-bs-target="#carouselDetalhes" data-bs-slide-to="<?= $index; ?>" class="<?= $index === 0 ? 'active' : ''; ?>" aria-current="<?= $index === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?= $index + 1; ?>" style="width: 10px; height: 10px; border-radius: 50%; margin: 0 5px; background-color: #ffffff; opacity: <?= $index === 0 ? '1' : '0.5'; ?>; border: none; transition: opacity 0.3s ease;"></button>
+                            <?php endforeach; ?>
+                        </div>
+                        <div class="carousel-inner" style="height: 100%; max-height: 500px;">
+                            <?php foreach ($imagensGaleria as $index => $img): ?>
+                                <div class="carousel-item <?= $index === 0 ? 'active' : ''; ?>" style="height: 500px; background-color: #121212;">
+                                    <img src="?pagina=obter_imagem_por_id&id=<?= $img['id']; ?>" class="d-block w-100 h-100" style="object-fit: cover;" alt="Interior Veículo - Slide <?= $index + 1; ?>">
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#carouselDetalhes" data-bs-slide="prev" style="width: 10%; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <span class="carousel-control-prev-icon-custom d-flex align-items-center justify-content-center" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50%; width: 45px; height: 45px; transition: all 0.3s ease; color: #ffffff;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                  <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#carouselDetalhes" data-bs-slide="next" style="width: 10%; filter: drop-shadow(0px 2px 4px rgba(0,0,0,0.3));">
+                            <span class="carousel-control-next-icon-custom d-flex align-items-center justify-content-center" style="background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.25); border-radius: 50%; width: 45px; height: 45px; transition: all 0.3s ease; color: #ffffff;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                  <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z"/>
+                                </svg>
+                            </span>
+                        </button>
+                    </div>
+                    <style>
+                        .carousel-control-prev:hover .carousel-control-prev-icon-custom,
+                        .carousel-control-next:hover .carousel-control-next-icon-custom {
+                            background: rgba(255, 255, 255, 0.35) !important;
+                            transform: scale(1.1);
+                        }
+                        .carousel-indicators button:hover {
+                            opacity: 0.8 !important;
+                        }
+                    </style>
+                <?php else: ?>
+                    <img src="?pagina=obter_imagem_por_id&id=<?= $imagensGaleria[0]['id']; ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
+                <?php endif; ?>
+            <?php else: ?>
+                <!-- Fallback antigo caso não haja imagens com obter_imagem -->
+                <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_3" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
+            <?php endif; ?>
             <h4 class="fw-bold text-uppercase mb-3" style="font-size: 1.2rem;">Tecnologia e Interior</h4>
             <p class="text-muted mx-auto" style="line-height: 1.8; font-weight: 300; max-width: 800px;">
                 <?= htmlspecialchars($carro->getDescricaoInterior()); ?>

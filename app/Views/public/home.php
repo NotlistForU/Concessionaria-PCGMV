@@ -38,7 +38,7 @@ $destaques = array_slice($todosOsCarros, 0, 4);
                     <div class="row align-items-center <?= $direcao_linha; ?>">
 
                         <div class="col-lg-8 mb-4 mb-lg-0">
-                            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="w-100 shadow-sm" style="object-fit: cover; height: 500px;">
+                            <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_1" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="w-100 shadow-sm" style="object-fit: cover; height: 500px;">
                         </div>
 
                         <div class="col-lg-4 px-lg-5">

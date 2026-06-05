@@ -58,7 +58,7 @@ require_once '../app/Views/components/header.php';
                                         <td class="text-body-secondary small fw-bold">#<?= str_pad($carro->getId(), 3, '0', STR_PAD_LEFT); ?></td>
                                         
                                         <td>
-                                            <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" class="img-thumbnail-car">
+                                            <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_1" class="img-thumbnail-car">
                                         </td>
                                         
                                         <td>

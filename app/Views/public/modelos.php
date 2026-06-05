@@ -99,14 +99,14 @@ $listaDeCarros = $controller->listar();
                 ?>
                         <div class="col-md-6 col-xl-4">
                             <div class="card car-card" onclick="window.location.href='?pagina=detalhes&id=<?= $carro->getId(); ?>'" style="cursor: pointer;">
-                                <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()); ?>/foto_1.png" alt="<?= htmlspecialchars($carro->getModelo()); ?>">
+                                <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_1" alt="<?= htmlspecialchars($carro->getModelo()); ?>">
 
                                 <div class="card-body">
                                     <h5 class="card-title"><?= htmlspecialchars($carro->getModelo()); ?></h5>
                                     <p class="card-text text-muted mb-1"><?= htmlspecialchars($carro->getVersao()); ?></p>
                                     <p class="card-text fw-bold">R$ <?= number_format($carro->getPreco(), 2, ',', '.'); ?></p>
 
-                                    <a href="?pagina=detalhes&id=<?= $carro->getId(); ?>" class="btn-link-custom">Configurar &gt;</a>
+                                    <a href="?pagina=detalhes&id=<?= $carro->getId(); ?>" class="btn-link-custom">Saiba mais &gt;</a>
                                 </div>
                             </div>
                         </div>

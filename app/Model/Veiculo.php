@@ -19,7 +19,6 @@ class Veiculo
     private ?string $descricaoExterior;
     private ?string $descricaoInterior;
     private ?float $preco;
-    private ?string $pastaFoto;
     private ?string $status;
     public function __construct($dados = [])
     {
@@ -44,14 +43,13 @@ class Veiculo
                 $this->cor = $dados['cor'] ?? null;
                 $this->descricaoExterior = $dados['descricao_exterior'] ?? null;
                 $this->descricaoInterior = $dados['descricao_interior'] ?? null;
-                $this->pastaFoto = $dados['pasta_fotos'] ?? null;
                 $this->status = $dados['status'] ?? 'Disponível';
             }
         }
     }
     public function print(): void
     {
-        print($this->getPastaFoto());
+        print($this->getModelo());
     }
     // =====================
     // GETTERS
@@ -124,10 +122,6 @@ class Veiculo
     public function getPreco(): ?float
     {
         return $this->preco;
-    }
-    public function getPastaFoto(): ?string
-    {
-        return $this->pastaFoto;
     }
     public function getStatus(): ?string
     {
@@ -229,10 +223,6 @@ class Veiculo
         $this->descricaoInterior = $descricaoInterior;
     }
 
-    public function setpastaFoto($url)
-    {
-        $this->pastaFoto = $url;
-    }
     public function setStatus($status)
     {
         $this->status = $status;
@@ -263,7 +253,6 @@ class Veiculo
             'descricao_exterior' => $this->descricaoExterior,
             'descricao_interior' => $this->descricaoInterior,
             'preco' => $this->preco,
-            'pasta_fotos' => $this->pastaFoto,
         ];
     }
 }

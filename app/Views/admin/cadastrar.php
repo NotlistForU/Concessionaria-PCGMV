@@ -36,7 +36,7 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-card">
-                        <form action="?pagina=processar_cadastro" method="POST">
+                        <form action="?pagina=processar_cadastro" method="POST" enctype="multipart/form-data">
 
                             <h4 class="admin-section-title">Informações Principais</h4>
                             <div class="row g-3">
@@ -116,9 +116,17 @@
 
                             <h4 class="admin-section-title">Mídia e Textos</h4>
                             <div class="row g-3">
-                                <div class="col-md-12">
-                                    <label class="form-label">Nome da Pasta de Fotos</label>
-                                    <input type="text" name="pasta_fotos" class="form-control" placeholder="Ex: serie_3" required>
+                                <div class="col-md-4">
+                                    <label class="form-label">Imagem de Vitrine (Catálogo)</label>
+                                    <input type="file" name="foto_1" class="form-control" accept="image/*" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Banner Principal (Página do Veículo)</label>
+                                    <input type="file" name="foto_2" class="form-control" accept="image/*" required>
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label">Fotos do Carrossel</label>
+                                    <input type="file" name="foto_3[]" class="form-control" accept="image/*" multiple required>
                                 </div>
                                 <div class="col-md-6">
                                     <label class="form-label">Descrição Exterior</label>

@@ -21,7 +21,7 @@ require_once '../app/Views/components/header.php';
             <div class="row car-showcase align-items-center <?= ($index % 2 !== 0) ? 'flex-row-reverse' : '' ?>">
                 
                 <div class="col-lg-7 mb-5 mb-lg-0">
-                    <img src="assets/img/<?= htmlspecialchars($carro->getPastaFoto()) ?>/foto_2.png" alt="<?= htmlspecialchars($carro->getModelo()) ?>" class="img-fluid w-100 img-luxury">
+                    <img src="?pagina=obter_imagem&id=<?= $carro->getId() ?>&tipo=foto_2" alt="<?= htmlspecialchars($carro->getModelo()) ?>" class="img-fluid w-100 img-luxury">
                 </div>
                 
                 <div class="col-lg-5 <?= ($index % 2 !== 0) ? 'pe-lg-5 text-end' : 'ps-lg-5' ?>">
