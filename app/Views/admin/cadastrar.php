@@ -2,7 +2,7 @@
 
 <div class="container-fluid flex-grow-1 d-flex flex-column">
     <div class="row flex-grow-1">
-        
+
         <!-- Menu Lateral Admin -->
         <div class="col-md-2 bg-body-tertiary p-4 border-end border-opacity-10">
             <h5 class="text-uppercase fw-bold mb-4 text-body-secondary" style="letter-spacing: 2px; font-size: 0.85rem;">Painel Admin</h5>
@@ -42,15 +42,19 @@
                             <div class="row g-3">
                                 <div class="col-md-4">
                                     <label class="form-label">Modelo</label>
-                                    <input type="text" name="modelo" class="form-control" placeholder="Ex: Série 3" required>
+                                    <select name="modelo" class="form-control" required>
+                                        <option value="">Selecione um modelo</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Versão</label>
-                                    <input type="text" name="versao" class="form-control" placeholder="Ex: 320i M Sport" required>
+                                    <select type="text" name="versao" class="form-control" required>
+                                        <option value="">Selecione uma versão</option>
+                                    </select>
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Categoria</label>
-                                    <input type="text" name="categoria" class="form-control" placeholder="Ex: Sedan Esportivo" required>
+                                    <input type="text" name="categoria" class="form-control" required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Ano Modelo</label>
@@ -77,28 +81,24 @@
                             <div class="row g-3">
                                 <div class="col-md-3">
                                     <label class="form-label">Motorização</label>
-                                    <input type="text" name="motorizacao" class="form-control" placeholder="Ex: 2.0 Turbo" required>
+                                    <input type="text" name="motorizacao" class="form-control" placeholder="Selecione Modelo e versão" readonly required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Potência / Torque</label>
-                                    <input type="text" name="potencia" class="form-control" placeholder="Ex: 184 cv / 30,6 kgfm" required>
+                                    <input type="text" name="potencia" class="form-control" placeholder="Selecione Modelo e versão" readonly required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Aceleração (0-100)</label>
-                                    <input type="text" name="aceleracao" class="form-control" placeholder="Ex: 7,1 s" required>
+                                    <input type="text" name="aceleracao" class="form-control" placeholder="Selecione Modelo e versão" readonly required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Transmissão</label>
-                                    <input type="text" name="transmissao" class="form-control" placeholder="Ex: Automático 8 marchas" required>
+                                    <input type="text" name="transmissao" class="form-control" placeholder="Selecione Modelo e versão" readonly required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Combustível</label>
-                                    <select name="combustivel" class="form-select">
-                                        <option value="Gasolina">Gasolina</option>
-                                        <option value="Híbrido">Híbrido</option>
-                                        <option value="Elétrico">Elétrico</option>
-                                        <option value="Diesel">Diesel</option>
-                                    </select>
+                                    <input name="combustivel" class="form-select" placeholder="Selecione Modelo e versão" readonly>
+
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Quilometragem</label>
@@ -106,7 +106,7 @@
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Portas</label>
-                                    <input type="number" name="portas" class="form-control" value="4" required>
+                                    <input type="number" name="portas" class="form-control" value="4" min="2" max="4" required>
                                 </div>
                                 <div class="col-md-3">
                                     <label class="form-label">Cor Externa</label>
@@ -128,10 +128,7 @@
                                     <label class="form-label">Fotos do Carrossel</label>
                                     <input type="file" name="foto_3[]" class="form-control" accept="image/*" multiple required>
                                 </div>
-                                <div class="col-md-6">
-                                    <label class="form-label">Descrição Exterior</label>
-                                    <textarea name="descricao_exterior" class="form-control" rows="4" placeholder="Descreva o design exterior do veículo..." required></textarea>
-                                </div>
+
                                 <div class="col-md-6">
                                     <label class="form-label">Descrição Interior / Tecnologia</label>
                                     <textarea name="descricao_interior" class="form-control" rows="4" placeholder="Descreva o interior e as tecnologias..." required></textarea>
@@ -153,5 +150,7 @@
 </div>
 
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/cadastro-veiculo.js"></script>
 </body>
+
 </html>
