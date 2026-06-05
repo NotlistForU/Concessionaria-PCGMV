@@ -29,7 +29,8 @@ if (!$carro) {
     <div class="row align-items-center mb-5">
 
         <div class="col-lg-7 text-center mb-4 mb-lg-0">
-            <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_2" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="img-fluid w-100" style="object-fit: cover;">
+            <?php $img2 = $controller->obterImagemPorVeiculoETipo($carro->getId(), 'foto_2'); ?>
+            <img src="<?= $img2 ? htmlspecialchars($img2['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="img-fluid w-100" style="object-fit: cover;">
         </div>
 
         <div class="col-lg-5 px-lg-5">
@@ -37,6 +38,10 @@ if (!$carro) {
 
             <h1 class="display-4 fw-bold mb-1 text-uppercase text-body-emphasis"><?= htmlspecialchars($carro->getModelo()); ?></h1>
             <h3 class="fw-light mb-4 text-uppercase text-body-secondary" style="font-size: 1.5rem;"><?= htmlspecialchars($carro->getVersao()); ?></h3>
+
+            <p class="text-muted mb-4" style="line-height: 1.6; font-weight: 300; font-size: 1.05rem;">
+                <?= htmlspecialchars($carro->getDescricaoExterior()); ?>
+            </p>
 
             <div class="row text-center mb-4 g-3">
                 <div class="col-4 border-end">
@@ -192,6 +197,7 @@ if (!$carro) {
             <h2 class="fw-bold text-uppercase" style="font-weight: 300; font-size: 2.5rem;">Descubra os <span style="font-weight: 700;">Detalhes.</span></h2>
         </div>
 
+        <!-- Tecnologia e Interior (Carrossel) -->
         <div class="col-lg-8 mx-auto mb-5 px-lg-4 text-center">
             <?php if (!empty($imagensGaleria)): ?>
                 <?php if (count($imagensGaleria) > 1): ?>
@@ -204,7 +210,7 @@ if (!$carro) {
                         <div class="carousel-inner" style="height: 100%; max-height: 500px;">
                             <?php foreach ($imagensGaleria as $index => $img): ?>
                                 <div class="carousel-item <?= $index === 0 ? 'active' : ''; ?>" style="height: 500px; background-color: #121212;">
-                                    <img src="?pagina=obter_imagem_por_id&id=<?= $img['id']; ?>" class="d-block w-100 h-100" style="object-fit: cover;" alt="Interior Veículo - Slide <?= $index + 1; ?>">
+                                    <img src="<?= htmlspecialchars($img['caminho_arquivo']); ?>" class="d-block w-100 h-100" style="object-fit: cover;" alt="Interior Veículo - Slide <?= $index + 1; ?>">
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -234,11 +240,12 @@ if (!$carro) {
                         }
                     </style>
                 <?php else: ?>
-                    <img src="?pagina=obter_imagem_por_id&id=<?= $imagensGaleria[0]['id']; ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
+                    <img src="<?= htmlspecialchars($imagensGaleria[0]['caminho_arquivo']); ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
                 <?php endif; ?>
             <?php else: ?>
-                <!-- Fallback antigo caso não haja imagens com obter_imagem -->
-                <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_3" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
+                <!-- Fallback antigo caso não haja imagens -->
+                <?php $img3 = $controller->obterImagemPorVeiculoETipo($carro->getId(), 'foto_3'); ?>
+                <img src="<?= $img3 ? htmlspecialchars($img3['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
             <?php endif; ?>
             <h4 class="fw-bold text-uppercase mb-3" style="font-size: 1.2rem;">Tecnologia e Interior</h4>
             <p class="text-muted mx-auto" style="line-height: 1.8; font-weight: 300; max-width: 800px;">

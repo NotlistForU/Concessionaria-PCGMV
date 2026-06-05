@@ -116,3 +116,26 @@ function validar_whatsapp($whatsapp) {
 // var_dump(validar_cnh("12345678912")); // Teste: Falso (Dígitos incorretos)
 // var_dump(validar_cnh("111.111.111-11")); // Teste: Falso (Formato inválido / Todos iguais)
 // var_dump(validar_cnh("04432168936")); // Teste: Verdadeiro (CNH Válida, gerada para teste)
+
+/**
+ * Converte um texto em um slug amigável para URLs e nomes de arquivos.
+ * Remove acentos, caracteres especiais, substitui espaços por hifens e passa para minúsculo.
+ *
+ * @param string $text
+ * @return string
+ */
+function slugify($text) {
+    // Substitui acentos por caracteres normais
+    $text = preg_replace('~[^\pL\d]+~u', '-', $text);
+    // Translitera
+    $text = iconv('utf-8', 'us-ascii//TRANSLIT', $text);
+    // Remove tudo que não for alfanumérico ou hifen
+    $text = preg_replace('~[^-\w]+~', '', $text);
+    // Remove hifens duplicados e extremidades
+    $text = trim($text, '-');
+    $text = preg_replace('~-+~', '-', $text);
+    // Minúsculo
+    $text = strtolower($text);
+
+    return empty($text) ? 'veiculo' : $text;
+}

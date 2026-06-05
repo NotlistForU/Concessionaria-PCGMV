@@ -208,47 +208,26 @@ switch ($pagina) {
         exit;
         break;
 
-    case 'obter_imagem':
-        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-        $tipo = isset($_GET['tipo']) ? $_GET['tipo'] : 'foto_1';
-        $imagem = $controller->obterImagemPorVeiculoETipo($id, $tipo);
-        if ($imagem) {
-            header("Content-Type: " . $imagem['mime_type']);
-            header("Content-Length: " . strlen($imagem['dados']));
-            header("Cache-Control: public, max-age=86400");
-            echo $imagem['dados'];
-            exit;
-        }
-        header("HTTP/1.0 404 Not Found");
-        exit;
-        break;
 
-    case 'obter_imagem_por_id':
-        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
-        $imagem = $controller->obterImagemPorId($id);
-        if ($imagem) {
-            header("Content-Type: " . $imagem['mime_type']);
-            header("Content-Length: " . strlen($imagem['dados']));
-            header("Cache-Control: public, max-age=86400");
-            echo $imagem['dados'];
-            exit;
-        }
-        header("HTTP/1.0 404 Not Found");
-        exit;
-        break;
 
     case 'deletar_imagem':
         if (!estaLogado()) {
             header('Location: ?pagina=login');
             exit;
         }
-        $id = isset($_GET['id']) ? (int)$_GET['id'] : null;
+        $id         = isset($_GET['id'])         ? (int)$_GET['id']         : null;
         $veiculo_id = isset($_GET['veiculo_id']) ? (int)$_GET['veiculo_id'] : null;
+        $tipo_foto  = isset($_GET['tipo'])       ? $_GET['tipo']             : null;
         if ($id) {
             $controller->deletarImagem($id);
         }
         if ($veiculo_id) {
-            header("Location: ?pagina=editar&id=" . $veiculo_id);
+            $redirect = "?pagina=editar&id=" . $veiculo_id;
+            // Se era foto_1 ou foto_2, avisa a página de edição para exigir nova imagem
+            if ($tipo_foto === 'foto_1' || $tipo_foto === 'foto_2') {
+                $redirect .= "&foto_removida=" . urlencode($tipo_foto);
+            }
+            header("Location: " . $redirect);
         } else {
             header("Location: ?pagina=painel");
         }

@@ -17,24 +17,57 @@ class VeiculoController
             $veiculoId = $this->rep->cadastrar($veiculo);
             
             // Trata o upload das fotos (foto_1 e foto_2 únicos, foto_3 múltiplo para galeria/interior)
+            $slug = slugify($veiculo->getModelo());
             foreach (['foto_1', 'foto_2', 'foto_3'] as $tipo) {
                 if (isset($_FILES[$tipo])) {
                     if (is_array($_FILES[$tipo]['name'])) {
                         // Multiplos uploads (foto_3 galeria)
                         $count = count($_FILES[$tipo]['name']);
+                        $imagensExistentes = $this->rep->listarImagensPorVeiculoETipo($veiculoId, $tipo);
+                        $proximoNumero = count($imagensExistentes) + 1;
+
                         for ($i = 0; $i < $count; $i++) {
                             if ($_FILES[$tipo]['error'][$i] === UPLOAD_ERR_OK) {
-                                $dados = file_get_contents($_FILES[$tipo]['tmp_name'][$i]);
+                                $tmpName = $_FILES[$tipo]['tmp_name'][$i];
+                                $originalName = $_FILES[$tipo]['name'][$i];
                                 $mimeType = $_FILES[$tipo]['type'][$i];
-                                $this->rep->salvarImagem($veiculoId, $tipo, $mimeType, $dados);
+                                
+                                $ext = pathinfo($originalName, PATHINFO_EXTENSION) ?: 'jpg';
+                                
+                                // Nome do arquivo amigável SEO: slug-id-carrossel-num.ext
+                                $filename = "{$slug}-{$veiculoId}-carrossel-{$proximoNumero}.{$ext}";
+                                $caminhoFisico = ROOT_PATH . '/public/uploads/' . $filename;
+                                $caminhoBanco = 'uploads/' . $filename;
+
+                                if (move_uploaded_file($tmpName, $caminhoFisico)) {
+                                    $this->rep->salvarImagem($veiculoId, $tipo, $mimeType, $caminhoBanco);
+                                    $proximoNumero++;
+                                }
                             }
                         }
                     } else {
                         // Upload único
                         if ($_FILES[$tipo]['error'] === UPLOAD_ERR_OK) {
-                            $dados = file_get_contents($_FILES[$tipo]['tmp_name']);
+                            $tmpName = $_FILES[$tipo]['tmp_name'];
+                            $originalName = $_FILES[$tipo]['name'];
                             $mimeType = $_FILES[$tipo]['type'];
-                            $this->rep->salvarImagem($veiculoId, $tipo, $mimeType, $dados);
+
+                            $ext = pathinfo($originalName, PATHINFO_EXTENSION) ?: 'jpg';
+                            
+                            if ($tipo === 'foto_1') {
+                                $filename = "{$slug}-{$veiculoId}-vitrine.{$ext}";
+                            } elseif ($tipo === 'foto_2') {
+                                $filename = "{$slug}-{$veiculoId}-banner.{$ext}";
+                            } else {
+                                $filename = "{$slug}-{$veiculoId}-carrossel-1.{$ext}";
+                            }
+
+                            $caminhoFisico = ROOT_PATH . '/public/uploads/' . $filename;
+                            $caminhoBanco = 'uploads/' . $filename;
+
+                            if (move_uploaded_file($tmpName, $caminhoFisico)) {
+                                $this->rep->salvarImagem($veiculoId, $tipo, $mimeType, $caminhoBanco);
+                            }
                         }
                     }
                 }
@@ -81,24 +114,57 @@ class VeiculoController
             $this->rep->atualizar($id, $veiculo);
             
             // Trata o upload das fotos enviadas na edição (foto_1 e foto_2 únicos, foto_3 múltiplo)
+            $slug = slugify($veiculo->getModelo());
             foreach (['foto_1', 'foto_2', 'foto_3'] as $tipo) {
                 if (isset($_FILES[$tipo])) {
                     if (is_array($_FILES[$tipo]['name'])) {
                         // Multiplos uploads (foto_3 galeria)
                         $count = count($_FILES[$tipo]['name']);
+                        $imagensExistentes = $this->rep->listarImagensPorVeiculoETipo($id, $tipo);
+                        $proximoNumero = count($imagensExistentes) + 1;
+
                         for ($i = 0; $i < $count; $i++) {
                             if ($_FILES[$tipo]['error'][$i] === UPLOAD_ERR_OK) {
-                                $dados = file_get_contents($_FILES[$tipo]['tmp_name'][$i]);
+                                $tmpName = $_FILES[$tipo]['tmp_name'][$i];
+                                $originalName = $_FILES[$tipo]['name'][$i];
                                 $mimeType = $_FILES[$tipo]['type'][$i];
-                                $this->rep->salvarImagem($id, $tipo, $mimeType, $dados);
+                                
+                                $ext = pathinfo($originalName, PATHINFO_EXTENSION) ?: 'jpg';
+                                
+                                // Nome do arquivo amigável SEO: slug-id-carrossel-num.ext
+                                $filename = "{$slug}-{$id}-carrossel-{$proximoNumero}.{$ext}";
+                                $caminhoFisico = ROOT_PATH . '/public/uploads/' . $filename;
+                                $caminhoBanco = 'uploads/' . $filename;
+
+                                if (move_uploaded_file($tmpName, $caminhoFisico)) {
+                                    $this->rep->salvarImagem($id, $tipo, $mimeType, $caminhoBanco);
+                                    $proximoNumero++;
+                                }
                             }
                         }
                     } else {
                         // Upload único
                         if ($_FILES[$tipo]['error'] === UPLOAD_ERR_OK) {
-                            $dados = file_get_contents($_FILES[$tipo]['tmp_name']);
+                            $tmpName = $_FILES[$tipo]['tmp_name'];
+                            $originalName = $_FILES[$tipo]['name'];
                             $mimeType = $_FILES[$tipo]['type'];
-                            $this->rep->salvarImagem($id, $tipo, $mimeType, $dados);
+
+                            $ext = pathinfo($originalName, PATHINFO_EXTENSION) ?: 'jpg';
+                            
+                            if ($tipo === 'foto_1') {
+                                $filename = "{$slug}-{$id}-vitrine.{$ext}";
+                            } elseif ($tipo === 'foto_2') {
+                                $filename = "{$slug}-{$id}-banner.{$ext}";
+                            } else {
+                                $filename = "{$slug}-{$id}-carrossel-1.{$ext}";
+                            }
+
+                            $caminhoFisico = ROOT_PATH . '/public/uploads/' . $filename;
+                            $caminhoBanco = 'uploads/' . $filename;
+
+                            if (move_uploaded_file($tmpName, $caminhoFisico)) {
+                                $this->rep->salvarImagem($id, $tipo, $mimeType, $caminhoBanco);
+                            }
                         }
                     }
                 }

@@ -60,7 +60,7 @@ CREATE TABLE veiculo_imagens (
     veiculo_id INT NOT NULL,
     tipo VARCHAR(50) NOT NULL, -- 'foto_1' (capa/lista), 'foto_2' (banner), 'foto_3' (interior)
     mime_type VARCHAR(100) NOT NULL,
-    dados LONGBLOB NOT NULL,
+    caminho_arquivo VARCHAR(255) NOT NULL,
     FOREIGN KEY (veiculo_id) REFERENCES veiculos(id) ON DELETE CASCADE,
     INDEX idx_veiculo_id (veiculo_id)
 );

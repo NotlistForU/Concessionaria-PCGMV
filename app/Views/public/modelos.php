@@ -99,7 +99,8 @@ $listaDeCarros = $controller->listar();
                 ?>
                         <div class="col-md-6 col-xl-4">
                             <div class="card car-card" onclick="window.location.href='?pagina=detalhes&id=<?= $carro->getId(); ?>'" style="cursor: pointer;">
-                                <img src="?pagina=obter_imagem&id=<?= $carro->getId(); ?>&tipo=foto_1" alt="<?= htmlspecialchars($carro->getModelo()); ?>">
+                                <?php $img1 = $controller->obterImagemPorVeiculoETipo($carro->getId(), 'foto_1'); ?>
+                                <img src="<?= $img1 ? htmlspecialchars($img1['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" alt="<?= htmlspecialchars($carro->getModelo()); ?>">
 
                                 <div class="card-body">
                                     <h5 class="card-title"><?= htmlspecialchars($carro->getModelo()); ?></h5>
