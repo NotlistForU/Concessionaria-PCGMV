@@ -37,7 +37,7 @@
 
         <div class="row align-items-center text-body-secondary small">
             <div class="col-md-4 text-center text-md-start mb-3 mb-md-0">
-                &copy; 2026 AUTOMOTORS. Todos os direitos reservados.
+                &copy; 2026 <a href="?pagina=login" class="text-body-secondary text-decoration-none" style="cursor: default; color: inherit;">AUTOMOTORS</a>. Todos os direitos reservados.
             </div>
             <div class="col-md-4 text-center mb-3 mb-md-0 fw-bold">
                 <a href="?pagina=termos-de-uso" class="text-body-secondary text-decoration-none me-3">Termos</a>
