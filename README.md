@@ -28,7 +28,7 @@ O **AutoMotors** (também denominado Concessionária PCGMV) é uma plataforma we
 
 ### Área Administrativa (Restrita)
 * **Autenticação Segura:** Login para vendedores com senhas criptografadas.
-* **Cadastro de Novos Administradores:** Sistema de registro restrito a funcionários que possuam chaves de autorização de uso único (`keys_usuarios_autorizados`).
+* **Cadastro de Novos Administradores:** Sistema de registro para criação de novas contas administrativas/vendedores.
 * **CRUD de Veículos:** Controle total de inserção, edição e exclusão de modelos no estoque.
 * **Upload e Otimização de Imagens:** Suporte para múltiplos uploads com renomeação inteligente voltada para SEO (gerando slugs amigáveis) e remoção física de arquivos do servidor ao excluir imagens ou veículos.
 * **Painel de Controle de Solicitações:** Visualização organizada de todos os agendamentos e propostas recebidas, permitindo alterar o status de atendimento (ex: *Pendente*, *Em Negociação*, *Aprovado*, *Recusado*, *Contatado*).
@@ -104,9 +104,7 @@ O **AutoMotors** (também denominado Concessionária PCGMV) é uma plataforma we
   * Acesse `http://localhost/Concessionaria-PCGMV/public/?pagina=login`
   * **Usuário:** `admin`
   * **Senha:** `admin123`
-* **Chaves de Registro de Novo Funcionário:**
-  Caso queira registrar um novo vendedor no sistema na rota `?pagina=register-admin`, utilize uma das seguintes chaves de ativação pré-cadastradas:
-  * `0931`, `3111`, `3134`, `6774`, `0903`
+
 
 ---
 

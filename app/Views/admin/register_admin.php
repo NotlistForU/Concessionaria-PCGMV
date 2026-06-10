@@ -34,10 +34,7 @@
                 <input name="senha" type="password" class="form-control" placeholder="••••••••" required>
             </div>
 
-            <div class="mb-4">
-                <label class="form-label text-body-secondary small fw-bold text-uppercase">KEY</label>
-                <input name="key-user" type="text" class="form-control" placeholder="Código de cadastro" required>
-            </div>
+
 
             <button type="submit" class="btn btn-login">Cadastrar</button>
         </form>
