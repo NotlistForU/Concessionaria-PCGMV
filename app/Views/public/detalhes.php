@@ -36,7 +36,7 @@ if (!$carro) {
         <div class="col-lg-5 px-lg-5">
             <p class="text-uppercase text-muted mb-1" style="letter-spacing: 2px; font-size: 0.85rem;"><?= htmlspecialchars($carro->getCategoria()); ?></p>
 
-            <h1 class="display-4 fw-bold mb-1 text-uppercase text-body-emphasis"><?= htmlspecialchars($carro->getModelo()); ?></h1>
+            <h1 class="display-4 fw-bold mb-1 text-uppercase text-body-emphasis detail-title"><?= htmlspecialchars($carro->getModelo()); ?></h1>
             <h3 class="fw-light mb-4 text-uppercase text-body-secondary" style="font-size: 1.5rem;"><?= htmlspecialchars($carro->getVersao()); ?></h3>
 
             <p class="text-muted mb-4" style="line-height: 1.6; font-weight: 300; font-size: 1.05rem;">
@@ -44,15 +44,15 @@ if (!$carro) {
             </p>
 
             <div class="row text-center mb-4 g-3">
-                <div class="col-4 border-end">
+                <div class="col-12 col-md-4 spec-item border-md-end">
                     <h5 class="fw-bold mb-0" style="font-size: 1.1rem;"><?= htmlspecialchars($carro->getPotencia()); ?></h5>
                     <small class="text-muted text-uppercase" style="font-size: 0.65rem; font-weight: 700;">Potência e Torque</small>
                 </div>
-                <div class="col-4 border-end">
+                <div class="col-12 col-md-4 spec-item border-md-end">
                     <h5 class="fw-bold mb-0" style="font-size: 1.1rem;"><?= htmlspecialchars($carro->getAceleracao()); ?></h5>
                     <small class="text-muted text-uppercase" style="font-size: 0.65rem; font-weight: 700;">0-100 km/h</small>
                 </div>
-                <div class="col-4">
+                <div class="col-12 col-md-4 spec-item">
                     <h5 class="fw-bold mb-0" style="font-size: 1.1rem;"><?= htmlspecialchars($carro->getMotorizacao()); ?></h5>
                     <small class="text-muted text-uppercase" style="font-size: 0.65rem; font-weight: 700;">Motor</small>
                 </div>
@@ -201,15 +201,15 @@ if (!$carro) {
         <div class="col-lg-8 mx-auto mb-5 px-lg-4 text-center">
             <?php if (!empty($imagensGaleria)): ?>
                 <?php if (count($imagensGaleria) > 1): ?>
-                    <div id="carouselDetalhes" class="carousel slide carousel-fade shadow-lg rounded mb-4 overflow-hidden" data-bs-ride="carousel" style="max-height: 500px;">
+                    <div id="carouselDetalhes" class="carousel slide carousel-fade shadow-lg rounded mb-4 overflow-hidden detail-carousel" data-bs-ride="carousel">
                         <div class="carousel-indicators" style="bottom: 15px;">
                             <?php foreach ($imagensGaleria as $index => $img): ?>
                                 <button type="button" data-bs-target="#carouselDetalhes" data-bs-slide-to="<?= $index; ?>" class="<?= $index === 0 ? 'active' : ''; ?>" aria-current="<?= $index === 0 ? 'true' : 'false'; ?>" aria-label="Slide <?= $index + 1; ?>" style="width: 10px; height: 10px; border-radius: 50%; margin: 0 5px; background-color: #ffffff; opacity: <?= $index === 0 ? '1' : '0.5'; ?>; border: none; transition: opacity 0.3s ease;"></button>
                             <?php endforeach; ?>
                         </div>
-                        <div class="carousel-inner" style="height: 100%; max-height: 500px;">
+                        <div class="carousel-inner" style="height: 100%;">
                             <?php foreach ($imagensGaleria as $index => $img): ?>
-                                <div class="carousel-item <?= $index === 0 ? 'active' : ''; ?>" style="height: 500px; background-color: #121212;">
+                                <div class="carousel-item <?= $index === 0 ? 'active' : ''; ?> detail-carousel-item">
                                     <img src="<?= htmlspecialchars($img['caminho_arquivo']); ?>" class="d-block w-100 h-100" style="object-fit: cover;" alt="Interior Veículo - Slide <?= $index + 1; ?>">
                                 </div>
                             <?php endforeach; ?>
@@ -240,12 +240,12 @@ if (!$carro) {
                         }
                     </style>
                 <?php else: ?>
-                    <img src="<?= htmlspecialchars($imagensGaleria[0]['caminho_arquivo']); ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
+                    <img src="<?= htmlspecialchars($imagensGaleria[0]['caminho_arquivo']); ?>" class="img-fluid w-100 rounded mb-4 shadow-sm detail-carousel-item" style="object-fit: cover;" alt="Interior">
                 <?php endif; ?>
             <?php else: ?>
                 <!-- Fallback antigo caso não haja imagens -->
                 <?php $img3 = $controller->obterImagemPorVeiculoETipo($carro->getId(), 'foto_3'); ?>
-                <img src="<?= $img3 ? htmlspecialchars($img3['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" class="img-fluid w-100 rounded mb-4 shadow-sm" style="max-height: 500px; object-fit: cover;" alt="Interior">
+                <img src="<?= $img3 ? htmlspecialchars($img3['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" class="img-fluid w-100 rounded mb-4 shadow-sm detail-carousel-item" style="object-fit: cover;" alt="Interior">
             <?php endif; ?>
             <h4 class="fw-bold text-uppercase mb-3" style="font-size: 1.2rem;">Tecnologia e Interior</h4>
             <p class="text-muted mx-auto" style="line-height: 1.8; font-weight: 300; max-width: 800px;">

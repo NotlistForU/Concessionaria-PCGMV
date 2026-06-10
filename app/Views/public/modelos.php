@@ -9,7 +9,7 @@ $listaDeCarros = $controller->listar();
 <div class="container mt-5 pt-4 flex-grow-1">
     <div class="row mb-5">
         <div class="col-12">
-            <h1 style="font-weight: 300; font-size: 3rem; text-transform: uppercase;">Todos os <br><span style="font-weight: 700;">Modelos.</span></h1>
+            <h1 style="font-weight: 300; font-size: clamp(2rem, 5vw, 3rem); text-transform: uppercase;">Todos os <br><span style="font-weight: 700;">Modelos.</span></h1>
             <p class="text-muted mt-3">Explore nossa linha completa de veículos premium.</p>
         </div>
     </div>
@@ -46,7 +46,7 @@ $listaDeCarros = $controller->listar();
         
         <!-- BARRA LATERAL DE FILTROS (FRONTEND PRONTO) -->
         <div class="col-lg-3">
-            <div class="card bg-body-tertiary rounded-0 border-0 shadow-sm p-4 sticky-top" style="top: 100px;">
+            <div class="card bg-body-tertiary rounded-0 border-0 shadow-sm p-4 filter-card">
                 <h4 class="fw-bold mb-4 text-uppercase" style="font-size: 1.1rem; letter-spacing: 1px;">Refinar Busca</h4>
                 
                 <form action="index.php" method="GET">

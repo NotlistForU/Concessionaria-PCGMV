@@ -57,7 +57,7 @@ require_once '../app/Views/components/header.php';
     <div class="row flex-grow-1">
 
         <!-- Menu Lateral Admin -->
-        <div class="col-md-2 bg-body-tertiary p-4 border-end border-opacity-10">
+        <div class="col-md-2 bg-body-tertiary p-4 border-end border-opacity-10 admin-sidebar">
             <h5 class="text-uppercase fw-bold mb-4 text-body-secondary" style="letter-spacing: 2px; font-size: 0.85rem;">Painel Admin</h5>
             <ul class="nav flex-column gap-2">
                 <li class="nav-item">
@@ -73,10 +73,10 @@ require_once '../app/Views/components/header.php';
         </div>
 
         <!-- Conteúdo Principal -->
-        <div class="col-md-10 p-5">
+        <div class="col-md-10 p-3 p-md-5">
 
 
-            <div class="d-flex justify-content-between align-items-end mb-4 pb-2">
+            <div class="d-flex flex-column gap-3 flex-md-row justify-content-md-between align-items-md-end mb-4 pb-2">
                 <div>
                     <h2 class="fw-bold text-uppercase m-0" style="font-size: 2rem; letter-spacing: -0.5px;">Editar Veículo <span class="text-body-secondary ms-2 fs-4">#<?= str_pad($carro->getId(), 3, '0', STR_PAD_LEFT); ?></span></h2>
                     <p class="text-body-secondary mt-2 mb-0">Atualize as informações do veículo selecionado no estoque.</p>

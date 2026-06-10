@@ -468,3 +468,140 @@ body.page-exclusive .navbar-brand {
 .img-luxury:hover {
     transform: scale(1.02);
 }
+
+/* ==========================================================================
+   Responsividade e Media Queries Avançadas
+   ========================================================================== */
+
+/* Fontes fluidas utilizando clamp para maior compatibilidade e suavidade */
+.hero-title {
+    font-size: clamp(2.3rem, 8vw, 4.5rem) !important;
+}
+.hero-subtitle {
+    font-size: clamp(1.1rem, 3vw, 1.5rem) !important;
+}
+.section-title {
+    font-size: clamp(1.8rem, 5vw, 2.5rem) !important;
+}
+.detail-title {
+    font-size: clamp(1.8rem, 6vw, 3.5rem) !important;
+}
+.exclusive-title {
+    font-size: clamp(2.2rem, 8vw, 4.5rem) !important;
+    letter-spacing: clamp(3px, 1.5vw, 8px) !important;
+}
+.exclusive-car-title {
+    font-size: clamp(1.8rem, 6vw, 3.5rem) !important;
+}
+
+/* Estilos de Imagens e Carrossel */
+.dest-img {
+    height: 500px;
+}
+.detail-carousel {
+    max-height: 500px;
+}
+.detail-carousel-item {
+    height: 500px;
+    background-color: #121212;
+}
+
+/* Regras gerais para telas menores (Dispositivos Móveis e Tablets) */
+@media (max-width: 991.98px) {
+    /* Navegação */
+    .nav-link {
+        margin-left: 0 !important;
+        padding: 10px 0 !important;
+        border-bottom: 1px solid var(--bs-border-color-translucent);
+    }
+    .navbar-collapse {
+        margin-top: 15px;
+    }
+    .nav-btn {
+        margin: 10px 0;
+        display: inline-block;
+    }
+
+    /* Hero */
+    .hero {
+        height: 60vh !important;
+    }
+
+    /* Imagens de Destaque */
+    .dest-img {
+        height: 300px !important;
+    }
+}
+
+/* Especificações técnicas em Detalhes */
+@media (min-width: 768px) {
+    .border-md-end {
+        border-right: 1px solid var(--bs-border-color-translucent) !important;
+    }
+}
+@media (max-width: 767.98px) {
+    .border-md-end {
+        border-bottom: 1px solid var(--bs-border-color-translucent) !important;
+        padding-bottom: 15px;
+        margin-bottom: 15px;
+    }
+    .spec-item:last-child {
+        border-bottom: none !important;
+        padding-bottom: 0;
+        margin-bottom: 0;
+    }
+}
+
+/* Sidebar Admin e Responsividade do Painel */
+@media (max-width: 767.98px) {
+    .admin-sidebar {
+        border-right: none !important;
+        border-bottom: 1px solid var(--bs-border-color-translucent) !important;
+        padding: 20px 15px !important;
+    }
+    .admin-sidebar h5 {
+        text-align: center;
+        margin-bottom: 15px !important;
+    }
+    .admin-sidebar .nav {
+        flex-direction: row !important;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 10px !important;
+    }
+    .admin-sidebar .nav-item {
+        margin-top: 0 !important;
+    }
+}
+
+/* Card de Filtro Lateral */
+@media (min-width: 992px) {
+    .filter-card {
+        position: sticky;
+        top: 100px;
+        z-index: 1020;
+    }
+}
+
+/* Ajustes finos para a tela de login em telas pequenas */
+body.login-page {
+    height: auto !important;
+    min-height: 100vh !important;
+    padding: 30px 15px !important;
+}
+@media (max-width: 480px) {
+    .login-card {
+        padding: 30px 20px !important;
+    }
+}
+
+/* Ajustes no detalhe do carrossel no celular */
+@media (max-width: 767.98px) {
+    .detail-carousel {
+        max-height: 300px !important;
+    }
+    .detail-carousel-item {
+        height: 300px !important;
+    }
+}
+

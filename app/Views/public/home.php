@@ -11,8 +11,8 @@ $destaques = array_slice($todosOsCarros, 0, 4);
     <div class="container-fluid px-5 hero-content" style="position: relative; z-index: 2; color: #ffffff;">
         <div class="row">
             <div class="col-lg-6">
-                <h1 style="font-size: 4.5rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">Puro<br>Prazer.</h1>
-                <p class="mt-3 mb-4" style="font-weight: 300; font-size: 1.5rem;">Descubra a nova linha de sedans esportivos.</p>
+                <h1 class="hero-title" style="font-weight: 700; text-transform: uppercase; letter-spacing: 1px; line-height: 1.1;">Puro<br>Prazer.</h1>
+                <p class="mt-3 mb-4 hero-subtitle" style="font-weight: 300;">Descubra a nova linha de sedans esportivos.</p>
                 <a href="?pagina=modelos" class="btn btn-outline-light rounded-0 py-3 px-5 fw-bold text-uppercase" style="letter-spacing: 2px;">Ver Estoque</a>
             </div>
         </div>
@@ -39,7 +39,7 @@ $destaques = array_slice($todosOsCarros, 0, 4);
 
                         <div class="col-lg-8 mb-4 mb-lg-0">
                             <?php $img1 = $controller->obterImagemPorVeiculoETipo($carro->getId(), 'foto_1'); ?>
-                            <img src="<?= $img1 ? htmlspecialchars($img1['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="w-100 shadow-sm" style="object-fit: cover; height: 500px;">
+                            <img src="<?= $img1 ? htmlspecialchars($img1['caminho_arquivo']) : 'assets/img/default.jpg'; ?>" alt="<?= htmlspecialchars($carro->getModelo()); ?>" class="w-100 shadow-sm dest-img" style="object-fit: cover;">
                         </div>
 
                         <div class="col-lg-4 px-lg-5">
