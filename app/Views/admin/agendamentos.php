@@ -15,9 +15,23 @@ require_once '../app/Views/components/header.php';
                 <li class="nav-item">
                     <a class="nav-link text-bg-primary fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=agendamentos" style="transition: all 0.3s ease;">Leads & Propostas</a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bg-secondary fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=register-admin" style="transition: all 0.3s ease;">Registrar Funcionario</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link text-bg-danger fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=register-admin" style="transition: all 0.3s ease;">Logout</a>
+                </li>
                 <li class="nav-item mt-5">
                     <a class="nav-link text-danger fw-bold px-3 py-2 rounded-3" href="?pagina=home" style="transition: all 0.3s ease;">&larr; Voltar ao Site</a>
                 </li>
+                <li class="nav-item mt-5">
+                    <a class="nav-link small  px-3 py-2 rounded-3" href="?pagina=backup-db" style="transition: all 0.3s ease;">
+                        <small>
+                            Backup do banco de dados
+                        </small>
+                    </a>
+                </li>
+
             </ul>
         </div>
 

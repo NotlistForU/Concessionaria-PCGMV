@@ -88,6 +88,10 @@ switch ($pagina) {
         break;
     // CADASTRO USER
     case 'register-admin':
+        if (!estaLogado()) {
+            header('Location: ?pagina=login');
+            exit;
+        }
         require_once $caminho_views . 'admin/register_admin.php';
         break;
 
@@ -103,6 +107,10 @@ switch ($pagina) {
         exit;
 
     case 'processar-cadastro-admin':
+        if (!estaLogado()) {
+            header('Location: ?pagina=login');
+            exit;
+        }
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $cadastrado = $userController->cadastrarUser();
         }
@@ -234,9 +242,31 @@ switch ($pagina) {
         exit;
         break;
 
-    // ==========================================
-    // ERRO 404
-    // ==========================================
+
+    // BACKUP
+    case 'backup-db':
+        if (!estaLogado()) {
+            header('Location: ?pagina=login');
+            exit;
+        }
+        $arquivo = 'backup_' . date('Y-m-d_H-i-s') . '.sql';
+        header('Content-Type: application/octet-stream');
+        header("Content-Disposition: attachment; filename=\"$arquivo\"");
+        $cmd = "mysqldump -h $host -u $usuario";
+        if (!empty($senha)) {
+            $cmd .= " -p$senha";
+        }
+        if (!empty($port)) {
+            $cm .= "-P $port";
+        }
+        $cmd .= " $dbname";
+
+        passthru($cmd);
+
+        exit;
+        // ==========================================
+        // ERRO 404
+        // ==========================================
     default:
         echo "<div style='text-align: center; margin-top: 50px; font-family: sans-serif;'>";
         echo "<h1>Erro 404</h1>";

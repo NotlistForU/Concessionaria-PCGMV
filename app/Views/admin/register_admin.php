@@ -42,7 +42,7 @@
             <button type="submit" class="btn btn-login">Cadastrar</button>
         </form>
 
-        <a href="?pagina=home" class="back-link">← Voltar para o Site</a>
+        <a href="?pagina=painel" class="back-link">← Voltar para o Site</a>
     </div>
 
 </body>
