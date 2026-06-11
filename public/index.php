@@ -86,14 +86,6 @@ switch ($pagina) {
 
         require_once $caminho_views . 'admin/login.php';
         break;
-    // CADASTRO USER
-    case 'register-admin':
-        if (!estaLogado()) {
-            header('Location: ?pagina=login');
-            exit;
-        }
-        require_once $caminho_views . 'admin/register_admin.php';
-        break;
 
     case 'processar-login':
         if (
@@ -105,6 +97,20 @@ switch ($pagina) {
         }
         header('Location: ?pagina=login&erro_login=1');
         exit;
+
+    case 'logout':
+        unset($_SESSION['user_id']);
+        header('Location: ?pagina=login');
+        exit;
+        // CADASTRO USER
+    case 'register-admin':
+        if (!estaLogado()) {
+            header('Location: ?pagina=login');
+            exit;
+        }
+        require_once $caminho_views . 'admin/register_admin.php';
+        break;
+
 
     case 'processar-cadastro-admin':
         if (!estaLogado()) {

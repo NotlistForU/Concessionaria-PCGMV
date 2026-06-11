@@ -19,7 +19,7 @@ require_once '../app/Views/components/header.php';
                     <a class="nav-link text-bg-secondary fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=register-admin" style="transition: all 0.3s ease;">Registrar Funcionario</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link text-bg-danger fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=register-admin" style="transition: all 0.3s ease;">Logout</a>
+                    <a class="nav-link text-bg-danger fw-bold px-3 py-2 rounded-3 shadow-sm" href="?pagina=logout" style="transition: all 0.3s ease;">Logout</a>
                 </li>
                 <li class="nav-item mt-5">
                     <a class="nav-link text-danger fw-bold px-3 py-2 rounded-3" href="?pagina=home" style="transition: all 0.3s ease;">&larr; Voltar ao Site</a>
