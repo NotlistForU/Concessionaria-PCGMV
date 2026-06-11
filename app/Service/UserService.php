@@ -19,7 +19,7 @@ class UserService
         return $user;
     }
 
-    public function cadastrarUser($nome, $senha)
+    public function cadastrarUser($nome, $senha, $key_value)
     {
         if (strlen($senha) < 8) {
             throw new Exception('Senha muito curta');
@@ -27,11 +27,21 @@ class UserService
         if ($this->userRepository->buscarPorNome($nome) != null) {
             throw new Exception('Usuário já existe');
         }
+        $key = $this->userRepository->buscarKey($key_value);
+        if (!$key) {
+            throw new Exception('Key desconhecida!');
+        }
+
+        if ($key['key_status'] == 1) {
+            throw new Exception('Key indisponível');
+        }
         $user = new User([
             'nome' => $nome,
             'senha' => password_hash($senha, PASSWORD_DEFAULT)
         ]);
         $this->userRepository->cadastrarUser($user);
+
+        $this->userRepository->alterarStatusKey($key_value);
 
         return true;
     }

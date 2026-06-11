@@ -30,7 +30,8 @@ class UserController
     {
         $nome = $_POST['nome'] ?? '';
         $senha = $_POST['senha'] ?? '';
-        $user = $this->userService->cadastrarUser($nome, $senha);
+        $keyUser = $_POST['key-user'] ?? '';
+        $user = $this->userService->cadastrarUser($nome, $senha, $keyUser);
 
         if ($user) return true;
     }

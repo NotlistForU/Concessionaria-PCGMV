@@ -24,6 +24,37 @@ class UserRepository
         return $this->buscarUser('nome', $nome);
     }
 
+    public function buscarKey($key_valor)
+    {
+        try {
+            $sql =
+                "SELECT * FROM keys_usuarios_autorizados
+                WHERE 
+                    key_user = :key_valor";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['key_valor' => $key_valor]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            die("Error ao buscar key" . $e->getMessage());
+        }
+    }
+
+    public function alterarStatusKey($key_valor)
+    {
+        try {
+            $sql =
+                "UPDATE keys_usuarios_autorizados
+                SET key_status = 1
+                WHERE 
+                    key_user = :key_value";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->execute(['key_value' => $key_valor]);
+            return true;
+        } catch (PDOException $e) {
+            die("Erro ao alterar status da key!" . $e->getMessage());
+        }
+    }
+
     public function cadastrarUser(User $user): User
     {
         try {

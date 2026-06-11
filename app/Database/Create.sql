@@ -2,7 +2,21 @@ DROP DATABASE IF EXISTS concessionaria;
 CREATE DATABASE concessionaria CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 USE concessionaria;
 
+-- ================================================
+-- 0. Tabela de keys -> pré cadastro de funcionarios
+-- ================================================
+CREATE TABLE keys_usuarios_autorizados (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    key_user VARCHAR(100) NOT NULL UNIQUE,
+    key_status TINYINT(1) DEFAULT 0 
+);
 
+INSERT INTO keys_usuarios_autorizados (key_user) VALUES
+('0931'),
+('3111'),
+('3134'),
+('6774'),
+('0903');
 
 -- ==========================================
 -- 1. Tabela de Administradores
