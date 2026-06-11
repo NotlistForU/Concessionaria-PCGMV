@@ -128,11 +128,16 @@
                                     <label class="form-label">Fotos do Carrossel</label>
                                     <input type="file" name="foto_3[]" class="form-control" accept="image/*" multiple required>
                                 </div>
+                                <div class="col-md-6">
+                                    <label class="form-label">Descrição Exterior / Tecnologia</label>
+                                    <textarea name="descricao_exterior" class="form-control" rows="4" placeholder="Descreva o exterior..." required></textarea>
+                                </div>
 
                                 <div class="col-md-6">
                                     <label class="form-label">Descrição Interior / Tecnologia</label>
                                     <textarea name="descricao_interior" class="form-control" rows="4" placeholder="Descreva o interior e as tecnologias..." required></textarea>
                                 </div>
+
                             </div>
 
                             <div class="mt-5 text-end border-top pt-4">
